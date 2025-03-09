@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.ZZZ.config;
+package co.edu.udistrital.mdp.eventos.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
