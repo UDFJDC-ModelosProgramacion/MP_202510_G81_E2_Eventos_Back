@@ -2,9 +2,8 @@ pipeline {
    agent any 
    environment {
       GIT_REPO = 'MP_202510_G81_E2_Eventos_Back'
-      GIT_CREDENTIAL_ID = '7c21addc-0cbf-4f2e-9bd8-eced479c56c6'
+      GIT_CREDENTIAL_ID = 'c0e8826e-5e2c-4c1c-a484-6c17d53ac539'
       SONARQUBE_URL = 'http://172.24.101.209:8082/sonar-isis2603'
-      ARCHID_TOKEN = credentials('archid')
       SONAR_TOKEN = credentials('sonar-login')
    }
    stages { 
@@ -15,22 +14,6 @@ pipeline {
             git branch: 'main', 
                credentialsId: env.GIT_CREDENTIAL_ID,
                url: 'https://github.com/UDFJDC-ModelosProgramacion/' + env.GIT_REPO
-         }
-      }
-      stage('GitInspector') { 
-         steps {
-            withCredentials([usernamePassword(credentialsId: env.GIT_CREDENTIAL_ID, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-               sh 'mkdir -p code-analyzer-report'
-               sh """ curl --request POST --url https://code-analyzer.virtual.udistrital.edu.co/analyze --header "Content-Type: application/json" --data '{"repo_url":"git@github.com:UDFJDC-ModelosProgramacion/${GIT_REPO}.git", "access_token": "${GIT_PASSWORD}" }' > code-analyzer-report/index.html """   
-            }
-            publishHTML (target: [
-               allowMissing: false,
-               alwaysLinkToLastBuild: false,
-               keepAll: true,
-               reportDir: 'code-analyzer-report',
-               reportFiles: 'index.html',
-               reportName: "GitInspector"
-            ])
          }
       }
       stage('Build') {
@@ -70,20 +53,6 @@ pipeline {
             }
          }
       }
-      stage('ARCC') {
-         // Run arcc analysis
-         steps {
-            script {
-               docker.image('arcc-tools-isis2603:latest').inside('-e ARCHID_TOKEN=${ARCHID_TOKEN}'){
-                  sh '''
-                     java -version
-                     rsync --recursive . bookstore-back
-                     java -cp /eclipse/plugins/org.eclipse.equinox.launcher_1.5.700.v20200207-2156.jar org.eclipse.equinox.launcher.Main -application co.edu.udistrital.archtoring.archtoring bookstore-back
-                  '''
-               }
-            }
-         }
-      }      
    }
    post {
       always {
