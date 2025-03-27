@@ -3,7 +3,7 @@ pipeline {
    environment {
       GIT_REPO = 'MP_202510_G81_E2_Eventos_Back'
       GIT_CREDENTIAL_ID = 'c0e8826e-5e2c-4c1c-a484-6c17d53ac539'
-      SONARQUBE_URL = 'http://172.24.101.209:8082/sonar-isis2603'
+      SONARQUBE_URL = 'http://10.20.84.26:8082/sonar'
       SONAR_TOKEN = credentials('sonar-login')
    }
    stages { 
