@@ -14,13 +14,13 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class AssistantEntity extends UserEntity{
     @PodamExclude
 
-    @OneToMany(mappedBy = "booking")
+    @OneToMany(mappedBy = "assistant")
 
     private List<BookingEntity> bookings = new ArrayList<>();
 
     @PodamExclude
 
-    @OneToMany(mappedBy = "notification")
+    @OneToMany(mappedBy = "assistant")
 
     private List<NotificationEntity> notifications = new ArrayList<>();
 }
