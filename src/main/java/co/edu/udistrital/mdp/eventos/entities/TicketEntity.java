@@ -9,6 +9,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
+
 public class TicketEntity extends BaseEntity{
     @PodamExclude
     @ManyToOne
@@ -17,5 +18,4 @@ public class TicketEntity extends BaseEntity{
     int price;
     int remaining;
     String classification;
-    
 }

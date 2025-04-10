@@ -18,6 +18,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
+
 public class EventEntity extends BaseEntity{
     @PodamExclude
     @OneToOne(mappedBy = "event")
@@ -48,5 +49,4 @@ public class EventEntity extends BaseEntity{
     String category;
     @Temporal(TemporalType.TIMESTAMP)
     Date date;
-    
 }

@@ -12,6 +12,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
+
 public class PurchaseEntity extends BaseEntity {
     @PodamExclude
     @OneToMany(mappedBy = "purchase")

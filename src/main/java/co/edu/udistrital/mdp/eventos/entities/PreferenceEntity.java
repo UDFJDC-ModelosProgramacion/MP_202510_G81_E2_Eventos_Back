@@ -7,10 +7,10 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
+
 public class PreferenceEntity extends BaseEntity {
     @PodamExclude
     @ManyToOne
-
     private AssistantEntity assistant;
 
     String description;

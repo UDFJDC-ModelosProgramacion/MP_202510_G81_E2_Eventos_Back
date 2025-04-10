@@ -11,6 +11,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
+
 public class OrganizerEntity extends UserEntity{
     @PodamExclude
     @OneToMany(mappedBy = "organizer")
