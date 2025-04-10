@@ -1,7 +1,5 @@
 package co.edu.udistrital.mdp.eventos.entities;
 
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
@@ -9,13 +7,12 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
-public class TicketEntity extends BaseEntity{
+public class PromoEntity extends PurchaseEntity{
     @PodamExclude
     @ManyToOne
-    private EventEntity event;
+    private PurchaseEntity purchase;
 
-    int price;
-    int remaining;
-    String classification;
-    
+    Float discount;
+    String description;
+    String code;
 }

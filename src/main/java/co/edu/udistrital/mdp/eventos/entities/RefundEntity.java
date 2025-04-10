@@ -1,5 +1,6 @@
 package co.edu.udistrital.mdp.eventos.entities;
 
+import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -8,13 +9,10 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
-public class LocationEntity extends BaseEntity{
+public class RefundEntity extends BaseEntity{
     @PodamExclude
-    @OneToOne
-    private EventEntity event;
-    String name;
-    String location;
-    String type;
-    int capacity;
-    
+    @OneToOne(mappedBy = "refund")
+    private PurchaseEntity purchase;
+
+    Date date;
 }
