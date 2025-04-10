@@ -10,7 +10,6 @@ import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 @Data 
-
 @Entity
 public class AssistantEntity extends UserEntity{
     @PodamExclude
