@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
+
 public abstract class MobileWalleteEntity extends MethodOfPaymentEntity {
     Integer phoneAccount;
     String typeOfWallet;
