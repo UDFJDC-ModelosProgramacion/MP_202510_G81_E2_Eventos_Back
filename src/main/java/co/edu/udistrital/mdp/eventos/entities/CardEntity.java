@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
+
 public abstract class CardEntity extends MethodOfPaymentEntity {
     Integer cardNumber;
     String cardHolderName;

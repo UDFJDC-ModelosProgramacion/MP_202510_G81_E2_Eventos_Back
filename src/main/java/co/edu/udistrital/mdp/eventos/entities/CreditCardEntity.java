@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
+
 public abstract  class CreditCardEntity extends CardEntity {
     Integer installments;
 }
