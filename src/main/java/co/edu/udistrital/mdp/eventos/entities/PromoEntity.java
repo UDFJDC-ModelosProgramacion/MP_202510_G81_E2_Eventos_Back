@@ -1,18 +1,18 @@
 package co.edu.udistrital.mdp.eventos.entities;
 
-import java.util.Date;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
-public class RefundEntity extends BaseEntity{
+public class PromoEntity extends PurchaseEntity{
     @PodamExclude
-    @OneToOne(mappedBy = "refund")
+    @ManyToOne
     private PurchaseEntity purchase;
 
-    Date date;
+    Float discount;
+    String description;
+    String code;
 }
