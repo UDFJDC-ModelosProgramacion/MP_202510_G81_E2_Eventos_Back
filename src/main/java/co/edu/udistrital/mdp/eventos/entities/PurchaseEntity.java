@@ -29,5 +29,9 @@ public class PurchaseEntity extends BaseEntity {
     @OneToOne
     private RefundEntity refund;    
 
+    @PodamExclude
+    @OneToOne
+    private MethodOfPaymentEntity methodOfPayment;
+
     Integer remainingSeats;
 }
