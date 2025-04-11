@@ -24,6 +24,7 @@ public class EventEntity extends BaseEntity{
     @OneToOne(mappedBy = "event")
     private LocationEntity location;
 
+    //*Asociaciones OneToMany */
     @PodamExclude
     @OneToMany(mappedBy = "event")
     private List<ResourceEntity> resource = new ArrayList<>();
