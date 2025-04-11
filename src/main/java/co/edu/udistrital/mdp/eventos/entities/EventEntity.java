@@ -41,6 +41,7 @@ public class EventEntity extends BaseEntity{
     @OneToMany(mappedBy = "event")
     private List<BookingEntity> bookings = new ArrayList<>();
 
+    //*Asociaciones ManyToOne */
     @PodamExclude
     @ManyToOne
     private OrganizerEntity organizer; 
