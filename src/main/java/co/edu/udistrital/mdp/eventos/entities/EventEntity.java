@@ -13,7 +13,8 @@ import jakarta.persistence.TemporalType;
 import lombok.Data;
 import java.util.List;
 
-
+import co.edu.udistrital.mdp.eventos.entities.userEntitys.AssistantEntity;
+import co.edu.udistrital.mdp.eventos.entities.userEntitys.OrganizerEntity;
 import uk.co.jemos.podam.common.PodamExclude;
 
 @Data

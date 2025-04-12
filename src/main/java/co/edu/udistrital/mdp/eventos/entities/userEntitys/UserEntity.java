@@ -1,8 +1,9 @@
-package co.edu.udistrital.mdp.eventos.entities;
+package co.edu.udistrital.mdp.eventos.entities.userEntitys;
 
 
 import java.util.Date;
 
+import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
