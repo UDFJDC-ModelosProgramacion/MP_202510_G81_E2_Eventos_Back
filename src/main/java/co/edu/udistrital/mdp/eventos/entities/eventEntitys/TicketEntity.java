@@ -1,7 +1,8 @@
-package co.edu.udistrital.mdp.eventos.entities;
+package co.edu.udistrital.mdp.eventos.entities.eventEntitys;
 
 
 
+import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
@@ -15,7 +16,7 @@ public class TicketEntity extends BaseEntity{
     @ManyToOne
     private EventEntity event;
 
-    int price;
-    int remaining;
+    Integer price;
+    Integer remaining;
     String classification;
 }

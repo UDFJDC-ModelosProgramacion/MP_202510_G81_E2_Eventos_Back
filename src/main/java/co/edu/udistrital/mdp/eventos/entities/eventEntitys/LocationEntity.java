@@ -1,6 +1,7 @@
-package co.edu.udistrital.mdp.eventos.entities;
+package co.edu.udistrital.mdp.eventos.entities.eventEntitys;
 
 
+import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
@@ -17,5 +18,5 @@ public class LocationEntity extends BaseEntity{
     String name;
     String location;
     String type;
-    int capacity;
+    Integer capacity;
 }

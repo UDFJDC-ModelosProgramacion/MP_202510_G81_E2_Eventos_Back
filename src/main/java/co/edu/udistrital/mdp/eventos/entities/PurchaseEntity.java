@@ -3,6 +3,7 @@ package co.edu.udistrital.mdp.eventos.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.edu.udistrital.mdp.eventos.entities.paymentEntitys.MethodOfPaymentEntity;
 import co.edu.udistrital.mdp.eventos.entities.userEntitys.AssistantEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;

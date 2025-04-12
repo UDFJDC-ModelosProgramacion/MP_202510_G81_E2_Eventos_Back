@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.entities;
+package co.edu.udistrital.mdp.eventos.entities.eventEntitys;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +13,8 @@ import jakarta.persistence.TemporalType;
 import lombok.Data;
 import java.util.List;
 
+import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
+import co.edu.udistrital.mdp.eventos.entities.BookingEntity;
 import co.edu.udistrital.mdp.eventos.entities.userEntitys.AssistantEntity;
 import co.edu.udistrital.mdp.eventos.entities.userEntitys.OrganizerEntity;
 import uk.co.jemos.podam.common.PodamExclude;

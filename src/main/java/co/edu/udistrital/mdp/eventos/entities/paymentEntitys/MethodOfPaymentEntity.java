@@ -1,5 +1,7 @@
-package co.edu.udistrital.mdp.eventos.entities;
+package co.edu.udistrital.mdp.eventos.entities.paymentEntitys;
 
+import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
+import co.edu.udistrital.mdp.eventos.entities.PurchaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import lombok.Data;

@@ -1,5 +1,6 @@
 package co.edu.udistrital.mdp.eventos.entities;
 
+import co.edu.udistrital.mdp.eventos.entities.eventEntitys.EventEntity;
 import co.edu.udistrital.mdp.eventos.entities.userEntitys.AssistantEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
