@@ -1,7 +1,8 @@
-package co.edu.udistrital.mdp.eventos.entities;
+package co.edu.udistrital.mdp.eventos.entities.bookingEntitys;
 
 import java.util.Date;
 
+import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import lombok.Data;

@@ -1,8 +1,9 @@
-package co.edu.udistrital.mdp.eventos.entities;
+package co.edu.udistrital.mdp.eventos.entities.bookingEntitys;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import co.edu.udistrital.mdp.eventos.entities.paymentEntitys.MethodOfPaymentEntity;
 import co.edu.udistrital.mdp.eventos.entities.userEntitys.AssistantEntity;
 import jakarta.persistence.Entity;

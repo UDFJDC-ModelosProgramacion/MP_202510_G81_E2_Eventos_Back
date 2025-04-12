@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.entities;
+package co.edu.udistrital.mdp.eventos.entities.bookingEntitys;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;

@@ -14,7 +14,7 @@ import lombok.Data;
 import java.util.List;
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
-import co.edu.udistrital.mdp.eventos.entities.BookingEntity;
+import co.edu.udistrital.mdp.eventos.entities.bookingEntitys.BookingEntity;
 import co.edu.udistrital.mdp.eventos.entities.userEntitys.AssistantEntity;
 import co.edu.udistrital.mdp.eventos.entities.userEntitys.OrganizerEntity;
 import uk.co.jemos.podam.common.PodamExclude;
