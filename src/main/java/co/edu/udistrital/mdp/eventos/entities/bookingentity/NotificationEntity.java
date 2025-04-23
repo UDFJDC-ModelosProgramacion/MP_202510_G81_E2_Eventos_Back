@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.entities.bookingEntitys;
+package co.edu.udistrital.mdp.eventos.entities.bookingentity;
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import co.edu.udistrital.mdp.eventos.entities.userEntitys.AssistantEntity;
