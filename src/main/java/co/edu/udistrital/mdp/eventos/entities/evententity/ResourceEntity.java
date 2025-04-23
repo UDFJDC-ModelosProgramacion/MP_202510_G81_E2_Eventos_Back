@@ -1,4 +1,6 @@
-package co.edu.udistrital.mdp.eventos.entities.userEntitys;
+package co.edu.udistrital.mdp.eventos.entities.evententity;
+
+
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import jakarta.persistence.Entity;
@@ -9,10 +11,12 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Data
 @Entity
 
-public class PreferenceEntity extends BaseEntity {
+public class ResourceEntity extends BaseEntity{
     @PodamExclude
     @ManyToOne
-    private Assistantentitys assistant;
-
-    String description;
+    private EventEntity event;
+    
+    String url;
+    String type;
+    
 }

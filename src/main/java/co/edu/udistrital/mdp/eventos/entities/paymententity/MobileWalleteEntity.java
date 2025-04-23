@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.entities.paymentEntitys;
+package co.edu.udistrital.mdp.eventos.entities.paymententity;
 
 import jakarta.persistence.Entity;
 import lombok.Data;

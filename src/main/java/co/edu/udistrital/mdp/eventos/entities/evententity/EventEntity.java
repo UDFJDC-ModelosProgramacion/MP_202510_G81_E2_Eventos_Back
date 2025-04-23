@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.entities.eventEntitys;
+package co.edu.udistrital.mdp.eventos.entities.evententity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,8 +15,8 @@ import java.util.List;
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.BookingEntity;
-import co.edu.udistrital.mdp.eventos.entities.userEntitys.Assistantentitys;
-import co.edu.udistrital.mdp.eventos.entities.userEntitys.OrganizerEntity;
+import co.edu.udistrital.mdp.eventos.entities.userentity.Assistantentitys;
+import co.edu.udistrital.mdp.eventos.entities.userentity.OrganizerEntity;
 import uk.co.jemos.podam.common.PodamExclude;
 
 @Data

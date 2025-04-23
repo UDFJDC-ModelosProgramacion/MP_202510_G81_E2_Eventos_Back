@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.entities.userEntitys;
+package co.edu.udistrital.mdp.eventos.entities.userentity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.BookingEntity;
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.NotificationEntity;
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.PurchaseEntity;
-import co.edu.udistrital.mdp.eventos.entities.eventEntitys.EventEntity;
+import co.edu.udistrital.mdp.eventos.entities.evententity.EventEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;

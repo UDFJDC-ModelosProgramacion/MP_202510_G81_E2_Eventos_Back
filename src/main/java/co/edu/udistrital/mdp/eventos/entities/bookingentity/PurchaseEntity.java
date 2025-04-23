@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
-import co.edu.udistrital.mdp.eventos.entities.paymentEntitys.MethodOfPaymentEntity;
-import co.edu.udistrital.mdp.eventos.entities.userEntitys.Assistantentitys;
+import co.edu.udistrital.mdp.eventos.entities.paymententity.MethodOfPaymentEntity;
+import co.edu.udistrital.mdp.eventos.entities.userentity.Assistantentitys;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;

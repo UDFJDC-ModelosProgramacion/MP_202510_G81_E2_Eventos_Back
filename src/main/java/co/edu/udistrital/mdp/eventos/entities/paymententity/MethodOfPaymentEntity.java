@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.entities.paymentEntitys;
+package co.edu.udistrital.mdp.eventos.entities.paymententity;
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.PurchaseEntity;
