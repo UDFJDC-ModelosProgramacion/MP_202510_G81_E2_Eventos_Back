@@ -16,7 +16,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Data 
 @Entity
 
-public class AssistantEntity extends UserEntity{
+public class Assistantentitys extends UserEntity{
     @PodamExclude
     @OneToMany(mappedBy = "assistant")
     private List<BookingEntity> bookings = new ArrayList<>();

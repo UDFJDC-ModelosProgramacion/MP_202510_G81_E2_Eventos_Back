@@ -15,7 +15,7 @@ import java.util.List;
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.BookingEntity;
-import co.edu.udistrital.mdp.eventos.entities.userEntitys.AssistantEntity;
+import co.edu.udistrital.mdp.eventos.entities.userEntitys.Assistantentitys;
 import co.edu.udistrital.mdp.eventos.entities.userEntitys.OrganizerEntity;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -38,7 +38,7 @@ public class EventEntity extends BaseEntity{
 
     @PodamExclude
     @OneToMany(mappedBy = "event")
-    private List<AssistantEntity> assitants = new ArrayList<>();
+    private List<Assistantentitys> assitants = new ArrayList<>();
 
     @PodamExclude
     @OneToMany(mappedBy = "event")

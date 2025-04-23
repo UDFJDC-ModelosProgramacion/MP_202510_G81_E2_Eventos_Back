@@ -12,7 +12,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class PreferenceEntity extends BaseEntity {
     @PodamExclude
     @ManyToOne
-    private AssistantEntity assistant;
+    private Assistantentitys assistant;
 
     String description;
 }
