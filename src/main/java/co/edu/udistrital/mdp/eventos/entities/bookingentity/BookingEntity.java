@@ -26,4 +26,5 @@ public class BookingEntity extends BaseEntity {
     private NotificationEntity notification;
 
     Integer remainingSeats;
+    
 }
