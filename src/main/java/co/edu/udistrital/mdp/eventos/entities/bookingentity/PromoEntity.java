@@ -1,6 +1,5 @@
-package co.edu.udistrital.mdp.eventos.entities.userEntitys;
+package co.edu.udistrital.mdp.eventos.entities.bookingentity;
 
-import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
@@ -9,10 +8,12 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Data
 @Entity
 
-public class PreferenceEntity extends BaseEntity {
+public class PromoEntity extends PurchaseEntity{
     @PodamExclude
     @ManyToOne
-    private AssistantEntity assistant;
+    private PurchaseEntity purchase;
 
+    Float discount;
     String description;
+    String code;
 }

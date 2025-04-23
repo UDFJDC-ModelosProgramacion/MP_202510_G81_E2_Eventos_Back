@@ -1,7 +1,8 @@
-package co.edu.udistrital.mdp.eventos.entities.paymentEntitys;
+package co.edu.udistrital.mdp.eventos.entities.bookingentity;
+
+import java.util.Date;
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
-import co.edu.udistrital.mdp.eventos.entities.bookingEntitys.PurchaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
@@ -10,10 +11,10 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Data
 @Entity
 
-public abstract class MethodOfPaymentEntity extends BaseEntity {
+public class RefundEntity extends BaseEntity{
     @PodamExclude
-    @OneToOne(mappedBy = "methodOfPayment")
+    @OneToOne(mappedBy = "refund")
     private PurchaseEntity purchase;
 
-    String type;
+    Date date;
 }

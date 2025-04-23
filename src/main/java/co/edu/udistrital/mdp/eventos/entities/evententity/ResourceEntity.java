@@ -1,22 +1,22 @@
-package co.edu.udistrital.mdp.eventos.entities.eventEntitys;
+package co.edu.udistrital.mdp.eventos.entities.evententity;
+
 
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
 
-public class LocationEntity extends BaseEntity{
+public class ResourceEntity extends BaseEntity{
     @PodamExclude
-    @OneToOne
+    @ManyToOne
     private EventEntity event;
-
-    String name;
-    String location;
+    
+    String url;
     String type;
-    Integer capacity;
+    
 }

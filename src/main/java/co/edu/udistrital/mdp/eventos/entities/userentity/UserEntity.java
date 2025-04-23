@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.entities.userEntitys;
+package co.edu.udistrital.mdp.eventos.entities.userentity;
 
 
 import java.util.Date;
