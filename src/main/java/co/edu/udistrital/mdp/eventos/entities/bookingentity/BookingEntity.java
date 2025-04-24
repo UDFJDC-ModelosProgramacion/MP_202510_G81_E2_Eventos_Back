@@ -1,5 +1,10 @@
 package co.edu.udistrital.mdp.eventos.entities.bookingentity;
 
+/*
+ * El paquete co.edu.udistrital.mdp.eventos.entities.bookingentity 
+ * contiene las entidades BookingEntity, NotificationEntity, PurchaseEntity, RefundEntity y PromoEntity
+ */
+
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import co.edu.udistrital.mdp.eventos.entities.evententity.EventEntity;
 import co.edu.udistrital.mdp.eventos.entities.userentity.Assistantentitys;

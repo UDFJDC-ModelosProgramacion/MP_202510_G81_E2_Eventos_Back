@@ -1,5 +1,10 @@
 package co.edu.udistrital.mdp.eventos.entities.userentity;
 
+/*
+ * El paquete co.edu.udistrital.mdp.eventos.entities.userentity
+ * contiene las entidades OrganizerEntity, UserEntity, Assistantentitys y PreferenceEntity
+ */
+
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
