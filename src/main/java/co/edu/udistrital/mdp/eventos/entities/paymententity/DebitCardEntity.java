@@ -13,11 +13,7 @@ import lombok.Data;
 @Data
 @Entity
 
-@DiscriminatorValue("WALLET")
-public class MobileWalleteEntity extends MethodOfPaymentEntity {
-    Integer phoneAccount;
-    String typeOfWallet;
-    Integer OTPCode;
-    Integer identityDocument;
-    String email;
+@DiscriminatorValue("DEBIT_CARD")
+public class DebitCardEntity extends CardEntity {
+    
 }
