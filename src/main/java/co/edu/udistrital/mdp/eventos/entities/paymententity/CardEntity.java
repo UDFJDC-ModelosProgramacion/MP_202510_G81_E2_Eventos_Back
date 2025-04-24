@@ -7,12 +7,14 @@ package co.edu.udistrital.mdp.eventos.entities.paymententity;
 
 import java.util.Date;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Data;
 
 @Data
 @Entity
 
+@DiscriminatorValue("CARD")
 public abstract class CardEntity extends MethodOfPaymentEntity {
     Integer cardNumber;
     String cardHolderName;
