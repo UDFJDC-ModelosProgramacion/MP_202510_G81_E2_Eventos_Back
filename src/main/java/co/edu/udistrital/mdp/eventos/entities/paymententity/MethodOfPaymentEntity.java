@@ -7,11 +7,13 @@ package co.edu.udistrital.mdp.eventos.entities.paymententity;
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.PurchaseEntity;
+import co.edu.udistrital.mdp.eventos.entities.userentity.AssistantEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.DiscriminatorType;
 
 import jakarta.persistence.OneToOne;
@@ -30,6 +32,10 @@ public abstract class MethodOfPaymentEntity extends BaseEntity {
     @PodamExclude
     @OneToOne(mappedBy = "methodOfPayment")
     private PurchaseEntity purchase;
+
+    @PodamExclude
+    @ManyToOne
+    private AssistantEntity assistant;
 
     @Column(nullable = false)
     String type;
