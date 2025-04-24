@@ -6,7 +6,7 @@ package co.edu.udistrital.mdp.eventos.entities.bookingentity;
  */
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
-import co.edu.udistrital.mdp.eventos.entities.userentity.Assistantentitys;
+import co.edu.udistrital.mdp.eventos.entities.userentity.AssistantEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -27,7 +27,7 @@ public class NotificationEntity extends BaseEntity {
 
     @PodamExclude
     @ManyToOne
-    private Assistantentitys assistant;
+    private AssistantEntity assistant;
     
     String description;
 }
