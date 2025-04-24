@@ -1,5 +1,9 @@
 package co.edu.udistrital.mdp.eventos.entities.userentity;
 
+/*
+ * El paquete co.edu.udistrital.mdp.eventos.entities.userentity
+ * contiene las entidades OrganizerEntity, UserEntity, Assistantentitys y PreferenceEntity
+ */
 
 import java.util.Date;
 

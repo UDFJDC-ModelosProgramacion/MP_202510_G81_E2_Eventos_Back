@@ -1,5 +1,10 @@
 package co.edu.udistrital.mdp.eventos.entities.evententity;
 
+/*
+ * El paquete co.edu.udistrital.mdp.eventos.entities.evententity
+ * contiene las entidades EventEntity, LocationEntity, ResourceEntity y TicketEntity
+ */
+
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import jakarta.persistence.Entity;
