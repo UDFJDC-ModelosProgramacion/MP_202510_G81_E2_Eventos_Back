@@ -72,7 +72,7 @@ public class AssistantService {
 	 * Actualiza la información de una instancia de Assistant.
 	 *
 	 * @param assistantId      Identificador de la instancia a actualizar
-	 * @param assitantEntity   Instancia de AuthorEntity con los nuevos datos.
+	 * @param assitantEntity   Instancia de AssistantEntity con los nuevos datos.
 	 * @return                 Instancia de AssistantEntity con los datos actualizados.
 	 */
 
