@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.udistrital.mdp.eventos.entities.userentity.PreferenceEntity;
+import co.edu.udistrital.mdp.eventos.entities.userentity.AssistantEntity;
 import co.edu.udistrital.mdp.eventos.entities.userentity.PreferenceEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.exceptions.ErrorMessage;
+import co.edu.udistrital.mdp.eventos.repositories.AssistantRepository;
 import co.edu.udistrital.mdp.eventos.repositories.PreferenceRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,20 +22,40 @@ public class PreferenceService {
     @Autowired
     private PreferenceRepository preferenceRepository;
 
+    @Autowired
+    private AssistantRepository assistantRepository;
+
     /*
-     * Se encarga de crear ana nueva preferencia en la base de datos.
+     * Se encarga de asociar un Assistant existente a una Preference
      * 
+     * @param preferenceData Objeto de PreferenceEntity con el campo 'description' rellenado.
      * @param preference Objeto de PreferenceEntity con los datos nuevos.
      * @Return Objeto de PreferenceEntity con los datos nuevos y su ID.
      * @throws Exception Si ocurre un error al crear la preferencia.
      */
 
-    //@Transactional
-    //public PreferenceEntity createAssistant(PreferenceEntity assistant) throws IllegalOperationException{
-    //    log.info("Inicia el proceso de creación de un nuevo asistente.");
-    //    
-    //    return preferenceRepository.save(assistant);
-    //}
+    @Transactional
+    public PreferenceEntity createPreference(Long assistantId, PreferenceEntity preferenceData) throws EntityNotFoundException {
+        log.info("Inicia el proceso de creación de una preferencia para assistantId={}", assistantId);
+
+        //AssistantEntity assistant = assistantRepository.findById(assistantId).
+        //    orElseThrow(() -> new EntityNotFoundException(String.format("No existe Assistant con id=%d", assistantId)));
+
+        Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
+
+        if(assistantEntity.isEmpty()) {
+            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+        }
+
+        // Asignamos el asistente a la preferencia
+        preferenceData.setAssistant(assistantEntity.get());
+
+        // Guardamos y devolvemos la entidad completa (incluye ID generado)
+        PreferenceEntity saved = preferenceRepository.save(preferenceData);
+
+        log.info("Preferencia creada con id={} para assistantId={}", saved.getId(), assistantId);
+        return saved;
+    }
 
     /*
 	 * Obtiene la lista de los registros de Preference.
