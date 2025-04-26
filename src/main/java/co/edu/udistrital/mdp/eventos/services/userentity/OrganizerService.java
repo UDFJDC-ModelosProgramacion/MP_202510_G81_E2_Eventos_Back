@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.udistrital.mdp.eventos.entities.userentity.AssistantEntity;
 import co.edu.udistrital.mdp.eventos.entities.userentity.OrganizerEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.exceptions.ErrorMessage;
@@ -23,7 +22,7 @@ public class OrganizerService {
     /*
      * Se encarga de crear un nuevo organizador en la base de datos.
      * 
-     * @param organizer Objeto de AuthorEntity con los datos nuevos.
+     * @param organizer Objeto de organizerEntity con los datos nuevos.
      * @Return Objeto de OrganizerEntity con los datos nuevos y su ID.
      * @throws Exception Si ocurre un error al crear el organizer.
      */
@@ -42,13 +41,13 @@ public class OrganizerService {
 	 */
 
     @Transactional
-    public OrganizerEntity getAssistantById(Long assistantId) throws EntityNotFoundException{
-        log.info("Inicia el proceso de obtencion de un asistente = {0}", assistantId);
-        Optional<OrganizerEntity> organizerEntity = organizerRepository.findById(assistantId);
+    public OrganizerEntity getOrganizerById(Long organizerId) throws EntityNotFoundException{
+        log.info("Inicia el proceso de obtencion de un Organizer = {0}", organizerId);
+        Optional<OrganizerEntity> organizerEntity = organizerRepository.findById(organizerId);
         if(organizerEntity.isEmpty()) {
-            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+            throw new EntityNotFoundException(ErrorMessage.ORGANIZER_NOT_FOUND);
         }
-        log.info("Termina proceso de obtencion de un asistente = {0}", assistantId);
+        log.info("Termina proceso de obtencion de un Organizer = {0}", organizerId);
         return organizerEntity.get();
     }
 
@@ -61,8 +60,8 @@ public class OrganizerService {
 	 */
 
     @Transactional
-    public OrganizerEntity updateAssistant(Long organizerId, OrganizerEntity organizerEntity) throws EntityNotFoundException {
-        log.info("Inicia el proceso de actualización de un asistente = {0}", organizerId);
+    public OrganizerEntity updateOrganizer(Long organizerId, OrganizerEntity organizerEntity) throws EntityNotFoundException {
+        log.info("Inicia el proceso de actualización de un Organizer = {0}", organizerId);
         Optional<OrganizerEntity> organizer = organizerRepository.findById(organizerId);
         if(organizer.isEmpty()) {
             throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
