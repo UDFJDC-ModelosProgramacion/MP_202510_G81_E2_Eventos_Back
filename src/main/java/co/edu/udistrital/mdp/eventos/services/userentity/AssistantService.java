@@ -24,7 +24,7 @@ public class AssistantService {
     /*
      * Se encarga de crear un nuevo asistente en la base de datos.
      * 
-     * @param assistant Objeto de AuthorEntity con los datos nuevos.
+     * @param assistant Objeto de AssistantEntity con los datos nuevos.
      * @Return Objeto de AssistantEntity con los datos nuevos y su ID.
      * @throws Exception Si ocurre un error al crear el asistente.
      */
