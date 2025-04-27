@@ -1,5 +1,49 @@
 package co.edu.udistrital.mdp.eventos.services.bookingentity;
 
-public class RefundService {
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import co.edu.udistrital.mdp.eventos.entities.bookingentity.RefundEntity;
+import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
+import co.edu.udistrital.mdp.eventos.repositories.RefundRepository;
+import jakarta.transaction.Transactional;
+
+public class RefundService {
+    @Autowired
+    private RefundRepository refundRepository;
+
+    @Transactional
+    public RefundEntity createRefund(RefundEntity refund) {
+        if (refund.getDate() == null) {
+            throw new IllegalArgumentException("Refund date must be specified");
+        }
+        return refundRepository.save(refund);
+    }
+
+    public List<RefundEntity> getRefunds() {
+        return refundRepository.findAll();
+    }
+
+    public RefundEntity getRefund(Long id) throws EntityNotFoundException {
+        return refundRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Refund not found with id " + id));
+    }
+
+    @Transactional
+    public RefundEntity updateRefund(Long id, RefundEntity refund) throws EntityNotFoundException {
+        RefundEntity existing = getRefund(id);
+        if (refund.getDate() == null) {
+            throw new IllegalArgumentException("Refund date must be specified");
+        }
+        existing.setDate(refund.getDate());
+        return refundRepository.save(existing);
+    }
+
+    @Transactional
+    public void deleteRefund(Long id) throws EntityNotFoundException {
+        RefundEntity refund = getRefund(id);
+        refundRepository.delete(refund);
+    }
 }
+
