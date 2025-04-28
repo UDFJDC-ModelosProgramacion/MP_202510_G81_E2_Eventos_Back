@@ -18,6 +18,5 @@ import lombok.Data;
 public abstract class CardEntity extends MethodOfPaymentEntity {
     Integer cardNumber;
     String cardHolderName;
-    Date expirationDate;
     Integer securityCode;
 }
