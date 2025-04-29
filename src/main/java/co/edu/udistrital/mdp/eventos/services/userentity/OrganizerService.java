@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.edu.udistrital.mdp.eventos.entities.userentity.OrganizerEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.exceptions.ErrorMessage;
+import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.eventos.repositories.OrganizerRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,12 +28,23 @@ public class OrganizerService {
      * @throws Exception Si ocurre un error al crear el organizer.
      */
 
-    //@Transactional
-    //public AssistantEntity createAssistant(AssistantEntity assistant) throws IllegalOperationException{
-    //    log.info("Inicia el proceso de creación de un nuevo asistente.");
-    //    
-    //    return assistantRepository.save(assistant);
-    //}
+    @Transactional
+    public OrganizerEntity createOrganizer(OrganizerEntity organizer) throws IllegalOperationException{
+        log.info("Inicia el proceso de creación de un nuevo Organizer.");
+
+        //*Validación: verificar si ya existe un Organizer con el mismo correo
+        if (organizerRepository.findByEmail(organizer.getEmail()).isPresent()) {
+            throw new IllegalOperationException("Ya existe un asistente con este correo.");
+        }
+    
+        // *Validación básica de campos obligatorios
+        if (organizer.getName() == null || organizer.getEmail() == null || organizer.getPassword() == null) {
+            throw new IllegalOperationException("Faltan datos obligatorios para crear el asistente.");
+        }
+    
+        log.info("Finaliza el proceso de creación del Organizer con ID: {}", organizer.getId());
+        return organizerRepository.save(organizer);
+    }
 
     /*
 	 * Obtiene la lista de los registros de OrganizerEntity.
