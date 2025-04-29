@@ -26,36 +26,34 @@ public class PreferenceService {
     private AssistantRepository assistantRepository;
 
     /*
-     * Se encarga de asociar un Assistant existente a una Preference
+     * Se encarga de crear una nueva Preference
      * 
-     * @param preferenceData Objeto de PreferenceEntity con el campo 'description' rellenado.
-     * @param preference Objeto de PreferenceEntity con los datos nuevos.
+     * @param preference Objeto de PreferenceEntity.
      * @Return Objeto de PreferenceEntity con los datos nuevos y su ID.
      * @throws Exception Si ocurre un error al crear la preferencia.
      */
 
     @Transactional
-    public PreferenceEntity createPreference(Long assistantId, PreferenceEntity preferenceData) throws EntityNotFoundException {
-        log.info("Inicia el proceso de creación de una preferencia para assistantId={}", assistantId);
-
-        //AssistantEntity assistant = assistantRepository.findById(assistantId).
-        //    orElseThrow(() -> new EntityNotFoundException(String.format("No existe Assistant con id=%d", assistantId)));
-
-        Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
-
-        if(assistantEntity.isEmpty()) {
-            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+    public PreferenceEntity createPreference(PreferenceEntity preference) throws EntityNotFoundException {
+        log.info("Inicia el proceso de creación de una preferencia");
+    
+        if (preference.getDescription() == null || preference.getDescription().isBlank()) {
+            throw new IllegalArgumentException("La descripción de la preferencia es obligatoria.");
         }
-
-        // Asignamos el asistente a la preferencia
-        preferenceData.setAssistant(assistantEntity.get());
-
-        // Guardamos y devolvemos la entidad completa (incluye ID generado)
-        PreferenceEntity saved = preferenceRepository.save(preferenceData);
-
-        log.info("Preferencia creada con id={} para assistantId={}", saved.getId(), assistantId);
-        return saved;
+    
+        // Validar asistentes múltiples
+        if (preference.getAssistants() != null) {
+            for (AssistantEntity assistant : preference.getAssistants()) {
+                if (assistant.getId() == null || !assistantRepository.existsById(assistant.getId())) {
+                    throw new EntityNotFoundException("Uno de los asistentes asociados no existe.");
+                }
+            }
+        }
+    
+        log.info("Preferencia creada con id={}", preference.getId());
+        return preferenceRepository.save(preference);
     }
+    
 
     /*
 	 * Obtiene la lista de los registros de Preference.
