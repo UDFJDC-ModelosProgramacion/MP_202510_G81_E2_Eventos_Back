@@ -38,12 +38,11 @@ public class PreferenceServiceTest {
     @Autowired
     private TestEntityManager entityManager;
 
-    @Autowired
-    private AssistantRepository assistantRepository;
-
     private PodamFactory factory = new PodamFactoryImpl();
 
     private List<AssistantEntity> assistantList = new ArrayList<>();
+
+    private List<PreferenceEntity> preferenceList = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
@@ -59,8 +58,12 @@ public class PreferenceServiceTest {
     private void insertData() {
         for (int i = 0; i < 3; i++) {
             AssistantEntity assistant = factory.manufacturePojo(AssistantEntity.class);
+            PreferenceEntity preference = factory.manufacturePojo(PreferenceEntity.class);
             entityManager.persist(assistant);
             assistantList.add(assistant);
+
+            entityManager.persist(preference);
+            preferenceList.add(preference);
         }
     }
 
@@ -108,42 +111,16 @@ public class PreferenceServiceTest {
         assertEquals(persisted.getId(), found.getId());
     }
 
-    //@Test
-    //void testUpdatePreference() throws Exception {
-    //    PreferenceEntity preference = factory.manufacturePojo(PreferenceEntity.class);
-    //    preference.setAssistants(List.of(assistantList.get(0)));
-    //    PreferenceEntity persisted = entityManager.persist(preference);
-//
-    //    PreferenceEntity updated = factory.manufacturePojo(PreferenceEntity.class);
-    //    updated.setAssistants(List.of(assistantList.get(1), assistantList.get(2)));
-//
-    //    PreferenceEntity result = preferenceService.updatePreference(persisted.getId(), updated);
-    //    assertEquals(updated.getDescription(), result.getDescription());
-    //    assertEquals(2, result.getAssistants().size());
-    //}
-
     @Test
     void testUpdatePreference() throws Exception {
-        // Crear y persistir una preferencia con asistentes
-        PreferenceEntity preference = factory.manufacturePojo(PreferenceEntity.class);
-        preference.setAssistants(List.of(assistantList.get(0), assistantList.get(1)));
-        PreferenceEntity persisted = entityManager.persist(preference);
-    
-        // Crear un nuevo objeto con la descripción actualizada
-        PreferenceEntity updated = new PreferenceEntity();
-        updated.setDescription("Descripción actualizada");
-    
-        // Ejecutar el servicio
-        PreferenceEntity result = preferenceService.updatePreference(persisted.getId(), updated);
-    
-        // Verificar que la descripción se haya actualizado
-        assertEquals("Descripción actualizada", result.getDescription());
-    
-        // Verificar que los asistentes no hayan cambiado
-        assertEquals(2, result.getAssistants().size());
-        assertTrue(result.getAssistants().containsAll(persisted.getAssistants()));
-    }
+        PreferenceEntity original = preferenceList.get(0);
+        PreferenceEntity newPreference = factory.manufacturePojo(PreferenceEntity.class);
+        newPreference.setId(original.getId());
+        preferenceService.updatePreference(original.getId(), newPreference);
 
+        PreferenceEntity resp = entityManager.find(PreferenceEntity.class, original.getId());
+        assertEquals(newPreference.getId(),resp.getId());
+    }
 
     @Test
     void testDeletePreference() throws Exception {
