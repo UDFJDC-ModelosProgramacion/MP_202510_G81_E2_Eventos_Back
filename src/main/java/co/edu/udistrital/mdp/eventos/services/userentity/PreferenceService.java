@@ -96,14 +96,13 @@ public class PreferenceService {
     @Transactional
     public PreferenceEntity updatePreference(Long preferenceId, PreferenceEntity preferenceEntity) throws EntityNotFoundException {
         log.info("Inicia el proceso de actualización de una preferencia = {}", preferenceId);
-        
-        PreferenceEntity existing = preferenceRepository.findById(preferenceId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND));
-        
-        // Solo se actualiza la descripción
-        existing.setDescription(preferenceEntity.getDescription());
+        Optional<PreferenceEntity> preference = preferenceRepository.findById(preferenceId);
+        if(preference.isEmpty()) {
+            throw new EntityNotFoundException(ErrorMessage.PREFERENCE_NOT_FOUND);
+        }
+        preferenceEntity.setId(preferenceId);
     
-        return preferenceRepository.save(existing);
+        return preferenceRepository.save(preferenceEntity);
     }
 
     /*
