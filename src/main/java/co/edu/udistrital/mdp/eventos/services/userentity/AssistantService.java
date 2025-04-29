@@ -29,12 +29,23 @@ public class AssistantService {
      * @throws Exception Si ocurre un error al crear el asistente.
      */
 
-    //@Transactional
-    //public AssistantEntity createAssistant(AssistantEntity assistant) throws IllegalOperationException{
-    //    log.info("Inicia el proceso de creación de un nuevo asistente.");
-    //    
-    //    return assistantRepository.save(assistant);
-    //}
+    @Transactional
+    public AssistantEntity createAssistant(AssistantEntity assistant) throws IllegalOperationException{
+        log.info("Inicia el proceso de creación de un nuevo Assistant.");
+
+        //*Validación: verificar si ya existe un asistente con el mismo correo
+        if (assistantRepository.findByEmail(assistant.getEmail()).isPresent()) {
+            throw new IllegalOperationException("Ya existe un asistente con este correo.");
+        }
+    
+        // *Validación básica de campos obligatorios
+        if (assistant.getName() == null || assistant.getEmail() == null || assistant.getPassword() == null) {
+            throw new IllegalOperationException("Faltan datos obligatorios para crear el asistente.");
+        }
+    
+        log.info("Finaliza el proceso de creación del asistente con ID: {}", assistant.getId());
+        return assistantRepository.save(assistant);
+    }
 
 
     /*
