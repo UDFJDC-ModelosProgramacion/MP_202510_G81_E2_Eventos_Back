@@ -11,7 +11,6 @@ import java.util.List;
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -19,9 +18,6 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 
 public class PreferenceEntity extends BaseEntity {
-    @PodamExclude
-    @ManyToOne
-    private AssistantEntity assistant;
 
     @PodamExclude
     @ManyToMany
