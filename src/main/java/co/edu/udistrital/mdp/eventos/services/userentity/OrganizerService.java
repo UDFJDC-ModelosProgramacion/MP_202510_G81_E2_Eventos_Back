@@ -1,11 +1,13 @@
 package co.edu.udistrital.mdp.eventos.services.userentity;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.edu.udistrital.mdp.eventos.entities.userentity.AssistantEntity;
 import co.edu.udistrital.mdp.eventos.entities.userentity.OrganizerEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.exceptions.ErrorMessage;
@@ -45,6 +47,20 @@ public class OrganizerService {
         log.info("Finaliza el proceso de creación del Organizer con ID: {}", organizer.getId());
         return organizerRepository.save(organizer);
     }
+
+
+    /*
+	 * Obtiene la lista de los registros de Assistant.
+	 *
+	 * @return Colección de objetos de AssistantEntity.
+	 */
+
+    @Transactional
+    public List<OrganizerEntity> getAllOrganizers() {
+        log.info("Inicia el proceso de obtencion de todos los Organizer.");
+        return organizerRepository.findAll();
+    }
+
 
     /*
 	 * Obtiene la lista de los registros de OrganizerEntity.
