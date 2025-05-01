@@ -1,37 +1,44 @@
 package co.edu.udistrital.mdp.eventos.services;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.transaction.Transactional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.udistrital.mdp.eventos.entities.userentity.AssistantEntity;
 import co.edu.udistrital.mdp.eventos.entities.userentity.PreferenceEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.eventos.services.userentity.AssistantPreferenceService;
+import co.edu.udistrital.mdp.eventos.services.userentity.PreferenceService;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
-@ExtendWith(SpringExtension.class)
+
 @DataJpaTest
 @Transactional
-@Import(AssistantPreferenceService.class)
+@Import({AssistantPreferenceService.class, PreferenceService.class})
 public class AssistantPreferenceServiceTest {
 
     @Autowired
     private AssistantPreferenceService assistantPreferenceService;
+
+    @Autowired
+    private PreferenceService preferenceService;
 
     @Autowired
     private TestEntityManager entityManager;
@@ -67,19 +74,20 @@ public class AssistantPreferenceServiceTest {
 
     // Tests para addPreference
     @Test
-    void whenAddPreferenceWithValidIds_thenPreferenceIsAdded() throws EntityNotFoundException{
+    void whenAddPreferenceWithValidIds_thenPreferenceIsAdded() throws EntityNotFoundException, IllegalOperationException{
         PreferenceEntity newPreference = factory.manufacturePojo(PreferenceEntity.class);
-        entityManager.persist(newPreference);
-        entityManager.flush();
+        preferenceService.createPreference(newPreference);
 
-        PreferenceEntity result = assistantPreferenceService.addPreference(assistant.getId(), newPreference.getId());
+        PreferenceEntity preferenceEntity = assistantPreferenceService.addPreference(assistant.getId(), newPreference.getId());
+        assertNotNull(preferenceEntity);
 
-        assertThat(result.getAssistants()).contains(assistant);
+		assertEquals(preferenceEntity.getId(), newPreference.getId());
+		assertEquals(preferenceEntity.getDescription(), newPreference.getDescription());
 
-        entityManager.flush();
-        entityManager.clear();
-        AssistantEntity reloadedAssistant = entityManager.find(AssistantEntity.class, assistant.getId());
-        assertThat(reloadedAssistant.getPreferences()).contains(newPreference);
+		PreferenceEntity lastPreference = assistantPreferenceService.getPreference(assistant.getId(), newPreference.getId());
+
+		assertEquals(lastPreference.getId(), newPreference.getId());
+		assertEquals(lastPreference.getDescription(), newPreference.getDescription());
     }
 
     @Test
