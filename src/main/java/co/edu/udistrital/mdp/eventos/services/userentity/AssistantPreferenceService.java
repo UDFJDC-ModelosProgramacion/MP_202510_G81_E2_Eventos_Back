@@ -65,12 +65,14 @@ public class AssistantPreferenceService {
 	public List<PreferenceEntity> getPreferences(Long assistantId) throws EntityNotFoundException {
 		log.info("Inicia proceso de consultar todas las preferences con AssistantId = {0}", assistantId);
 		Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
-		if (assistantEntity.isEmpty())
+		if (assistantEntity.isEmpty()){
 			throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
-
+		}
 		log.info("Termina proceso de consultar todas las preferences con AssistantId = {0}", assistantId);
 		return assistantEntity.get().getPreferences();
 	}
+
+	
 
     /*
 	 * Obtiene una instancia de PreferenceEntity asociada a una instancia de Assistant
@@ -80,41 +82,41 @@ public class AssistantPreferenceService {
 	 * @return La entidadd de Libro del Assistant
 	 */
 	@Transactional
-	public PreferenceEntity getPreferece(Long assistantId, Long preferenceId) throws EntityNotFoundException, IllegalOperationException {
+	public PreferenceEntity getPreference(Long assistantId, Long preferenceId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Inicia proceso de consultar una preference con id = {0} del assistant con id = " + assistantId, preferenceId);
 		Optional<AssistantEntity> AssistantEntity = assistantRepository.findById(assistantId);
 		Optional<PreferenceEntity> preferenceEntity = preferenceRepository.findById(preferenceId);
 
-		if (AssistantEntity.isEmpty())
+		if (AssistantEntity.isEmpty()){
 			throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
-
-		if (preferenceEntity.isEmpty())
+		}
+		if (preferenceEntity.isEmpty()){
 			throw new EntityNotFoundException(ErrorMessage.PREFERENCE_NOT_FOUND);
-
-		log.info("Termina proceso de consultar una preference con id = {0} del assistant con id = " + assistantId, preferenceId);
-		if (!preferenceEntity.get().getAssistants().contains(AssistantEntity.get()))
+		}
+		if (!preferenceEntity.get().getAssistants().contains(AssistantEntity.get())){
 			throw new IllegalOperationException("The preference is not associated to the assistant");
-		
+		}
+		log.info("Termina proceso de consultar una preference con id = {0} del assistant con id = " + assistantId, preferenceId);
 		return preferenceEntity.get();
 	}
 
     /*
-	 * Desasocia un Book existente de un Author existente
+	 * Desasocia un Preference existente de un Assistant existente
 	 *
-	 * @param authorsId Identificador de la instancia de Author
-	 * @param booksId   Identificador de la instancia de Book
+	 * @param assistantId Identificador de la instancia de Author
+	 * @param preferenceId   Identificador de la instancia de Book
 	 */
 	@Transactional
 	public void removePreference(Long assistantId, Long bookId) throws EntityNotFoundException {
 		log.info("Inicia proceso de borrar una preference con assistantId = {0}", assistantId);
 		Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
-		if (assistantEntity.isEmpty())
+		if (assistantEntity.isEmpty()){
 			throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
-
+		}
 		Optional<PreferenceEntity> preferenceEntity = preferenceRepository.findById(bookId);
-		if (preferenceEntity.isEmpty())
+		if (preferenceEntity.isEmpty()){
 			throw new EntityNotFoundException(ErrorMessage.PREFERENCE_NOT_FOUND);
-
+		}
 		preferenceEntity.get().getAssistants().remove(assistantEntity.get());
 		assistantEntity.get().getPreferences().remove(preferenceEntity.get());
 		log.info("Finaliza proceso de borrar una preference con assistantId = {0}", assistantId);
