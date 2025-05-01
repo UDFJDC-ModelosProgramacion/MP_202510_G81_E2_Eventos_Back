@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.udistrital.mdp.eventos.entities.userentity.AssistantEntity;
 import co.edu.udistrital.mdp.eventos.entities.userentity.OrganizerEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.exceptions.ErrorMessage;
