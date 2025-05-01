@@ -14,6 +14,7 @@ import co.edu.udistrital.mdp.eventos.entities.bookingentity.PurchaseEntity;
 import co.edu.udistrital.mdp.eventos.entities.evententity.EventEntity;
 import co.edu.udistrital.mdp.eventos.entities.paymententity.MethodOfPaymentEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -45,6 +46,6 @@ public class AssistantEntity extends UserEntity{
     private EventEntity event;
 
     @PodamExclude
-    @ManyToMany(mappedBy = "assistants")
+    @ManyToMany(mappedBy = "assistants",  fetch = FetchType.LAZY)
     private List<PreferenceEntity> preferences = new ArrayList<>();
 }
