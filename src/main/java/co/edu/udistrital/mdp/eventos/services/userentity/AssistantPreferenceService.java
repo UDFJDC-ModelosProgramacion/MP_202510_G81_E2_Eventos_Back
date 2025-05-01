@@ -72,8 +72,6 @@ public class AssistantPreferenceService {
 		return assistantEntity.get().getPreferences();
 	}
 
-	
-
     /*
 	 * Obtiene una instancia de PreferenceEntity asociada a una instancia de Assistant
 	 *
