@@ -1,5 +1,8 @@
 package co.edu.udistrital.mdp.eventos.entities.userentity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * El paquete co.edu.udistrital.mdp.eventos.entities.userentity
  * contiene las entidades OrganizerEntity, UserEntity, Assistantentitys y PreferenceEntity
@@ -7,7 +10,7 @@ package co.edu.udistrital.mdp.eventos.entities.userentity;
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -15,9 +18,10 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 
 public class PreferenceEntity extends BaseEntity {
+
     @PodamExclude
-    @ManyToOne
-    private AssistantEntity assistant;
+    @ManyToMany
+    private List<AssistantEntity> assistants = new ArrayList<>();
 
     String description;
 }
