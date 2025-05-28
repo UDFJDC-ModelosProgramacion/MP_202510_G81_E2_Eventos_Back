@@ -1,17 +1,19 @@
 @startuml DiagramaDTO
-    'User entitys
-class User{
+
+' User 
+class User {
     id: Integer
     name: String
     lastname: String
     email: String
     password: String
     numberPhone: Integer
+    birthDate: Date
 }
 
-class AssistantDTO extends User{
+class AssistantDTO extends User {
 }
-class AssistantDetailDTO extends AssistantDTO{
+class AssistantDetailDTO extends AssistantDTO {
 }
 AssistantDetailDTO "1" --> "*" PreferenceDTO
 PreferenceDetailDTO "1" --> "*" AssistantDTO
@@ -25,90 +27,159 @@ BookingDetailDTO "1" --> "*" AssistantDTO
 AssistantDetailDTO "1" --> "*" NotificationDTO
 NotificationDetailDTO "1" --> "*" AssistantDTO
 
-class OrganizerDTO extends User{
+AssistantDetailDTO "1" --> "*" MethodOfPaymentDTO
+MethodOfPaymentDetailDTO "1" --> "*" AssistantDTO
+
+class OrganizerDTO extends User {
+    address: String
 }
-class OrganizerDetailDTO extends OrganizerDTO{
+class OrganizerDetailDTO extends OrganizerDTO {
 }
 OrganizerDetailDTO "1" --> "*" EventDTO
 EventDetailDTO "1" --> "*" OrganizerDTO
 
-class PreferenceDTO{
+class PreferenceDTO {
     id: Integer
+    description: String
 }
-class PreferenceDetailDTO extends PreferenceDTO{
+class PreferenceDetailDTO extends PreferenceDTO {
 }
 
-    'Event entitys
-class EventDTO{
+' Event
+class EventDTO {
     id: Integer
+    name: String
+    description: String
+    category: String
+    date: Date
 }
-class EventDetailDTO extends EventDTO{
+class EventDetailDTO extends EventDTO {
 }
 EventDetailDTO "1" --> "*" AssistantDTO
 AssistantDetailDTO "1" --> "*" EventDTO
 
-class LocationDTO{
+EventDetailDTO "1" --> "*" ResourceDTO
+ResourceDetailDTO "1" --> "*" EventDTO
+
+EventDTO "1" --> "1" LocationDTO
+
+EventDetailDTO "1" --> "*" TicketDTO
+TicketDetailDTO "1" --> "*" EventDTO
+
+EventDetailDTO "1" --> "*" BookingDTO
+BookingDetailDTO "1" --> "*" EventDTO
+
+class LocationDTO {
     id: Integer
+    name: String
+    location: String
+    type: String
+    capacity: Integer
 }
-class LocationDetailDTO extends LocationDTO{
-
+class LocationDetailDTO extends LocationDTO {
 }
 
-class TicketDTO{
+class TicketDTO {
     id: Integer
+    price: Integer
+    remaining: Integer
+    classification: String
 }
-class TicketDetailDTO extends TicketDTO{
-
+class TicketDetailDTO extends TicketDTO {
 }
 
-class ResourceDTO{
+class ResourceDTO {
     id: Integer
+    url: String
+    type: String
 }
-class ResourceDetailDTO extends ResourceDTO{
-
+class ResourceDetailDTO extends ResourceDTO {
 }
 
-
-    'Booking entitys
-class PurchaseDTO{
+' Booking
+class PurchaseDTO {
     id: Integer
+    remainingSeats: Integer
 }
-class PurchaseDetailDTO extends PurchaseDTO{
-
+class PurchaseDetailDTO extends PurchaseDTO {
 }
 PurchaseDTO "1" --> "1" RefundDTO
 
 PurchaseDetailDTO "1" --> "*" PromoDTO
 PromoDetailDTO "1" --> "*" PurchaseDTO
 
-class RefundDTO{
+class RefundDTO {
     id: Integer
+    date: Date
 }
-class RefundDetailDTO extends RefundDTO{
-    
+class RefundDetailDTO extends RefundDTO {
 }
 
-class BookingDTO{
+class BookingDTO {
     id: Integer
+    remainingSeats: Integer
 }
-class BookingDetailDTO extends BookingDTO{
-
+class BookingDetailDTO extends BookingDTO {
 }
 BookingDTO "1" --> "1" NotificationDTO
 
-class NotificationDTO{
+class NotificationDTO {
     id: Integer
+    description: String
 }
-class NotificationDetailDTO extends NotificationDTO{
-
+class NotificationDetailDTO extends NotificationDTO {
 }
 NotificationDTO "1" --> "1" PurchaseDTO
 
-class PromoDTO{
+class PromoDTO {
     id: Integer
+    discount: Float
+    description: String
+    code: String
 }
-class PromoDetailDTO extends PromoDTO{
+class PromoDetailDTO extends PromoDTO {
+}
 
+' Method of Payment
+abstract class MethodOfPaymentDTO {
+    id: Integer
+    type: String
+}
+class MethodOfPaymentDetailDTO extends MethodOfPaymentDTO {
+    
+}
+MethodOfPaymentDTO "1" --> "1" PurchaseDTO
+
+class MobileWalletDTO extends MethodOfPaymentDTO {
+    phoneAccount: Integer
+    typeOfWallet: String
+    otpCode: Integer
+    identityDocument: Integer
+    email: String
+}
+class MobileWalletDetailDTO extends MobileWalletDTO {
+}
+
+abstract class CardDTO extends MethodOfPaymentDTO {
+    cardNumber: Integer
+    cardHolderName: String
+    expirationDate: Date
+    securityCode: Integer
+}
+abstract class CardDetailDTO extends CardDTO {
+    
+}
+
+class CreditCardDTO extends CardDTO {
+    installments: Integer
+}
+class CreditCardDetailDTO extends CreditCardDTO {
+    
+}
+
+class DebitCardDTO extends CardDTO {
+}
+class DebitCardDetailDTO extends DebitCardDTO {
 }
 
 @enduml
