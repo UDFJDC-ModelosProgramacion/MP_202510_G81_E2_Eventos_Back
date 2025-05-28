@@ -1,0 +1,114 @@
+@startuml DiagramaDTO
+    'User entitys
+class User{
+    id: Integer
+    name: String
+    lastname: String
+    email: String
+    password: String
+    numberPhone: Integer
+}
+
+class AssistantDTO extends User{
+}
+class AssistantDetailDTO extends AssistantDTO{
+}
+AssistantDetailDTO "1" --> "*" PreferenceDTO
+PreferenceDetailDTO "1" --> "*" AssistantDTO
+
+AssistantDetailDTO "1" --> "*" PurchaseDTO
+PurchaseDetailDTO "1" --> "*" AssistantDTO
+
+AssistantDetailDTO "1" --> "*" BookingDTO
+BookingDetailDTO "1" --> "*" AssistantDTO
+
+AssistantDetailDTO "1" --> "*" NotificationDTO
+NotificationDetailDTO "1" --> "*" AssistantDTO
+
+class OrganizerDTO extends User{
+}
+class OrganizerDetailDTO extends OrganizerDTO{
+}
+OrganizerDetailDTO "1" --> "*" EventDTO
+EventDetailDTO "1" --> "*" OrganizerDTO
+
+class PreferenceDTO{
+    id: Integer
+}
+class PreferenceDetailDTO extends PreferenceDTO{
+}
+
+    'Event entitys
+class EventDTO{
+    id: Integer
+}
+class EventDetailDTO extends EventDTO{
+}
+EventDetailDTO "1" --> "*" AssistantDTO
+AssistantDetailDTO "1" --> "*" EventDTO
+
+class LocationDTO{
+    id: Integer
+}
+class LocationDetailDTO extends LocationDTO{
+
+}
+
+class TicketDTO{
+    id: Integer
+}
+class TicketDetailDTO extends TicketDTO{
+
+}
+
+class ResourceDTO{
+    id: Integer
+}
+class ResourceDetailDTO extends ResourceDTO{
+
+}
+
+
+    'Booking entitys
+class PurchaseDTO{
+    id: Integer
+}
+class PurchaseDetailDTO extends PurchaseDTO{
+
+}
+PurchaseDTO "1" --> "1" RefundDTO
+
+PurchaseDetailDTO "1" --> "*" PromoDTO
+PromoDetailDTO "1" --> "*" PurchaseDTO
+
+class RefundDTO{
+    id: Integer
+}
+class RefundDetailDTO extends RefundDTO{
+    
+}
+
+class BookingDTO{
+    id: Integer
+}
+class BookingDetailDTO extends BookingDTO{
+
+}
+BookingDTO "1" --> "1" NotificationDTO
+
+class NotificationDTO{
+    id: Integer
+}
+class NotificationDetailDTO extends NotificationDTO{
+
+}
+NotificationDTO "1" --> "1" PurchaseDTO
+
+class PromoDTO{
+    id: Integer
+}
+class PromoDetailDTO extends PromoDTO{
+
+}
+
+@enduml
