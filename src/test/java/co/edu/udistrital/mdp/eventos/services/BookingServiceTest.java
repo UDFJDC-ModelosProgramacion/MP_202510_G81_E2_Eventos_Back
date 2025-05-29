@@ -1,6 +1,7 @@
-package co.edu.udistrital.mdp.eventos.services.bookingentity;
+package co.edu.udistrital.mdp.eventos.services;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.BookingEntity;
+import co.edu.udistrital.mdp.eventos.services.bookingentity.BookingService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;

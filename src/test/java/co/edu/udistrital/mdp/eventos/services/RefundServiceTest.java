@@ -1,7 +1,8 @@
-package co.edu.udistrital.mdp.eventos.services.bookingentity;
+package co.edu.udistrital.mdp.eventos.services;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.RefundEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
+import co.edu.udistrital.mdp.eventos.services.bookingentity.RefundService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
