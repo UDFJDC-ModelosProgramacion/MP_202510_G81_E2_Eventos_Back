@@ -8,7 +8,9 @@ import co.edu.udistrital.mdp.eventos.entities.bookingentity.RefundEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.repositories.RefundRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RefundService {
     @Autowired
     private RefundRepository refundRepository;

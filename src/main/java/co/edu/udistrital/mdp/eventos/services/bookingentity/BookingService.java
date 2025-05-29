@@ -8,7 +8,9 @@ import co.edu.udistrital.mdp.eventos.entities.bookingentity.BookingEntity;
 import co.edu.udistrital.mdp.eventos.repositories.BookingRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BookingService {
     @Autowired
     private BookingRepository bookingRepository;

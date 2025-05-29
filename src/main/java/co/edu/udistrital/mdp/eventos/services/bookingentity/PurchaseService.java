@@ -8,7 +8,9 @@ import co.edu.udistrital.mdp.eventos.entities.bookingentity.PurchaseEntity;
 import co.edu.udistrital.mdp.eventos.repositories.PurchaseRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PurchaseService {
     @Autowired
     private PurchaseRepository purchaseRepository;

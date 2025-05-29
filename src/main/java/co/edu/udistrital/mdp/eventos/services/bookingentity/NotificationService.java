@@ -8,7 +8,9 @@ import co.edu.udistrital.mdp.eventos.entities.bookingentity.NotificationEntity;
 import co.edu.udistrital.mdp.eventos.repositories.NotificationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
+@Service
 public class NotificationService {
      @Autowired
     private NotificationRepository notificationRepository;
