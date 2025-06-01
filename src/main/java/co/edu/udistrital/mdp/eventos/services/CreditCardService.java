@@ -37,7 +37,7 @@ public class CreditCardService {
                 .toLocalDate();
 
         LocalDate actualDate = LocalDate.now();
-        if (expirationDate.isAfter(actualDate)) {
+        if (expirationDate.isBefore(actualDate)) {
             throw new IllegalOperationException("This credit card is expired");
         }
 
@@ -76,17 +76,13 @@ public class CreditCardService {
             throw new EntityNotFoundException("The credit card does not exist");
         }
 
-        if(creditCardRepository.existsByCardNumber(creditCard.getCardNumber())){
-            throw new IllegalOperationException("This credit card is already registered");
-        }
-
         LocalDate expirationDate = creditCard.getExpirationDate()
                 .toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
 
         LocalDate actualDate = LocalDate.now();
-        if (expirationDate.isAfter(actualDate)) {
+        if (expirationDate.isBefore(actualDate)) {
             throw new IllegalOperationException("This credit card is expired");
         }
 

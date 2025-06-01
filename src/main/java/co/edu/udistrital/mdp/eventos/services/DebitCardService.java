@@ -61,10 +61,6 @@ public class DebitCardService {
             throw new EntityNotFoundException("The debit card does not exist");
         }
 
-        if(debitCardRepository.existsByCardNumber(debitCard.getCardNumber())){
-            throw new IllegalOperationException("This debit card is already registered");
-        }
-
         debitCard.setId(debitCardId);
         return debitCardRepository.save(debitCard);
     }
