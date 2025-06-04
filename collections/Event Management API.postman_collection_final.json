@@ -1,0 +1,2982 @@
+{
+	"info": {
+		"_postman_id": "65aa3c0c-27d0-48a5-91b3-ba1a2e653999",
+		"name": "Event Management API",
+		"description": "API para gestión de eventos, asistentes, organizadores y preferencias",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45374046",
+		"_collection_link": "https://luismario-586498.postman.co/workspace/Luis-Mario's-Workspace~56b49dbb-59ac-44b5-8789-c6b8eb054790/collection/45374046-65aa3c0c-27d0-48a5-91b3-ba1a2e653999?action=share&source=collection_link&creator=45374046"
+	},
+	"item": [
+		{
+			"name": "AssistantService",
+			"item": [
+				{
+					"name": "Obtener todos los asistentes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants"
+							]
+						},
+						"description": "Obtiene la lista completa de todos los asistentes registrados"
+					},
+					"response": [
+						{
+							"name": "Obtener todos los asistentes",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 1,\r\n  \"name\": \"Nuevo\",\r\n  \"lastName\": \"Asistente\",\r\n  \"email\": \"nuevo@example.com\",\r\n  \"password\": \"nuevapassword\",\r\n  \"numberPhone\": 5551234567,\r\n  \"birthDate\": \"1995-03-20\",\r\n  \"preferences\": [],\r\n  \"paymentMethods\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener un asistente por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id_1}}"
+							]
+						},
+						"description": "Obtiene los detalles de un asistente específico por su ID"
+					},
+					"response": [
+						{
+							"name": "Obtener un asistente por ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 1,\r\n  \"name\": \"Nuevo\",\r\n  \"lastName\": \"Asistente\",\r\n  \"email\": \"nuevo@example.com\",\r\n  \"password\": \"nuevapassword\",\r\n  \"numberPhone\": 5551234567,\r\n  \"birthDate\": \"1995-03-20\",\r\n  \"preferences\": [],\r\n  \"paymentMethods\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id_1}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener un asistente que no existe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Obtener un asistente que no existe",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The assistant with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Crear un nuevo asistente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nuevo\",\n  \"lastName\": \"Asistente\",\n  \"email\": \"nuevo@example.com\",\n  \"password\": \"nuevapassword\",\n  \"numberPhone\": 5551234567,\n  \"birthDate\": \"1995-03-20\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/assistants",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants"
+							]
+						},
+						"description": "Crea un nuevo registro de asistente en el sistema"
+					},
+					"response": [
+						{
+							"name": "Crear un nuevo asistente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"name\": \"Nuevo\",\n  \"lastName\": \"Asistente\",\n  \"email\": \"nuevo@example.com\",\n  \"password\": \"nuevapassword\",\n  \"numberPhone\": 5551234567,\n  \"birthDate\": \"1995-03-20\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Actualizar un asistente",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Juan Actualizado\",\n  \"lastName\": \"Pérez\",\n  \"email\": \"juan.actualizado@example.com\",\n  \"password\": \"nuevapassword\",\n  \"numberPhone\": 1234567890,\n  \"birthDate\": \"1990-01-01\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id_1}}"
+							]
+						},
+						"description": "Actualiza la información de un asistente existente"
+					},
+					"response": [
+						{
+							"name": "Actualizar un asistente",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"name\": \"Juan Actualizado\",\n  \"lastName\": \"Pérez\",\n  \"email\": \"juan.actualizado@example.com\",\n  \"password\": \"nuevapassword\",\n  \"numberPhone\": 1234567890,\n  \"birthDate\": \"1990-01-01\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id_1}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Actualizar un asistente que no existe",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Actualizar un asistente que no existe",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The assistant with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Eliminar un asistente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id_1}}"
+							]
+						},
+						"description": "Elimina permanentemente un asistente del sistema"
+					},
+					"response": [
+						{
+							"name": "Eliminar un asistente",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id_1}}"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Eliminar un asistente que no existe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Eliminar un asistente que no existe",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The assistant with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				}
+			],
+			"description": "Operaciones para gestionar asistentes"
+		},
+		{
+			"name": "OrganizerService",
+			"item": [
+				{
+					"name": "Obtener todos los organizadores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/organizers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"organizers"
+							]
+						},
+						"description": "Obtiene la lista completa de todos los organizadores registrados"
+					},
+					"response": [
+						{
+							"name": "Obtener todos los organizadores",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 1,\r\n  \"name\": \"Nuevo\",\r\n  \"lastName\": \"Organizador\",\r\n  \"email\": \"nuevo.org@example.com\",\r\n  \"password\": \"nuevapassword\",\r\n  \"numberPhone\": 5559876543,\r\n  \"birthDate\": \"1988-07-15\",\r\n  \"address\": \"Avenida 456\",\r\n  \"events\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/organizers",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"organizers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener un organizador por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/organizers/{{organizer_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"organizers",
+								"{{organizer_id_1}}"
+							]
+						},
+						"description": "Obtiene los detalles de un organizador específico por su ID"
+					},
+					"response": [
+						{
+							"name": "Obtener un organizador por ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 1,\r\n  \"name\": \"Nuevo\",\r\n  \"lastName\": \"Organizador\",\r\n  \"email\": \"nuevo.org@example.com\",\r\n  \"password\": \"nuevapassword\",\r\n  \"numberPhone\": 5559876543,\r\n  \"birthDate\": \"1988-07-15\",\r\n  \"address\": \"Avenida 456\",\r\n  \"events\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/organizers/{{organizer_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"organizers",
+										"{{organizer_id_1}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener un organizador que no existe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/organizers/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"organizers",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Obtener un organizador que no existe",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The organizer with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/organizers/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"organizers",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Crear un nuevo organizador",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nuevo\",\n  \"lastName\": \"Organizador\",\n  \"email\": \"nuevo.org@example.com\",\n  \"password\": \"nuevapassword\",\n  \"numberPhone\": 5559876543,\n  \"birthDate\": \"1988-07-15\",\n  \"address\": \"Avenida 456\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/organizers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"organizers"
+							]
+						},
+						"description": "Crea un nuevo registro de organizador en el sistema"
+					},
+					"response": [
+						{
+							"name": "Crear un nuevo organizador",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"name\": \"Nuevo\",\n  \"lastName\": \"Organizador\",\n  \"email\": \"nuevo.org@example.com\",\n  \"password\": \"nuevapassword\",\n  \"numberPhone\": 5559876543,\n  \"birthDate\": \"1988-07-15\",\n  \"address\": \"Avenida 456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/organizers",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"organizers"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Actualizar un organizador",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Organizador Actualizado\",\n  \"lastName\": \"Uno\",\n  \"email\": \"org.actualizado@example.com\",\n  \"password\": \"nuevapassword\",\n  \"numberPhone\": 1234567890,\n  \"birthDate\": \"1985-01-01\",\n  \"address\": \"Calle 123 Actualizada\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/organizers/{{organizer_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"organizers",
+								"{{organizer_id_1}}"
+							]
+						},
+						"description": "Actualiza la información de un organizador existente"
+					},
+					"response": [
+						{
+							"name": "Actualizar un organizador",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"name\": \"Organizador Actualizado\",\n  \"lastName\": \"Uno\",\n  \"email\": \"org.actualizado@example.com\",\n  \"password\": \"nuevapassword\",\n  \"numberPhone\": 1234567890,\n  \"birthDate\": \"1985-01-01\",\n  \"address\": \"Calle 123 Actualizada\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/organizers/{{organizer_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"organizers",
+										"{{organizer_id_1}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Actualizar un organizador que no existe",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/organizers/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"organizers",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Actualizar un organizador que no existe",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The organizer with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/organizers/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"organizers",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Eliminar un organizador",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/organizers/{{organizer_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"organizers",
+								"{{organizer_id_1}}"
+							]
+						},
+						"description": "Elimina permanentemente un organizador del sistema"
+					},
+					"response": [
+						{
+							"name": "Eliminar un organizador",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/organizers/{{organizer_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"organizers",
+										"{{organizer_id_1}}"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Eliminar organizador que no existe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/organizers/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"organizers",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Eliminar organizador que no existe",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The organizer with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/organizers/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"organizers",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				}
+			],
+			"description": "Operaciones para gestionar organizadores"
+		},
+		{
+			"name": "PreferenceService",
+			"item": [
+				{
+					"name": "Obtener todas las preferencias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences"
+							]
+						},
+						"description": "Obtiene la lista completa de todas las preferencias registradas"
+					},
+					"response": [
+						{
+							"name": "Obtener todas las preferencias",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"description\": \"Nueva preferencia\",\r\n    \"assistants\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener una preferencia por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id_1}}"
+							]
+						},
+						"description": "Obtiene los detalles de una preferencia específica por su ID"
+					},
+					"response": [
+						{
+							"name": "Obtener una preferencia por ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"description\": \"Nueva preferencia\",\r\n    \"assistants\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id_1}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener una preferencia que no existe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Obtener una preferencia que no existe",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The preference with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Crear una nueva preferencia",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Nueva preferencia\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/preferences",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences"
+							]
+						},
+						"description": "Crea un nuevo registro de preferencia en el sistema"
+					},
+					"response": [
+						{
+							"name": "Crear una nueva preferencia",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"description\": \"Nueva preferencia\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Actualizar una preferencia",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Preferencia actualizada\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id_1}}"
+							]
+						},
+						"description": "Actualiza la información de una preferencia existente"
+					},
+					"response": [
+						{
+							"name": "Actualizar una preferencia",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"description\": \"Preferencia actualizada\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id_1}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Actualizar una preferencia que no existe",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Actualizar una preferencia que no existe",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The preference with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Eliminar una preferencia",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id_1}}"
+							]
+						},
+						"description": "Elimina permanentemente una preferencia del sistema"
+					},
+					"response": [
+						{
+							"name": "Eliminar una preferencia",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id_1}}"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Eliminar una preferencia que no existe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Eliminar una preferencia que no existe",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The preference with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				}
+			],
+			"description": "Operaciones para gestionar preferencias"
+		},
+		{
+			"name": "AssistantPreferenceService",
+			"item": [
+				{
+					"name": "Agregar una preferencia a un asistente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/{{preference_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"preferences",
+								"{{preference_id_1}}"
+							]
+						},
+						"description": "Establece una relación entre un asistente y una preferencia"
+					},
+					"response": [
+						{
+							"name": "Asociar una preferencia a un asistente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"description\": \"Preferencia\",\r\n    \"assistants\": [\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"Nuevo\",\r\n            \"lastName\": \"Asistente\",\r\n            \"email\": \"nuevo@example.com\",\r\n            \"password\": \"nuevapassword\",\r\n            \"numberPhone\": 5551234567,\r\n            \"birthDate\": \"1995-03-20\"  \r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/{{preference_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"preferences",
+										"{{preference_id_1}}"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Agregar una preferencia que no existe a un asistente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"preferences",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Asociar una preferencia que no existe a un asistente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"timestamp\": \"21-02-2023 10:15:29\",\r\n\r\n        \"message\": \"The preference with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"preferences",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener preferencias de un asistente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"preferences"
+							]
+						},
+						"description": "Obtiene todas las preferencias asociadas a un asistente específico"
+					},
+					"response": [
+						{
+							"name": "Obtener preferencias de un asistente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"description\": \"Prefencia\",\r\n    \"assistants\": [\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"Nuevo\",\r\n            \"lastName\": \"Asistente\",\r\n            \"email\": \"nuevo@example.com\",\r\n            \"password\": \"nuevapassword\",\r\n            \"numberPhone\": 5551234567,\r\n            \"birthDate\": \"1995-03-20\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"preferences"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener una preferencia específica de un asistente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/{{preference_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"preferences",
+								"{{preference_id_1}}"
+							]
+						},
+						"description": "Obtiene una preferencia específica asociada a un asistente"
+					},
+					"response": [
+						{
+							"name": "Obtener una preferencia específica de un asistente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"description\": \"Preferencia\",\r\n    \"assistants\": [\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"Nuevo\",\r\n            \"lastName\": \"Asistente\",\r\n            \"email\": \"nuevo@example.com\",\r\n            \"password\": \"nuevapassword\",\r\n            \"numberPhone\": 5551234567,\r\n            \"birthDate\": \"1995-03-20\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/{{preference_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"preferences",
+										"{{preference_id_1}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener una preferencia especifica que no existe de un asistente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"preferences",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Obtener una preferencia especifica que no existe de un asistente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"timestamp\": \"21-02-2023 10:17:39\",\r\n\r\n        \"message\": \"The preference with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"preferences",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener una preferencia que no esta asociada a un asistente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/{{preference_id_2}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"preferences",
+								"{{preference_id_2}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Obtener una preferencia que no esta asociada a un asistente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"PRECONDITION_FAILED\",\r\n\r\n        \"message\": \"The preference is not associated to the assistant\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/{{preference_id_2}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"preferences",
+										"{{preference_id_2}}"
+									]
+								}
+							},
+							"status": "Precondition Failed",
+							"code": 412,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Asociar preferencias a un asistente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": 3,\r\n        \"description\": \"Preferencia 3\"\r\n    },\r\n    {\r\n        \"id\": 4,\r\n        \"description\": \"Preferencia 4\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"preferences"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Asociar preferencias a un asistente",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"id\": 3,\r\n        \"description\": \"Preferencia 3\",\r\n        \"assistants\": []\r\n    },\r\n    {\r\n        \"id\": 4,\r\n        \"description\": \"Preferencia 4\",\r\n        \"assistants\": []\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"preferences"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Asociar preferencias que no existen a un asistant",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 0,\r\n    \"description\": \"Preferencia que no existe\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"preferences"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Asociar preferencias que no existen a un asistant",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The preference with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"preferences"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Borrar una preferencia de un asistente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/{{preference_id_2}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"preferences",
+								"{{preference_id_2}}"
+							]
+						},
+						"description": "Elimina la relación entre un asistente y una preferencia"
+					},
+					"response": [
+						{
+							"name": "Borrar una preferencia de un asistente",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/{{preference_id_2}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"preferences",
+										"{{preference_id_2}}"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Borrar una preferencia a un asistente que no existe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/0/artworks/{{artwork_id_2}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"0",
+								"artworks",
+								"{{artwork_id_2}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Borrar una preferencia a un asistente que no existe",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The assistant with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/0/artworks/{{artwork_id_2}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"0",
+										"artworks",
+										"{{artwork_id_2}}"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Borrar una preferencia que no existe de un asistente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"preferences",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Borrar una preferencia que no existe de un asistente",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The preference with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/assistants/{{assistant_id}}/preferences/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"preferences",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				}
+			],
+			"description": "Operaciones para gestionar asociaciones entre asistentes y preferencias"
+		},
+		{
+			"name": "PreferenceAssistantService",
+			"item": [
+				{
+					"name": "Agregar un asistente a una preferencia",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/{{assistant_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id}}",
+								"assistants",
+								"{{assistant_id_1}}"
+							]
+						},
+						"description": "Establece una relación entre una preferencia y un asistente"
+					},
+					"response": [
+						{
+							"name": "Agregar un asistente a una preferencia",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Nuevo\",\r\n    \"lastName\": \"Asistente\",\r\n    \"email\": \"nuevo@example.com\",\r\n    \"password\": \"nuevapassword\",\r\n    \"numberPhone\": 5551234567,\r\n    \"birthDate\": \"1995-03-20\",\r\n    \"preferences\": [\r\n        {\r\n            \"id\": 2,\r\n            \"description\": \"Preferencia\"\r\n        }\r\n    ] \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/{{assistant_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id}}",
+										"assistants",
+										"{{assistant_id_1}}"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Agregar un asistente que no existe a una preferencia",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id}}",
+								"assistants",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Agregar un asistente que no existe a una preferencia",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"timestamp\": \"21-02-2023 10:15:29\",\r\n\r\n        \"message\": \"The assistant with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id}}",
+										"assistants",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener un asistente específico de una preferencia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/{{assistant_id_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id}}",
+								"assistants",
+								"{{assistant_id_1}}"
+							]
+						},
+						"description": "Obtiene un asistente específico asociado a una preferencia"
+					},
+					"response": [
+						{
+							"name": "Obtener un asistente específico de una preferencia",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Nuevo\",\r\n    \"lastName\": \"Asistente\",\r\n    \"email\": \"nuevo@example.com\",\r\n    \"password\": \"nuevapassword\",\r\n    \"numberPhone\": 5551234567,\r\n    \"birthDate\": \"1995-03-20\",\r\n    \"preferences\": [\r\n        {\r\n            \"id\": 2,\r\n            \"description\": \"Preferencia\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/{{assistant_id_1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id}}",
+										"assistants",
+										"{{assistant_id_1}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener un asistente que no existe de una preferencia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id}}",
+								"assistants",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Obtener un asistente que no existe de una preferencia",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The assistant with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id}}",
+										"assistants",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener un asistente que no esta asociado a una preferencia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/{{assistant_id_2}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id}}",
+								"assistants",
+								"{{assistant_id_2}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Obtener un asistente que no esta asociado a una preferencia",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"PRECONDITION_FAILED\",\r\n\r\n        \"message\": \"The assistant is not associated to the preference\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/{{assistant_id_2}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id}}",
+										"assistants",
+										"{{assistant_id_2}}"
+									]
+								}
+							},
+							"status": "Precondition Failed",
+							"code": 412,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener asistentes de una preferencia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id}}/assistants",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id}}",
+								"assistants"
+							]
+						},
+						"description": "Obtiene todos los asistentes asociados a una preferencia específica"
+					},
+					"response": [
+						{
+							"name": "Obtener asistentes de una preferencia",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Nuevo\",\r\n    \"lastName\": \"Asistente\",\r\n    \"email\": \"nuevo@example.com\",\r\n    \"password\": \"nuevapassword\",\r\n    \"numberPhone\": 5551234567,\r\n    \"birthDate\": \"1995-03-20\",\r\n    \"preferences\": [\r\n        {\r\n            \"id\": 2,\r\n            \"description\": \"Preferencia\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id}}/assistants",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id}}",
+										"assistants"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Asociar asistentes a una preferencia",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": {{new_id_asistant_1}},\r\n        \"name\": \"Nuevo\",\r\n        \"lastName\": \"Asistente\",\r\n        \"email\": \"nuevo@example.com\",\r\n        \"password\": \"nuevapassword\",\r\n        \"numberPhone\": 5551234567,\r\n        \"birthDate\": \"1995-03-20\"\r\n    },\r\n    {\r\n       \"id\": {{new_id_asistant_2}},\r\n        \"name\": \"NuevoAssistente\",\r\n        \"lastName\": \"Asistente\",\r\n        \"email\": \"nuevo2@example.com\",\r\n        \"password\": \"nuevapassword2\",\r\n        \"numberPhone\": 55512345672,\r\n        \"birthDate\": \"1995-03-22\" \r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id}}/assistants",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id}}",
+								"assistants"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Asociar asistentes a una preferencia",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"id\": {{new_id_asistant_1}},\r\n        \"name\": \"Nuevo\",\r\n        \"lastName\": \"Asistente\",\r\n        \"email\": \"nuevo@example.com\",\r\n        \"password\": \"nuevapassword\",\r\n        \"numberPhone\": 5551234567,\r\n        \"birthDate\": \"1995-03-20\",\r\n        \"preferences\": []\r\n    },\r\n    {\r\n       \"id\": {{new_id_asistant_2}},\r\n        \"name\": \"NuevoAssistente\",\r\n        \"lastName\": \"Asistente\",\r\n        \"email\": \"nuevo2@example.com\",\r\n        \"password\": \"nuevapassword2\",\r\n        \"numberPhone\": 55512345672,\r\n        \"birthDate\": \"1995-03-22\",\r\n        \"preferences\": [] \r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id}}/assistants",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id}}",
+										"assistants"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Asociar asistentes que no existen a una preferencia",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 0,\r\n    \"name\": \"No existe\",\r\n    \"lastName\": \"Asistente\",\r\n    \"email\": \"nuevo@example.com\",\r\n    \"password\": \"nuevapassword\",\r\n    \"numberPhone\": 5551234567,\r\n    \"birthDate\": \"1995-03-20\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id}}/assistants",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id}}",
+								"assistants"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Asociar asistentes que no existen a una preferencia",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The assistant with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id}}/assistants",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id}}",
+										"assistants"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Borrar un asistente de una preferencia",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/{{assistant_id_2}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id}}",
+								"assistants",
+								"{{assistant_id_2}}"
+							]
+						},
+						"description": "Elimina la relación entre una preferencia y un asistente"
+					},
+					"response": [
+						{
+							"name": "Borrar un asistente de una preferencia",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/{{assistant_id_2}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id}}",
+										"assistants",
+										"{{assistant_id_2}}"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Borrar un asistente a una preferencia que no existe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/0/artworks/{{artwork_id_2}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"0",
+								"artworks",
+								"{{artwork_id_2}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Borrar un asistente a una preferencia que no existe",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The preference with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/0/artworks/{{artwork_id_2}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"0",
+										"artworks",
+										"{{artwork_id_2}}"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Borrar un asistente que no existe de una preferencia",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"preferences",
+								"{{preference_id}}",
+								"assistants",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Borrar un asistente que no existe de una preferencia",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The assistant with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/preferences/{{preference_id}}/assistants/0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"preferences",
+										"{{preference_id}}",
+										"assistants",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				}
+			],
+			"description": "Operaciones para gestionar asociaciones entre preferencias y asistentes"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080/api"
+		},
+		{
+			"key": "assistant_id_1\n",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "organizer_id_1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "preference_id_1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "assistant_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "preference_id_2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "preference_id\n",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
