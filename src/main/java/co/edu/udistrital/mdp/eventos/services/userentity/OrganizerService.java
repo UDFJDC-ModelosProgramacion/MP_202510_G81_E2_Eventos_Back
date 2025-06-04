@@ -91,7 +91,7 @@ public class OrganizerService {
         log.info("Inicia el proceso de actualización de un Organizer = {0}", organizerId);
         Optional<OrganizerEntity> organizer = organizerRepository.findById(organizerId);
         if(organizer.isEmpty()) {
-            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+            throw new EntityNotFoundException(ErrorMessage.ORGANIZER_NOT_FOUND);
         }
         organizerEntity.setId(organizerId);
         return organizerRepository.save(organizerEntity);
@@ -108,7 +108,7 @@ public class OrganizerService {
         log.info("Inicia el proceso de eliminación de un asistente = {0}", organizerId);
         Optional<OrganizerEntity> organizer = organizerRepository.findById(organizerId);
         if(organizer.isEmpty()) {
-            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+            throw new EntityNotFoundException(ErrorMessage.ORGANIZER_NOT_FOUND);
         }
         organizerRepository.delete(organizer.get());
         organizerRepository.deleteById(organizerId);;
