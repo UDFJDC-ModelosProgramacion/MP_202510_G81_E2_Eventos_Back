@@ -98,6 +98,11 @@ public class AssistantPreferenceController {
 
 	}
 
+    // Agregar metodos para PUT Asociar preferencias a un asistente
+    // Agregar metodos para PUT Asociar preferencias que no existen a un asistant
+    // Agregar metodos para DELETE Desasociar preferencias a un asistente
+
+
 	/**
 	 * Elimina la conexión entre el libro y e autor recibidos en la URL.
 	 *
