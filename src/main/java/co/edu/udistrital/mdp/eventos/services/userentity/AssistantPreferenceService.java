@@ -72,6 +72,32 @@ public class AssistantPreferenceService {
 		return assistantEntity.get().getPreferences();
 	}
 
+		/**
+	 * Remplaza las instancias de Book asociadas a una instancia de Author
+	 *
+	 * @param authorId Identificador de la instancia de Author
+	 * @param books    Colección de instancias de BookEntity a asociar a instancia
+	 *                 de Author
+	 * @return Nueva colección de BookEntity asociada a la instancia de Author
+	 */
+	@Transactional
+	public List<PreferenceEntity> addPreferences(Long assistantId, List<PreferenceEntity> preferences) throws EntityNotFoundException {
+		log.info("Inicia proceso de reemplazar los libros asociados al author con id = {0}", assistantId);
+		Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
+		if (assistantEntity.isEmpty())
+			throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+
+		for (PreferenceEntity preference : preferences) {
+			Optional<PreferenceEntity> preferenceEntity = preferenceRepository.findById(preference.getId());
+			if (preferenceEntity.isEmpty())
+				throw new EntityNotFoundException(ErrorMessage.PREFERENCE_NOT_FOUND);
+
+		}
+		log.info("Finaliza proceso de reemplazar las preferencias asociados al assistant con id = {0}", assistantId);
+		assistantEntity.get().setPreferences(preferences);
+		return assistantEntity.get().getPreferences();
+	}
+
     /*
 	 * Obtiene una instancia de PreferenceEntity asociada a una instancia de Assistant
 	 *
