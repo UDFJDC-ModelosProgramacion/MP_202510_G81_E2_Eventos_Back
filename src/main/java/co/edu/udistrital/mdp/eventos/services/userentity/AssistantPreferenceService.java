@@ -81,7 +81,7 @@ public class AssistantPreferenceService {
 	 * @return Nueva colección de PreferenceEntity asociada a la instancia de Assistant
 	 */
 	@Transactional
-	public List<PreferenceEntity> addPreferences(Long assistantId, List<PreferenceEntity> preferences) throws EntityNotFoundException {
+	public List<PreferenceEntity> replacePreferences(Long assistantId, List<PreferenceEntity> preferences) throws EntityNotFoundException {
 		log.info("Inicia proceso de reemplazar los libros asociados al author con id = {0}", assistantId);
 		Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
 		if (assistantEntity.isEmpty())

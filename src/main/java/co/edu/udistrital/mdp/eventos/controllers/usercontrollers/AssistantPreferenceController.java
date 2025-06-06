@@ -93,7 +93,7 @@ public class AssistantPreferenceController {
 			throws EntityNotFoundException {
 		List<PreferenceEntity> entities = modelMapper.map(preferences, new TypeToken<List<PreferenceEntity>>() {
 		}.getType());
-		List<PreferenceEntity> preferencesList = assistantPreferenceService.addPreferences(assistantId, entities);
+		List<PreferenceEntity> preferencesList = assistantPreferenceService.replacePreferences(assistantId, entities);
 		return modelMapper.map(preferencesList, new TypeToken<List<PreferenceDetailDTO>>() {
 		}.getType());
 

@@ -259,7 +259,7 @@ public class AssistantPreferenceServiceTest {
             newPreferences.add(preference);
         }
 
-        List<PreferenceEntity> result = assistantPreferenceService.addPreferences(assistant.getId(), newPreferences);
+        List<PreferenceEntity> result = assistantPreferenceService.replacePreferences(assistant.getId(), newPreferences);
 
         assertEquals(newPreferences.size(), result.size());
         assertTrue(result.containsAll(newPreferences));
@@ -278,7 +278,7 @@ public class AssistantPreferenceServiceTest {
         List<PreferenceEntity> preferences = List.of(preference);
 
         assertThrows(EntityNotFoundException.class, () -> {
-            assistantPreferenceService.addPreferences(999L, preferences);
+            assistantPreferenceService.replacePreferences(999L, preferences);
         });
     }
 
@@ -295,8 +295,7 @@ public class AssistantPreferenceServiceTest {
         List<PreferenceEntity> preferences = List.of(invalidPreference);
 
         assertThrows(EntityNotFoundException.class, () -> {
-            assistantPreferenceService.addPreferences(assistant.getId(), preferences);
+            assistantPreferenceService.replacePreferences(assistant.getId(), preferences);
         });
     }
-
 }
