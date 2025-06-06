@@ -26,7 +26,8 @@ import co.edu.udistrital.mdp.eventos.services.userentity.AssistantPreferenceServ
 @RestController
 @RequestMapping("/assistants")
 public class AssistantPreferenceController {
-    	@Autowired
+	
+	@Autowired
 	private AssistantPreferenceService assistantPreferenceService;
 
 	@Autowired
