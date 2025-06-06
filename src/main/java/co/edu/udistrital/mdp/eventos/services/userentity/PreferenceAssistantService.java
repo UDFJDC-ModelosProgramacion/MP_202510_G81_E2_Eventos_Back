@@ -2,6 +2,7 @@ package co.edu.udistrital.mdp.eventos.services.userentity;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -118,4 +119,28 @@ public class PreferenceAssistantService {
 
 		log.info("Termina proceso de borrar un assistant con preferenceId = {0}", preferenceId);
 	}
+
+	@Transactional
+	public List<AssistantEntity> replaceAssistants(Long preferenceId, List<AssistantEntity> assistants)
+        throws EntityNotFoundException {
+        log.info("Inicia proceso de reemplazar asistentes en preference con id = {0}", preferenceId);
+        Optional<PreferenceEntity> preferenceEntity = preferenceRepository.findById(preferenceId);
+        if (preferenceEntity.isEmpty())
+            throw new EntityNotFoundException(ErrorMessage.PREFERENCE_NOT_FOUND);
+            
+        for (AssistantEntity assistant : assistants) {
+            if (!assistantRepository.existsById(assistant.getId())) {
+                throw new EntityNotFoundException("Assistant with id " + assistant.getId() + " not found.");
+            }
+        }
+    
+        List<AssistantEntity> attachedAssistants = assistants.stream()
+                .map(a -> assistantRepository.findById(a.getId()).get())
+                .collect(Collectors.toList());
+    
+        preferenceEntity.get().setAssistants(attachedAssistants);
+        log.info("Finaliza proceso de reemplazo de asistentes");
+        return attachedAssistants;
+    }
+
 }

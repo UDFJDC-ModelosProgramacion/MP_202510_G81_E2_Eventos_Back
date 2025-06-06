@@ -79,7 +79,7 @@ public class PreferenceService {
         log.info("Inicia el proceso de obtencion de un asistente = {0}", preferenceId);
         Optional<PreferenceEntity> preferenceEntity = preferenceRepository.findById(preferenceId);
         if(preferenceEntity.isEmpty()) {
-            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+            throw new EntityNotFoundException(ErrorMessage.PREFERENCE_NOT_FOUND);
         }
         log.info("Termina proceso de obtencion de un asistente = {0}", preferenceId);
         return preferenceEntity.get();
@@ -116,7 +116,7 @@ public class PreferenceService {
         log.info("Inicia el proceso de eliminación de una preferencia = {0}", preferenceId);
         Optional<PreferenceEntity> preference = preferenceRepository.findById(preferenceId);
         if(preference.isEmpty()) {
-            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+            throw new EntityNotFoundException(ErrorMessage.PREFERENCE_NOT_FOUND);
         }
         preferenceRepository.delete(preference.get());
         preferenceRepository.deleteById(preferenceId);;

@@ -8,6 +8,6 @@ import co.edu.udistrital.mdp.eventos.dto.eventdto.EventDTO;
 import lombok.Data;
 
 @Data
-public class OrganizerDetailDTO {
+public class OrganizerDetailDTO extends OrganizerDTO{
     private List<EventDTO> events = new ArrayList<>();
 }

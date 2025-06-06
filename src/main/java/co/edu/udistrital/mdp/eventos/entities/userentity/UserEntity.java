@@ -19,6 +19,6 @@ public class UserEntity extends BaseEntity{
     String lastName;
     String email;
     String password;
-    Integer numberPhone;
+    String numberPhone;
     Date birthDate;  
 }

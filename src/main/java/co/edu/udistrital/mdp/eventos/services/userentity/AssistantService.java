@@ -88,14 +88,14 @@ public class AssistantService {
 	 */
 
     @Transactional
-    public AssistantEntity updateAssistant(Long assistantId, AssistantEntity assistantEntity) throws EntityNotFoundException {
+    public AssistantEntity updateAssistant(Long assistantId, AssistantEntity assistant) throws EntityNotFoundException {
         log.info("Inicia el proceso de actualización de un asistente = {0}", assistantId);
-        Optional<AssistantEntity> assistant = assistantRepository.findById(assistantId);
-        if(assistant.isEmpty()) {
+        Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
+        if(assistantEntity.isEmpty()) {
             throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
         }
-        assistantEntity.setId(assistantId);
-        return assistantRepository.save(assistantEntity);
+        assistant.setId(assistantId);
+        return assistantRepository.save(assistant);
     }
 
     /*
