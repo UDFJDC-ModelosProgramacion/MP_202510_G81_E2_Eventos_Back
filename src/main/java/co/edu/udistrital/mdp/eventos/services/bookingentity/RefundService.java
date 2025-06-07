@@ -3,15 +3,16 @@ package co.edu.udistrital.mdp.eventos.services.bookingentity;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.RefundEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.repositories.RefundRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
 
 @Service
 public class RefundService {
+
     @Autowired
     private RefundRepository refundRepository;
 
@@ -19,6 +20,9 @@ public class RefundService {
     public RefundEntity createRefund(RefundEntity refund) {
         if (refund.getDate() == null) {
             throw new IllegalArgumentException("Refund date must be specified");
+        }
+        if (refund.getReason() == null || refund.getReason().trim().isEmpty()) {
+            throw new IllegalArgumentException("Refund reason must be specified");
         }
         return refundRepository.save(refund);
     }
@@ -35,10 +39,17 @@ public class RefundService {
     @Transactional
     public RefundEntity updateRefund(Long id, RefundEntity refund) throws EntityNotFoundException {
         RefundEntity existing = getRefund(id);
+
         if (refund.getDate() == null) {
             throw new IllegalArgumentException("Refund date must be specified");
         }
+        if (refund.getReason() == null || refund.getReason().trim().isEmpty()) {
+            throw new IllegalArgumentException("Refund reason must be specified");
+        }
+
         existing.setDate(refund.getDate());
+        existing.setReason(refund.getReason());
+
         return refundRepository.save(existing);
     }
 
@@ -48,4 +59,3 @@ public class RefundService {
         refundRepository.delete(refund);
     }
 }
-

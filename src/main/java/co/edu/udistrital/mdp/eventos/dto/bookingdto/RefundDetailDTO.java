@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class RefundDetailDTO extends RefundDTO {
-    private PurchaseDTO purchase;  // Reembolso asociado a una compra
+    private PurchaseDTO purchase;  
 }

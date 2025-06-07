@@ -1,101 +1,105 @@
 package co.edu.udistrital.mdp.eventos.services;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.PurchaseEntity;
+import co.edu.udistrital.mdp.eventos.repositories.PurchaseRepository;
 import co.edu.udistrital.mdp.eventos.services.bookingentity.PurchaseService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
-@Transactional
-public class PurchaseServiceTest {
+class PurchaseServiceTest {
 
     @Autowired
     private PurchaseService purchaseService;
 
-    @Test
-    public void createPurchaseCorrectTest() {
-        PurchaseEntity purchase = new PurchaseEntity();
-        purchase.setRemainingSeats(7);
+    @Autowired
+    private PurchaseRepository purchaseRepository;
 
-        PurchaseEntity result = purchaseService.createPurchase(purchase);
-        Assertions.assertNotNull(result.getId());
+    private PurchaseEntity samplePurchase;
+
+    @BeforeEach
+    void setUp() {
+        purchaseRepository.deleteAll();
+
+        samplePurchase = new PurchaseEntity();
+        samplePurchase.setRemainingSeats(10);
+        purchaseRepository.save(samplePurchase);
     }
 
     @Test
-    public void createPurchaseInvalidTest() {
-        PurchaseEntity purchase = new PurchaseEntity();
-        purchase.setRemainingSeats(-3);
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            purchaseService.createPurchase(purchase);
-        });
+    @DisplayName("Debe crear una compra con datos válidos")
+    void createPurchaseValidTest() {
+        PurchaseEntity newPurchase = new PurchaseEntity();
+        newPurchase.setRemainingSeats(5);
+        PurchaseEntity saved = purchaseService.createPurchase(newPurchase);
+        assertNotNull(saved.getId());
+        assertEquals(5, saved.getRemainingSeats());
     }
 
     @Test
-    public void updatePurchaseCorrectTest() {
-        PurchaseEntity purchase = new PurchaseEntity();
-        purchase.setRemainingSeats(4);
-        purchase = purchaseService.createPurchase(purchase);
-
-        purchase.setRemainingSeats(9);
-        PurchaseEntity updated = purchaseService.updatePurchase(purchase.getId(), purchase);
-        Assertions.assertEquals(9, updated.getRemainingSeats());
+    @DisplayName("No debe permitir crear una compra con asientos negativos")
+    void createPurchaseInvalidTest() {
+        PurchaseEntity newPurchase = new PurchaseEntity();
+        newPurchase.setRemainingSeats(-2);
+        assertThrows(IllegalArgumentException.class, () -> purchaseService.createPurchase(newPurchase));
     }
 
     @Test
-    public void updatePurchaseInvalidTest() {
-        PurchaseEntity purchase = new PurchaseEntity();
-        purchase.setRemainingSeats(6);
-        purchase = purchaseService.createPurchase(purchase);
-
-        purchase.setRemainingSeats(-5);
-
-        PurchaseEntity finalPurchase = purchase;
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            purchaseService.updatePurchase(finalPurchase.getId(), finalPurchase);
-        });
+    @DisplayName("Debe obtener correctamente una compra existente")
+    void getPurchaseValidTest() {
+        PurchaseEntity found = purchaseService.getPurchase(samplePurchase.getId());
+        assertEquals(samplePurchase.getId(), found.getId());
     }
 
     @Test
-    public void getPurchaseCorrectTest() {
-        PurchaseEntity purchase = new PurchaseEntity();
-        purchase.setRemainingSeats(5);
-        purchase = purchaseService.createPurchase(purchase);
-
-        PurchaseEntity found = purchaseService.getPurchase(purchase.getId());
-        Assertions.assertNotNull(found);
+    @DisplayName("Debe lanzar excepción si no se encuentra la compra")
+    void getPurchaseNotFoundTest() {
+        assertThrows(EntityNotFoundException.class, () -> purchaseService.getPurchase(999L));
     }
 
     @Test
-    public void getPurchaseNotFoundTest() {
-        Assertions.assertThrows(EntityNotFoundException.class, () -> {
-            purchaseService.getPurchase(999L);
-        });
+    @DisplayName("Debe actualizar correctamente una compra existente")
+    void updatePurchaseValidTest() {
+        PurchaseEntity updated = new PurchaseEntity();
+        updated.setRemainingSeats(7);
+        PurchaseEntity result = purchaseService.updatePurchase(samplePurchase.getId(), updated);
+        assertEquals(7, result.getRemainingSeats());
     }
 
     @Test
-    public void deletePurchaseCorrectTest() {
-        PurchaseEntity purchase = new PurchaseEntity();
-        purchase.setRemainingSeats(3);
-        purchase = purchaseService.createPurchase(purchase);
-
-        Long purchaseId = purchase.getId();
-
-        purchaseService.deletePurchase(purchaseId);
-
-        Assertions.assertThrows(EntityNotFoundException.class, () -> {
-            purchaseService.getPurchase(purchaseId);
-        });
+    @DisplayName("No debe permitir actualizar una compra con asientos negativos")
+    void updatePurchaseInvalidTest() {
+        PurchaseEntity updated = new PurchaseEntity();
+        updated.setRemainingSeats(-10);
+        assertThrows(IllegalArgumentException.class, () ->
+                purchaseService.updatePurchase(samplePurchase.getId(), updated));
     }
 
     @Test
-    public void deletePurchaseNotFoundTest() {
-        Assertions.assertThrows(EntityNotFoundException.class, () -> {
-            purchaseService.deletePurchase(999L);
-        });
+    @DisplayName("Debe eliminar correctamente una compra existente")
+    void deletePurchaseValidTest() {
+        purchaseService.deletePurchase(samplePurchase.getId());
+        assertFalse(purchaseRepository.findById(samplePurchase.getId()).isPresent());
+    }
+
+    @Test
+    @DisplayName("Debe lanzar excepción si se intenta eliminar una compra inexistente")
+    void deletePurchaseNotFoundTest() {
+        assertThrows(EntityNotFoundException.class, () -> purchaseService.deletePurchase(999L));
+    }
+
+    @Test
+    @DisplayName("Debe obtener todas las compras registradas")
+    void getAllPurchasesTest() {
+        List<PurchaseEntity> all = purchaseService.getPurchases();
+        assertFalse(all.isEmpty());
     }
 }

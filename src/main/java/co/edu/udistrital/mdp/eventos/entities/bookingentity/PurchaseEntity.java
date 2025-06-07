@@ -1,16 +1,13 @@
 package co.edu.udistrital.mdp.eventos.entities.bookingentity;
 
-/*
- * El paquete co.edu.udistrital.mdp.eventos.entities.bookingentity 
- * contiene las entidades BookingEntity, NotificationEntity, PurchaseEntity, RefundEntity y PromoEntity
- */
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
 import co.edu.udistrital.mdp.eventos.entities.paymententity.MethodOfPaymentEntity;
 import co.edu.udistrital.mdp.eventos.entities.userentity.AssistantEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -20,8 +17,8 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
-
 public class PurchaseEntity extends BaseEntity {
+
     @PodamExclude
     @OneToMany(mappedBy = "purchase")
     private List<PromoEntity> promos = new ArrayList<>();
@@ -36,11 +33,15 @@ public class PurchaseEntity extends BaseEntity {
 
     @PodamExclude
     @OneToOne
-    private RefundEntity refund;    
+    private RefundEntity refund;
 
     @PodamExclude
     @OneToOne
     private MethodOfPaymentEntity methodOfPayment;
 
-    Integer remainingSeats;
+    private Integer remainingSeats;
+
+    private Double amount;
+
+    private LocalDateTime purchaseDate;
 }

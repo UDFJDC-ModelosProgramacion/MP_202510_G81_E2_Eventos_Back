@@ -1,101 +1,101 @@
 package co.edu.udistrital.mdp.eventos.services;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.NotificationEntity;
+import co.edu.udistrital.mdp.eventos.repositories.NotificationRepository;
 import co.edu.udistrital.mdp.eventos.services.bookingentity.NotificationService;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import jakarta.persistence.EntityNotFoundException;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
-@Transactional
 public class NotificationServiceTest {
 
     @Autowired
-    private NotificationService notificationService;
+    private NotificationService service;
 
-    @Test
-    public void createNotificationCorrectTest() {
+    @Autowired
+    private NotificationRepository repository;
+
+    private NotificationEntity savedNotification;
+
+    @BeforeEach
+    void setUp() {
+        repository.deleteAll();
         NotificationEntity notification = new NotificationEntity();
-        notification.setDescription("Notification Test");
-
-        NotificationEntity result = notificationService.createNotification(notification);
-        Assertions.assertNotNull(result.getId());
+        notification.setDescription("Notificación inicial");
+        savedNotification = service.createNotification(notification);
     }
 
     @Test
-    public void createNotificationInvalidTest() {
+    @DisplayName("Debe crear una notificación con datos válidos")
+    void createNotificationValidTest() {
+        NotificationEntity notification = new NotificationEntity();
+        notification.setDescription("Nueva notificación");
+        NotificationEntity created = service.createNotification(notification);
+        assertNotNull(created.getId());
+        assertEquals("Nueva notificación", created.getDescription());
+    }
+
+    @Test
+    @DisplayName("No debe permitir crear una notificación con descripción vacía")
+    void createNotificationInvalidTest() {
         NotificationEntity notification = new NotificationEntity();
         notification.setDescription("");
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            notificationService.createNotification(notification);
-        });
+        assertThrows(IllegalArgumentException.class, () ->
+            service.createNotification(notification));
     }
 
     @Test
-    public void updateNotificationCorrectTest() {
-        NotificationEntity notification = new NotificationEntity();
-        notification.setDescription("Original");
-        notification = notificationService.createNotification(notification);
-
-        notification.setDescription("Updated");
-        NotificationEntity updated = notificationService.updateNotification(notification.getId(), notification);
-        Assertions.assertEquals("Updated", updated.getDescription());
+    @DisplayName("Debe obtener correctamente una notificación existente")
+    void getNotificationValidTest() {
+        NotificationEntity found = service.getNotification(savedNotification.getId());
+        assertEquals(savedNotification.getId(), found.getId());
+        assertEquals(savedNotification.getDescription(), found.getDescription());
     }
 
     @Test
-    public void updateNotificationInvalidTest() {
-        NotificationEntity notification = new NotificationEntity();
-        notification.setDescription("Valid");
-        notification = notificationService.createNotification(notification);
-
-        notification.setDescription("");
-
-        NotificationEntity finalNotification = notification;
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            notificationService.updateNotification(finalNotification.getId(), finalNotification);
-        });
+    @DisplayName("Debe lanzar excepción si la notificación no existe")
+    void getNotificationNotFoundTest() {
+        assertThrows(EntityNotFoundException.class, () ->
+            service.getNotification(999L));
     }
 
     @Test
-    public void getNotificationCorrectTest() {
-        NotificationEntity notification = new NotificationEntity();
-        notification.setDescription("Get Test");
-        notification = notificationService.createNotification(notification);
-
-        NotificationEntity found = notificationService.getNotification(notification.getId());
-        Assertions.assertNotNull(found);
+    @DisplayName("Debe actualizar correctamente una notificación existente")
+    void updateNotificationValidTest() {
+        NotificationEntity updated = new NotificationEntity();
+        updated.setDescription("Actualizada");
+        NotificationEntity result = service.updateNotification(savedNotification.getId(), updated);
+        assertEquals("Actualizada", result.getDescription());
     }
 
     @Test
-    public void getNotificationNotFoundTest() {
-        Assertions.assertThrows(EntityNotFoundException.class, () -> {
-            notificationService.getNotification(999L);
-        });
+    @DisplayName("No debe permitir actualizar una notificación con descripción vacía")
+    void updateNotificationInvalidTest() {
+        NotificationEntity updated = new NotificationEntity();
+        updated.setDescription("");
+        assertThrows(IllegalArgumentException.class, () ->
+            service.updateNotification(savedNotification.getId(), updated));
     }
 
     @Test
-    public void deleteNotificationCorrectTest() {
-        NotificationEntity notification = new NotificationEntity();
-        notification.setDescription("Delete Test");
-        notification = notificationService.createNotification(notification);
-
-        Long notificationId = notification.getId();
-
-        notificationService.deleteNotification(notificationId);
-
-        Assertions.assertThrows(EntityNotFoundException.class, () -> {
-            notificationService.getNotification(notificationId);
-        });
+    @DisplayName("Debe eliminar correctamente una notificación existente")
+    void deleteNotificationValidTest() {
+        service.deleteNotification(savedNotification.getId());
+        assertThrows(EntityNotFoundException.class, () ->
+            service.getNotification(savedNotification.getId()));
     }
 
     @Test
-    public void deleteNotificationNotFoundTest() {
-        Assertions.assertThrows(EntityNotFoundException.class, () -> {
-            notificationService.deleteNotification(999L);
-        });
+    @DisplayName("Debe lanzar excepción si se intenta eliminar una notificación inexistente")
+    void deleteNotificationNotFoundTest() {
+        assertThrows(EntityNotFoundException.class, () ->
+            service.deleteNotification(999L));
     }
 }

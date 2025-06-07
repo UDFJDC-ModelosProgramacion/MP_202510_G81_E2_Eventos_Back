@@ -1,10 +1,5 @@
 package co.edu.udistrital.mdp.eventos.entities.bookingentity;
 
-/*
- * El paquete co.edu.udistrital.mdp.eventos.entities.bookingentity 
- * contiene las entidades BookingEntity, NotificationEntity, PurchaseEntity, RefundEntity y PromoEntity
- */
-
 import java.util.Date;
 
 import co.edu.udistrital.mdp.eventos.entities.BaseEntity;
@@ -15,11 +10,13 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
-
-public class RefundEntity extends BaseEntity{
+public class RefundEntity extends BaseEntity {
+    
     @PodamExclude
     @OneToOne(mappedBy = "refund")
     private PurchaseEntity purchase;
 
-    Date date;
+    private Date date;
+
+    private String reason;
 }

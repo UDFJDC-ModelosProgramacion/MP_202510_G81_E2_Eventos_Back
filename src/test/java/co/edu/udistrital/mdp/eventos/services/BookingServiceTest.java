@@ -4,10 +4,12 @@ import co.edu.udistrital.mdp.eventos.entities.bookingentity.BookingEntity;
 import co.edu.udistrital.mdp.eventos.services.bookingentity.BookingService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -17,85 +19,87 @@ public class BookingServiceTest {
     private BookingService bookingService;
 
     @Test
-    public void createBookingCorrectTest() {
+    @DisplayName("Debe crear una reserva con datos válidos")
+    public void createBookingValidTest() {
         BookingEntity booking = new BookingEntity();
         booking.setRemainingSeats(5);
 
         BookingEntity result = bookingService.createBooking(booking);
-        Assertions.assertNotNull(result.getId());
+
+        assertNotNull(result.getId());
+        assertEquals(5, result.getRemainingSeats());
     }
 
     @Test
+    @DisplayName("No debe permitir crear una reserva con asientos negativos")
     public void createBookingInvalidTest() {
         BookingEntity booking = new BookingEntity();
         booking.setRemainingSeats(-1);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            bookingService.createBooking(booking);
-        });
+        assertThrows(IllegalArgumentException.class, () -> bookingService.createBooking(booking));
     }
 
     @Test
-    public void updateBookingCorrectTest() {
+    @DisplayName("Debe actualizar correctamente una reserva existente")
+    public void updateBookingValidTest() {
         BookingEntity booking = new BookingEntity();
         booking.setRemainingSeats(10);
         booking = bookingService.createBooking(booking);
 
         booking.setRemainingSeats(20);
         BookingEntity updated = bookingService.updateBooking(booking.getId(), booking);
-        Assertions.assertEquals(20, updated.getRemainingSeats());
+
+        assertEquals(20, updated.getRemainingSeats());
     }
 
     @Test
+    @DisplayName("No debe permitir actualizar una reserva con asientos negativos")
     public void updateBookingInvalidTest() {
         BookingEntity booking = new BookingEntity();
         booking.setRemainingSeats(10);
         booking = bookingService.createBooking(booking);
 
-        booking.setRemainingSeats(-10);
+        booking.setRemainingSeats(-5);
 
-        BookingEntity finalBooking = booking; 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            bookingService.updateBooking(finalBooking.getId(), finalBooking);
-        });
+        BookingEntity finalBooking = booking;
+        assertThrows(IllegalArgumentException.class, () -> bookingService.updateBooking(finalBooking.getId(), finalBooking));
     }
 
     @Test
-    public void getBookingCorrectTest() {
+    @DisplayName("Debe obtener correctamente una reserva existente")
+    public void getBookingValidTest() {
         BookingEntity booking = new BookingEntity();
         booking.setRemainingSeats(8);
         booking = bookingService.createBooking(booking);
 
         BookingEntity found = bookingService.getBooking(booking.getId());
-        Assertions.assertNotNull(found);
+
+        assertNotNull(found);
+        assertEquals(8, found.getRemainingSeats());
     }
 
     @Test
+    @DisplayName("Debe lanzar excepción si la reserva no existe")
     public void getBookingNotFoundTest() {
-        Assertions.assertThrows(EntityNotFoundException.class, () -> {
-            bookingService.getBooking(999L);
-        });
+        assertThrows(EntityNotFoundException.class, () -> bookingService.getBooking(999L));
     }
 
     @Test
-    public void deleteBookingCorrectTest() {
+    @DisplayName("Debe eliminar correctamente una reserva existente")
+    public void deleteBookingValidTest() {
         BookingEntity booking = new BookingEntity();
         booking.setRemainingSeats(6);
         booking = bookingService.createBooking(booking);
-    
-        Long bookingId = booking.getId(); 
-    
+
+        Long bookingId = booking.getId();
         bookingService.deleteBooking(bookingId);
-    
-        Assertions.assertThrows(EntityNotFoundException.class, () -> {
-            bookingService.getBooking(bookingId);
-        });
+
+        assertThrows(EntityNotFoundException.class, () -> bookingService.getBooking(bookingId));
     }
-    
+
     @Test
+    @DisplayName("Debe lanzar excepción si se intenta eliminar una reserva inexistente")
     public void deleteBookingNotFoundTest() {
-        Assertions.assertThrows(EntityNotFoundException.class, () -> {
-            bookingService.deleteBooking(999L);
-        });
+        assertThrows(EntityNotFoundException.class, () -> bookingService.deleteBooking(999L));
     }
 }

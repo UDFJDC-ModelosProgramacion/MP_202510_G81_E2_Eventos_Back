@@ -30,6 +30,6 @@ public class BookingEntity extends BaseEntity {
     @OneToOne
     private NotificationEntity notification;
 
-    Integer remainingSeats;
+    private Integer remainingSeats;
     
 }

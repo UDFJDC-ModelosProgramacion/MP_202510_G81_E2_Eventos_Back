@@ -17,7 +17,6 @@ public class BookingService {
 
     @Transactional
     public BookingEntity createBooking(BookingEntity booking) {
-        // Puedes validar reglas de negocio aquí
         if (booking.getRemainingSeats() == null || booking.getRemainingSeats() < 0) {
             throw new IllegalArgumentException("Remaining seats must be non-negative");
         }
