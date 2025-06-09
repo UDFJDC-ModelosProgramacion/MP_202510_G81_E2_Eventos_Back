@@ -15,5 +15,5 @@ import lombok.Data;
 
 @DiscriminatorValue("CREDIT_CARD")
 public class CreditCardEntity extends CardEntity {
-    Integer installments;
+    
 }
