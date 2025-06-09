@@ -17,6 +17,7 @@ import lombok.Data;
 public class MobileWalletEntity extends MethodOfPaymentEntity {
     Integer phoneAccount;
     String typeOfWallet;
+    //nuevo
     Integer otpCode;
     Integer identityDocument;
     String email;
