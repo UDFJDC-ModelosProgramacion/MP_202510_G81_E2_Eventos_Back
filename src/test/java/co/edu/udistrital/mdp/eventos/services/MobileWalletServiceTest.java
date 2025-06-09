@@ -66,7 +66,7 @@ public class MobileWalletServiceTest {
 
         assertEquals(newEntity.getPhoneAccount(), entity.getPhoneAccount());
         assertEquals(newEntity.getTypeOfWallet(), entity.getTypeOfWallet());
-        assertEquals(newEntity.getOTPCode(), entity.getOTPCode());
+        assertEquals(newEntity.getOtpCode(), entity.getOtpCode());
         assertEquals(newEntity.getIdentityDocument(), entity.getIdentityDocument());
         assertEquals(newEntity.getEmail(), entity.getEmail());
     }
@@ -113,7 +113,7 @@ public class MobileWalletServiceTest {
 
         assertEquals(resultEntity.getPhoneAccount(), entity.getPhoneAccount());
         assertEquals(resultEntity.getTypeOfWallet(), entity.getTypeOfWallet());
-        assertEquals(resultEntity.getOTPCode(), entity.getOTPCode());
+        assertEquals(resultEntity.getOtpCode(), entity.getOtpCode());
         assertEquals(resultEntity.getIdentityDocument(), entity.getIdentityDocument());
         assertEquals(resultEntity.getEmail(), entity.getEmail());
     }
@@ -140,7 +140,8 @@ public class MobileWalletServiceTest {
 
         assertEquals(pojoEntity.getPhoneAccount(), resp.getPhoneAccount());
         assertEquals(pojoEntity.getTypeOfWallet(), resp.getTypeOfWallet());
-        assertEquals(pojoEntity.getOTPCode(), resp.getOTPCode());
+        //assertEquals(pojoEntity.getOTPCode(), resp.getOTPCode());
+        assertEquals(pojoEntity.getOtpCode(), resp.getOtpCode());
         assertEquals(pojoEntity.getIdentityDocument(), resp.getIdentityDocument());
         assertEquals(pojoEntity.getEmail(), resp.getEmail());
     }
