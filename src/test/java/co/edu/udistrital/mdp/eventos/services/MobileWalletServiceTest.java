@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Import;
 import co.edu.udistrital.mdp.eventos.entities.paymententity.MobileWalletEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
+import co.edu.udistrital.mdp.eventos.services.paymententity.MobileWalletService;
 import jakarta.transaction.Transactional;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
