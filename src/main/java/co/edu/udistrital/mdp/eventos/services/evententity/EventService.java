@@ -29,27 +29,27 @@ public class EventService {
     @Transactional
     public EventEntity createEvent(EventEntity event) throws EntityNotFoundException {
         log.info("Inicia el proceso de creación de un evento");
-
-        
+    
         if (event.getName() == null || event.getName().isBlank()) {
             throw new IllegalArgumentException("El nombre del evento es obligatorio.");
         }
         if (event.getDate() == null) {
             throw new IllegalArgumentException("La fecha del evento es obligatoria.");
         }
-
-        // Validar organizador
-        if (event.getOrganizer() != null && event.getOrganizer().getId() != null) {
-            Optional<OrganizerEntity> organizer = organizerRepository.findById(event.getOrganizer().getId());
-            if (organizer.isEmpty()) {
-                throw new EntityNotFoundException("El organizador asociado no existe.");
-            }
-            event.setOrganizer(organizer.get());
+        if (event.getOrganizer() == null || event.getOrganizer().getId() == null) {
+            throw new IllegalArgumentException("El organizador del evento es obligatorio.");
         }
-
+    
+        Optional<OrganizerEntity> organizer = organizerRepository.findById(event.getOrganizer().getId());
+        if (organizer.isEmpty()) {
+            throw new EntityNotFoundException("El organizador asociado no existe.");
+        }
+        event.setOrganizer(organizer.get());
+    
         log.info("Evento creado con id={}", event.getId());
         return eventRepository.save(event);
     }
+
 
     @Transactional(readOnly = true)
     public List<EventEntity> getAllEvents() {
