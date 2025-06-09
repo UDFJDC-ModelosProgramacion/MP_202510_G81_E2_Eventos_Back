@@ -1,5 +1,7 @@
 package co.edu.udistrital.mdp.eventos.entities.paymententity;
 
+import java.util.Date;
+
 import jakarta.persistence.DiscriminatorValue;
 
 /*
@@ -15,5 +17,5 @@ import lombok.Data;
 
 @DiscriminatorValue("CREDIT_CARD")
 public class CreditCardEntity extends CardEntity {
-    
+    Date expirationDate;
 }
