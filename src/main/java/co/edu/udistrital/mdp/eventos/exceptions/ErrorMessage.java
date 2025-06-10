@@ -9,11 +9,19 @@ public class ErrorMessage {
     public static final String PREFERENCE_NOT_FOUND = "The preference with the given id was not found";
     public static final String PREFERENCE_NOT_ASSOCIATED = "The preference is not associated to the assistant";
 
-    public static final String BOOKING_NOT_FOUND = "Booking not found";
-    public static final String NOTIFICATION_NOT_FOUND = "Notification not found";
-    public static final String PURCHASE_NOT_FOUND = "Purchase not found";
-    public static final String REFUND_NOT_FOUND = "Refund not found";
-    public static final String PROMO_NOT_FOUND = "Promo not found";
+    public static final String BOOKING_NOT_FOUND = "The booking with the given id was not found";
+    public static final String BOOKING_NOT_ASSOCIATED = "The booking is not associated to the assistant";
+
+    public static final String NOTIFICATION_NOT_FOUND = "The notification with the given id was not found";
+    public static final String NOTIFICATION_NOT_ASSOCIATED = "The notification is not associated to the assistant";
+
+    public static final String PURCHASE_NOT_FOUND = "The purchase with the given id was not found";
+    public static final String PURCHASE_NOT_ASSOCIATED = "The purchase is not associated to the assistant";
+
+    public static final String REFUND_NOT_FOUND = "The refund with the given id was not found";
+
+
+    public static final String PROMO_NOT_FOUND = "The promo with the given id was not found";
 
 
     private ErrorMessage() {
