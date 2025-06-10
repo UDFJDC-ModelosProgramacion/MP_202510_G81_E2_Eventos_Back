@@ -5,4 +5,6 @@ import lombok.Data;
 @Data
 public class RefundDetailDTO extends RefundDTO {
     private PurchaseDTO purchase;  
+    private String reason;
+
 }

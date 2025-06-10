@@ -7,4 +7,6 @@ import lombok.Data;
 public class RefundDTO {
     private Long id;
     private Date date;
+    private String reason;
+
 }

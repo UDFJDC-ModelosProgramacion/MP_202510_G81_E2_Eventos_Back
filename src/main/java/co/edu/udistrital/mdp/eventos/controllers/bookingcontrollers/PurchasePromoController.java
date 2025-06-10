@@ -11,7 +11,7 @@ import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.services.bookingentity.PurchasePromoService;
 
 @RestController
-@RequestMapping("/purchases")
+@RequestMapping("/purchases/{purchaseId}/promos")
 public class PurchasePromoController {
 
     @Autowired

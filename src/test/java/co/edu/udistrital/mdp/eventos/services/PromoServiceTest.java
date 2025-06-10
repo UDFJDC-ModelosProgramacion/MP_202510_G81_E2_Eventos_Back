@@ -1,9 +1,9 @@
 package co.edu.udistrital.mdp.eventos.services;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.PromoEntity;
+import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.repositories.PromoRepository;
 import co.edu.udistrital.mdp.eventos.services.bookingentity.PromoService;
-import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -64,7 +64,7 @@ class PromoServiceTest {
 
     @Test
     @DisplayName("Debe obtener correctamente una promoción existente")
-    void getPromoValidTest() {
+    void getPromoValidTest() throws EntityNotFoundException {
         PromoEntity found = promoService.getPromo(samplePromo.getId());
         assertEquals(samplePromo.getId(), found.getId());
     }
@@ -77,7 +77,7 @@ class PromoServiceTest {
 
     @Test
     @DisplayName("Debe actualizar correctamente una promoción existente")
-    void updatePromoValidTest() {
+    void updatePromoValidTest() throws EntityNotFoundException {
         PromoEntity updated = new PromoEntity();
         updated.setDescription("Descuento actualizado");
         updated.setCode("ACTUALIZADO2025");
@@ -102,7 +102,7 @@ class PromoServiceTest {
 
     @Test
     @DisplayName("Debe eliminar correctamente una promoción existente")
-    void deletePromoValidTest() {
+    void deletePromoValidTest() throws EntityNotFoundException {
         promoService.deletePromo(samplePromo.getId());
         assertFalse(promoRepository.findById(samplePromo.getId()).isPresent());
     }

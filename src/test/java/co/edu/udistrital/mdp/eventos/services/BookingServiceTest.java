@@ -1,8 +1,9 @@
 package co.edu.udistrital.mdp.eventos.services;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.BookingEntity;
+import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.services.bookingentity.BookingService;
-import jakarta.persistence.EntityNotFoundException;
+
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,7 @@ public class BookingServiceTest {
 
     @Test
     @DisplayName("Debe actualizar correctamente una reserva existente")
-    public void updateBookingValidTest() {
+    public void updateBookingValidTest() throws EntityNotFoundException {
         BookingEntity booking = new BookingEntity();
         booking.setRemainingSeats(10);
         booking = bookingService.createBooking(booking);
@@ -54,7 +55,7 @@ public class BookingServiceTest {
 
     @Test
     @DisplayName("No debe permitir actualizar una reserva con asientos negativos")
-    public void updateBookingInvalidTest() {
+    public void updateBookingInvalidTest() throws EntityNotFoundException {
         BookingEntity booking = new BookingEntity();
         booking.setRemainingSeats(10);
         booking = bookingService.createBooking(booking);
@@ -67,7 +68,7 @@ public class BookingServiceTest {
 
     @Test
     @DisplayName("Debe obtener correctamente una reserva existente")
-    public void getBookingValidTest() {
+    public void getBookingValidTest() throws EntityNotFoundException {
         BookingEntity booking = new BookingEntity();
         booking.setRemainingSeats(8);
         booking = bookingService.createBooking(booking);
@@ -86,7 +87,7 @@ public class BookingServiceTest {
 
     @Test
     @DisplayName("Debe eliminar correctamente una reserva existente")
-    public void deleteBookingValidTest() {
+    public void deleteBookingValidTest() throws EntityNotFoundException {
         BookingEntity booking = new BookingEntity();
         booking.setRemainingSeats(6);
         booking = bookingService.createBooking(booking);

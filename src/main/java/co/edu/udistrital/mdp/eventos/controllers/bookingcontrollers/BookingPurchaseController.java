@@ -9,7 +9,7 @@ import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.services.bookingentity.BookingPurchaseService;
 
 @RestController
-@RequestMapping("/bookings")
+@RequestMapping("/bookings/{bookingId}/purchase")
 public class BookingPurchaseController {
 
     @Autowired

@@ -1,0 +1,336 @@
+{
+	"info": {
+		"_postman_id": "e5e66da8-f5cd-4e60-a8cb-abc241d1812f",
+		"name": "Refund",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45695750",
+		"_collection_link": "https://alan-1390234.postman.co/workspace/Alan's-Workspace~6aae442a-95db-4b89-8c0a-f0f8576a3123/collection/45695750-e5e66da8-f5cd-4e60-a8cb-abc241d1812f?action=share&source=collection_link&creator=45695750"
+	},
+	"item": [
+		{
+			"name": "Crear un Refund",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();",
+							"",
+							"pm.globals.set(\"refund_id_1\", data.id);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"date\": \"2025-06-10\",\n  \"reason\": \"Cancelación por enfermedad\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/refunds",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"refunds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los Refund",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of refunds > ' + 0, function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.length).to.greaterThan(0);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"date\": \"2025-06-10\",\n  \"reason\": \"Cancelación por enfermedad\"\n}\n"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/refunds",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"refunds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un Refund por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"date\": \"2025-06-10\",\n  \"reason\": \"Cancelación por enfermedad\"\n}\n"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/refunds/{{refund_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"refunds",
+						"{{refund_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un Refund que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/refunds/9",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"refunds",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un Refund",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reason\": \"Actualización de motivo\",\n  \"amount\": 75.5,\n  \"date\": \"2024-06-10T00:00:00.000+00:00\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/refunds/{{refund_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"refunds",
+						"{{refund_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un Refund que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"Refund not found with id 9999\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reason\": \"Motivo inválido\",\n  \"amount\": 60.0,\n  \"date\": \"2024-06-10T00:00:00.000+00:00\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/refunds/9",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"refunds",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un Refund",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/refunds/{{refund_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"refunds",
+						"{{refund_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un Refund que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/refunds/99",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"refunds",
+						"99"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
