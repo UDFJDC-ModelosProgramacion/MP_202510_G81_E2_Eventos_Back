@@ -9,6 +9,9 @@ public class ErrorMessage {
     public static final String PREFERENCE_NOT_FOUND = "The preference with the given id was not found";
     public static final String PREFERENCE_NOT_ASSOCIATED = "The preference is not associated to the assistant";
 
+    public static final String BOOKING_NOT_FOUND = "The booking with the given id was not found";
+    public static final String BOOKING_NOT_ASSOCIATED = "The booking is not associated to the assistant";
+
 
     private ErrorMessage() {
         throw new IllegalStateException("Utility class");
