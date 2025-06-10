@@ -32,7 +32,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"remainingSeats\": 1\n}\n    ",
+					"raw": "{\n    \"id\": 1,\n  \"remainingSeats\": 1,\n  \"amount\": 1,\n  \"purchaseDate\": \"2025-06-10T15:30:00\"\n\n}\n    ",
 					"options": {
 						"raw": {
 							"language": "json"

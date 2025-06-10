@@ -50,7 +50,41 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Crear una promoción",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n  \"discount\": 15.0,\n  \"code\": \"PROMO15\",\n  \"description\": \"15% off summer sale\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/promos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"promos"
+							]
+						}
+					},
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": ""
+				}
+			]
 		},
 		{
 			"name": "Obtener todas las promociones",

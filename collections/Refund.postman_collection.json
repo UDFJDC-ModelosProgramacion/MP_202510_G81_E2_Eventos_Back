@@ -50,7 +50,41 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Crear un Refund",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n  \"date\": \"2025-06-10\",\n  \"reason\": \"Cancelación por enfermedad\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/refunds",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"refunds"
+							]
+						}
+					},
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": ""
+				}
+			]
 		},
 		{
 			"name": "Obtener todos los Refund",
