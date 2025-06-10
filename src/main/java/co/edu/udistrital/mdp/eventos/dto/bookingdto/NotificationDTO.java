@@ -3,6 +3,6 @@ import lombok.Data;
 
 @Data
 public class NotificationDTO {
-    private Integer id;
+    private Long id;
     private String description;
 }

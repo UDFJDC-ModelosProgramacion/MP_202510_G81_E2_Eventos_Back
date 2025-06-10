@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class BookingDTO {
-    private Integer id;
+    private Long id;
     private Integer remainingSeats;
 }

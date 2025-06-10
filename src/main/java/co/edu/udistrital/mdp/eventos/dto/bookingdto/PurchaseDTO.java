@@ -3,6 +3,6 @@ import lombok.Data;
 
 @Data
 public class PurchaseDTO {
-    private Integer id;
+    private Long id;
     private Integer remainingSeats;
 }
