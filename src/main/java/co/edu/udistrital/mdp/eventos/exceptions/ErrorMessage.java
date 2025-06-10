@@ -15,6 +15,13 @@ public class ErrorMessage {
     public static final String NOTIFICATION_NOT_FOUND = "The notification with the given id was not found";
     public static final String NOTIFICATION_NOT_ASSOCIATED = "The notification is not associated to the assistant";
 
+    public static final String PURCHASE_NOT_FOUND = "The purchase with the given id was not found";
+    public static final String PURCHASE_NOT_ASSOCIATED = "The purchase is not associated to the assistant";
+
+    public static final String REFUND_NOT_FOUND = "The refund with the given id was not found";
+
+
+    public static final String PROMO_NOT_FOUND = "The promo with the given id was not found";
 
 
     private ErrorMessage() {
