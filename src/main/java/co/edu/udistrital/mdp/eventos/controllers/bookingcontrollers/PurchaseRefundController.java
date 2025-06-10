@@ -1,34 +1,35 @@
 package co.edu.udistrital.mdp.eventos.controllers.bookingcontrollers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.RefundEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.services.bookingentity.PurchaseRefundService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
-@RequestMapping("/purchases/{purchaseId}/refund")
+@RequestMapping("/purchases")
 public class PurchaseRefundController {
 
     @Autowired
-    private PurchaseRefundService service;
+    private PurchaseRefundService purchaseRefundService;
 
-    @PostMapping("/{refundId}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/{purchaseId}/refunds/{refundId}")
+    @ResponseStatus(HttpStatus.OK)
     public RefundEntity addRefund(@PathVariable Long purchaseId, @PathVariable Long refundId) throws EntityNotFoundException {
-        return service.addRefund(purchaseId, refundId);
+        return purchaseRefundService.addRefund(purchaseId, refundId);
     }
 
-    @GetMapping
+    @GetMapping("/{purchaseId}/refund")
+    @ResponseStatus(HttpStatus.OK)
     public RefundEntity getRefund(@PathVariable Long purchaseId) throws EntityNotFoundException {
-        return service.getRefund(purchaseId);
+        return purchaseRefundService.getRefund(purchaseId);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{purchaseId}/refund")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeRefund(@PathVariable Long purchaseId) throws EntityNotFoundException {
-        service.removeRefund(purchaseId);
+        purchaseRefundService.removeRefund(purchaseId);
     }
 }

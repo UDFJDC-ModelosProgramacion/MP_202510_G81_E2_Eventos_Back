@@ -21,18 +21,20 @@ public class PurchaseRefundService {
     private RefundRepository refundRepository;
 
     @Transactional
-    public RefundEntity addRefund(Long purchaseId, Long refundId) throws EntityNotFoundException {
-        PurchaseEntity purchase = purchaseRepository.findById(purchaseId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorMessage.PURCHASE_NOT_FOUND));
+public RefundEntity addRefund(Long purchaseId, Long refundId) throws EntityNotFoundException {
+    PurchaseEntity purchase = purchaseRepository.findById(purchaseId)
+            .orElseThrow(() -> new EntityNotFoundException(ErrorMessage.PURCHASE_NOT_FOUND));
 
-        RefundEntity refund = refundRepository.findById(refundId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorMessage.REFUND_NOT_FOUND));
+    RefundEntity refund = refundRepository.findById(refundId)
+            .orElseThrow(() -> new EntityNotFoundException(ErrorMessage.REFUND_NOT_FOUND));
 
-        purchase.setRefund(refund);
-        purchaseRepository.save(purchase);
+    purchase.setRefund(refund);
+    refund.setPurchase(purchase); 
 
-        return refund;
-    }
+    purchaseRepository.save(purchase);
+
+    return refund;
+}
 
     @Transactional
     public RefundEntity getRefund(Long purchaseId) throws EntityNotFoundException {
