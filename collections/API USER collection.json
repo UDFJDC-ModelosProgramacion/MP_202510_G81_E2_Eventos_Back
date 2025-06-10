@@ -2661,7 +2661,7 @@
 					]
 				},
 				{
-					"name": "Agregar una preferencia a un asistente",
+					"name": "Agregar una preferencia1 a un asistente",
 					"event": [
 						{
 							"listen": "test",
@@ -2697,7 +2697,7 @@
 					},
 					"response": [
 						{
-							"name": "Asociar una preferencia a un asistente",
+							"name": "Asociar una preferencia1 a un asistente",
 							"originalRequest": {
 								"method": "POST",
 								"header": [
@@ -2726,6 +2726,88 @@
 										"{{assistant_id_1}}",
 										"preferences",
 										"{{preference_id_1}}"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Agregar una preferencia2 a un asistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"\r",
+									"   pm.response.to.have.status(200);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/preferences/{{preference_id_2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"preferences",
+								"{{preference_id_2}}"
+							]
+						},
+						"description": "Establece una relación entre un asistente y una preferencia"
+					},
+					"response": [
+						{
+							"name": "Asociar una preferencia2 a un asistente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"description\": \"Nueva preferencia 1 asociacion\",\r\n    \"assistants\": [\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"Nuevo Asistente 2\",\r\n            \"lastName\": \"Asistente2\",\r\n            \"email\": \"nuevo@example2.com\",\r\n            \"password\": \"nuevapassword2\",\r\n            \"numberPhone\": \"34232677\",\r\n            \"birthDate\": \"1995-03-20\"  \r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/assistants/{{assistant_id_1}}/preferences/{{preference_id_2}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id_1}}",
+										"preferences",
+										"{{preference_id_2}}"
 									]
 								}
 							},
@@ -3131,181 +3213,6 @@
 							},
 							"status": "Precondition Failed",
 							"code": 412,
-							"_postman_previewlanguage": "Text",
-							"header": [],
-							"cookie": [
-								{
-									"expires": "Invalid Date"
-								}
-							],
-							"body": ""
-						}
-					]
-				},
-				{
-					"name": "Asociar preferencias a un asistente",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"\r",
-									"   pm.response.to.have.status(200);\r",
-									"\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"id\": {{preference_id_1}},\r\n        \"description\": \"Nueva preferencia 4\"\r\n    },\r\n    {\r\n        \"id\": {{preference_id_2}},\r\n        \"description\": \"Nueva preferencia 5\"\r\n    }\r\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/preferences",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"assistants",
-								"{{assistant_id}}",
-								"preferences"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Asociar preferencias a un asistente",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "[\r\n    {\r\n        \"id\": 4,\r\n        \"description\": \"Nueva preferencia 5\",\r\n        \"assistants\": []\r\n    },\r\n    {\r\n        \"id\": 4,\r\n        \"description\": \"Nueva preferencia 5\",\r\n        \"assistants\": []\r\n    }\r\n]",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/assistants/{{assistant_id_1}}/preferences",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"assistants",
-										"{{assistant_id_1}}",
-										"preferences"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "Text",
-							"header": [],
-							"cookie": [
-								{
-									"expires": "Invalid Date"
-								}
-							],
-							"body": ""
-						}
-					]
-				},
-				{
-					"name": "Asociar preferencias que no existen a un asistant",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 404\", function () {\r",
-									"\r",
-									"   pm.response.to.have.status(404);\r",
-									"\r",
-									"});\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"pm.test(\"Get expected error message\", function () {\r",
-									"\r",
-									"   var data = pm.response.json();\r",
-									"\r",
-									"   pm.expect(data.apierror.message).to.eql(\"The preference with the given id was not found\");\r",
-									"\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 0,\r\n    \"description\": \"Preferencia que no existe\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/preferences",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"assistants",
-								"{{assistant_id}}",
-								"preferences"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Asociar preferencias que no existen a un asistant",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The preference with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/assistants/{{assistant_id}}/preferences",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"assistants",
-										"{{assistant_id}}",
-										"preferences"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
 							"_postman_previewlanguage": "Text",
 							"header": [],
 							"cookie": [
@@ -4153,138 +4060,6 @@
 					]
 				},
 				{
-					"name": "Asociar asistentes a una preferencia",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"id\": {{new_id_asistant_1}},\r\n        \"name\": \"Nuevo\",\r\n        \"lastName\": \"Asistente\",\r\n        \"email\": \"nuevo@example.com\",\r\n        \"password\": \"nuevapassword\",\r\n        \"numberPhone\": 5551234567,\r\n        \"birthDate\": \"1995-03-20\"\r\n    },\r\n    {\r\n       \"id\": {{new_id_asistant_2}},\r\n        \"name\": \"NuevoAssistente\",\r\n        \"lastName\": \"Asistente\",\r\n        \"email\": \"nuevo2@example.com\",\r\n        \"password\": \"nuevapassword2\",\r\n        \"numberPhone\": 55512345672,\r\n        \"birthDate\": \"1995-03-22\" \r\n    }\r\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/preferences/{{preference_id}}/assistants",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"preferences",
-								"{{preference_id}}",
-								"assistants"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Asociar asistentes a una preferencia",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "[\r\n    {\r\n        \"id\": {{new_id_asistant_1}},\r\n        \"name\": \"Nuevo\",\r\n        \"lastName\": \"Asistente\",\r\n        \"email\": \"nuevo@example.com\",\r\n        \"password\": \"nuevapassword\",\r\n        \"numberPhone\": 5551234567,\r\n        \"birthDate\": \"1995-03-20\",\r\n        \"preferences\": []\r\n    },\r\n    {\r\n       \"id\": {{new_id_asistant_2}},\r\n        \"name\": \"NuevoAssistente\",\r\n        \"lastName\": \"Asistente\",\r\n        \"email\": \"nuevo2@example.com\",\r\n        \"password\": \"nuevapassword2\",\r\n        \"numberPhone\": 55512345672,\r\n        \"birthDate\": \"1995-03-22\",\r\n        \"preferences\": [] \r\n    }\r\n]",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/preferences/{{preference_id}}/assistants",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"preferences",
-										"{{preference_id}}",
-										"assistants"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "Text",
-							"header": [],
-							"cookie": [
-								{
-									"expires": "Invalid Date"
-								}
-							],
-							"body": ""
-						}
-					]
-				},
-				{
-					"name": "Asociar asistentes que no existen a una preferencia",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 0,\r\n    \"name\": \"No existe\",\r\n    \"lastName\": \"Asistente\",\r\n    \"email\": \"nuevo@example.com\",\r\n    \"password\": \"nuevapassword\",\r\n    \"numberPhone\": 5551234567,\r\n    \"birthDate\": \"1995-03-20\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/preferences/{{preference_id}}/assistants",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"preferences",
-								"{{preference_id}}",
-								"assistants"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Asociar asistentes que no existen a una preferencia",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The assistant with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/preferences/{{preference_id}}/assistants",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"preferences",
-										"{{preference_id}}",
-										"assistants"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "Text",
-							"header": [],
-							"cookie": [
-								{
-									"expires": "Invalid Date"
-								}
-							],
-							"body": ""
-						}
-					]
-				},
-				{
 					"name": "Borrar un asistente de una preferencia",
 					"request": {
 						"method": "DELETE",
@@ -4467,6 +4242,2140 @@
 				}
 			],
 			"description": "Operaciones para gestionar asociaciones entre preferencias y asistentes"
+		},
+		{
+			"name": "AssistantBookingService",
+			"item": [
+				{
+					"name": "Crear un nuevo asistente Asociacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json()\r",
+									"\r",
+									"pm.globals.set(\"assistant_id\", data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"\r",
+									"   pm.response.to.have.status(201);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nuevo\",\n  \"lastName\": \"Asistente\",\n  \"email\": \"nuevo@example.com\",\n  \"password\": \"nuevapassword\",\n  \"numberPhone\": \"34234565\",\n  \"birthDate\": \"1995-03-20\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/assistants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants"
+							]
+						},
+						"description": "Crea un nuevo registro de asistente en el sistema"
+					},
+					"response": [
+						{
+							"name": "Crear un nuevo asistente Asociacion",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"name\": \"Nuevo\",\n  \"lastName\": \"Asistente\",\n  \"email\": \"nuevo@example.com\",\n  \"password\": \"nuevapassword\",\n  \"numberPhone\": \"34234565\",\n  \"birthDate\": \"1995-03-20\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/assistants",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Crear nuevo booking Asociacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.globals.set(\"booking_id_1\", data.id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"remainingSeats\" : 777\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Crear nuevo booking Asociacion",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"id\": 1,\n   \"remainingSeats\" : 777\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/bookings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bookings"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Crear nuevo booking Asociacion 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.globals.set(\"booking_id_2\", data.id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"remainingSeats\" : 888\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Crear nuevo booking Asociacion",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"id\": 2,\n   \"remainingSeats\" : 888\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/bookings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bookings"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Crear nuevo booking sin Asociacion 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.globals.set(\"booking_id_3\", data.id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"remainingSeats\" : 999\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Crear nuevo booking sin Asociacion 3",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"id\": 3,\n   \"remainingSeats\" : 999\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/bookings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bookings"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Agregar un booking 1 a un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"\r",
+									"   pm.response.to.have.status(200);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/{{booking_id_1}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"bookings",
+								"{{booking_id_1}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Agregar un booking 1 a un assistant",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"remainingSeats\": 777,\r\n    \"assistant\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"Nuevo\",\r\n            \"lastName\": \"Asistente\",\r\n            \"email\": \"nuevo@example.com\",\r\n            \"password\": \"nuevapassword\",\r\n            \"numberPhone\": \"34234565\",\r\n            \"birthDate\": \"1995-03-20\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/{{booking_id_1}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"bookings",
+										"{{booking_id_1}}"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Agregar un booking 2 a un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"\r",
+									"   pm.response.to.have.status(200);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/{{booking_id_2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"bookings",
+								"{{booking_id_2}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Agregar un booking 2 a un assistant",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 2,\r\n    \"remainingSeats\": 888,\r\n    \"assistant\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"Nuevo\",\r\n            \"lastName\": \"Asistente\",\r\n            \"email\": \"nuevo@example.com\",\r\n            \"password\": \"nuevapassword\",\r\n            \"numberPhone\": \"34234565\",\r\n            \"birthDate\": \"1995-03-20\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/{{booking_id_2}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"bookings",
+										"{{booking_id_2}}"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Agregar un booking que no existe a un asistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"\r",
+									"   pm.response.to.have.status(404);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get expected error message\", function () {\r",
+									"\r",
+									"   var data = pm.response.json();\r",
+									"\r",
+									"   pm.expect(data.apierror.message).to.eql(\"The booking with the given id was not found\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"bookings",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Asociar una preferencia que no existe a un asistente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"timestamp\": \"21-02-2023 10:15:29\",\r\n\r\n        \"message\": \"The booking with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/assistants/{{assistant_id_1}}/bookings/0",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id_1}}",
+										"bookings",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener bookings de un asistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Number of bookings > ' + 0, function () {\r",
+									"\r",
+									"   var data = pm.response.json()\r",
+									"\r",
+									"   pm.expect(data.length).to.greaterThan(0)\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"\r",
+									"   pm.response.to.have.status(200);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"bookings"
+							]
+						},
+						"description": "Obtiene todas las preferencias asociadas a un asistente específico"
+					},
+					"response": [
+						{
+							"name": "Obtener bookings de un asistente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"bookings"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener un booking específica de un asistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"\r",
+									"   pm.response.to.have.status(200);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/{{booking_id_1}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"bookings",
+								"{{booking_id_1}}"
+							]
+						},
+						"description": "Obtiene una preferencia específica asociada a un asistente"
+					},
+					"response": [
+						{
+							"name": "Obtener un booking específica de un asistente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/assistants/{{assistant_id}}/preferences/{{preference_id_1}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"preferences",
+										"{{preference_id_1}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener un booking especifica que no existe de un asistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {   \r",
+									"    pm.response.to.have.status(404);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get expected error message\", function () {\r",
+									"\r",
+									"   var data = pm.response.json();\r",
+									"\r",
+									"   pm.expect(data.apierror.message).to.eql(\"The booking with the given id was not found\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"bookings",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Obtener un booking especifica que no existe de un asistente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/0",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"bookings",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener un booking que no esta asociada a un asistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 412\", function () {\r",
+									"\r",
+									"   pm.response.to.have.status(412);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get expected error message\", function () {\r",
+									"\r",
+									"   var data = pm.response.json();\r",
+									"\r",
+									"   pm.expect(data.apierror.message).to.eql(\"The booking is not associated to the assistant\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/{{booking_id_3}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"bookings",
+								"{{booking_id_3}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Obtener un booking que no esta asociada a un asistente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/{{booking_id_3}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"bookings",
+										"{{booking_id_3}}"
+									]
+								}
+							},
+							"status": "Precondition Failed",
+							"code": 412,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Borrar un booking de un asistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"\r",
+									"   pm.response.to.have.status(204);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/{{booking_id_2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"bookings",
+								"{{booking_id_2}}"
+							]
+						},
+						"description": "Elimina la relación entre un asistente y una preferencia"
+					},
+					"response": [
+						{
+							"name": "Borrar una preferencia de un asistente",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/{{booking_id_2}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"bookings",
+										"{{booking_id_2}}"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Borrar un booking a un asistente que no existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"\r",
+									"   pm.response.to.have.status(404);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get expected error message\", function () {\r",
+									"\r",
+									"   var data = pm.response.json();\r",
+									"\r",
+									"   pm.expect(data.apierror.message).to.eql(\"The assistant with the given id was not found\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/0/artworks/{{artwork_id_2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"0",
+								"artworks",
+								"{{artwork_id_2}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Borrar un booking a un asistente que no existe",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The assistant with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/assistants/0/artworks/{{artwork_id_2}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"0",
+										"artworks",
+										"{{artwork_id_2}}"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Borrar un booking que no existe de un asistente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/bookings/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"bookings",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Borrar una preferencia que no existe de un asistente",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"apierror\": {\r\n\r\n        \"status\": \"NOT_FOUND\",\r\n\r\n        \"message\": \"The booking with the given id was not found\"\r\n\r\n    }\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/assistants/{{assistant_id}}/booking/0",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"booking",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				}
+			],
+			"description": "Operaciones para gestionar relaciones entre asistentes y bookings"
+		},
+		{
+			"name": "AssistantNotificationService",
+			"item": [
+				{
+					"name": "Crear nuevo notification Asociacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.globals.set(\"notification_id_1\", data.id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\" : \"Notification Asociacion 1\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/notifications",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nuevo notification sin Asociacion 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.globals.set(\"notification_id_3\", data.id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"description\" : \"Notification sin Asociacion 3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/notifications",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar un notification 1 a un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/notifications/{{notification_id_1}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"notifications",
+								"{{notification_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar un notification 2 a un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/notifications/{{notification_id_2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"notifications",
+								"{{notification_id_2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar un notification que no existe a un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"   pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.apierror.message).to.eql(\"The notification with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/notifications/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"notifications",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener notifications de un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Number of notifications > 0', function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.length).to.greaterThan(0);",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/notifications",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"notifications"
+							]
+						},
+						"description": "Obtiene todas las notifications asociadas a un asistente específico"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un notification específica de un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/notifications/{{notification_id_1}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"notifications",
+								"{{notification_id_1}}"
+							]
+						},
+						"description": "Obtiene una notification específica asociada a un asistente"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un notification específica que no existe de un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"   pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.apierror.message).to.eql(\"The notification with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/notifications/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"notifications",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un notification que no esta asociada a un asistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 412\", function () {\r",
+									"\r",
+									"   pm.response.to.have.status(412);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get expected error message\", function () {\r",
+									"\r",
+									"   var data = pm.response.json();\r",
+									"\r",
+									"   pm.expect(data.apierror.message).to.eql(\"The notification is not associated to the assistant\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/notifications/{{notification_id_3}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"notifications",
+								"{{notification_id_3}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Obtener un notification que no esta asociada a un asistente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/assistants/{{assistant_id}}/notifications/{{notification_id_3}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"notifications",
+										"{{notification_id_3}}"
+									]
+								}
+							},
+							"status": "Precondition Failed",
+							"code": 412,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Borrar un notification de un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"   pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/notifications/{{notification_id_2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"notifications",
+								"{{notification_id_2}}"
+							]
+						},
+						"description": "Elimina la relación entre un asistente y una notification"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un notification a un assistant que no existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"   pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.apierror.message).to.eql(\"The assistant with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/0/notifications/{{notification_id_2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"0",
+								"notifications",
+								"{{notification_id_2}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Operaciones para gestionar operaciones entre asistentes y notificaciones"
+		},
+		{
+			"name": "AssistantPurchaseService",
+			"item": [
+				{
+					"name": "Crear un nuevo asistente Asociacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.globals.set(\"assistant_id\", data.id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nuevo\",\n  \"lastName\": \"Asistente\",\n  \"email\": \"nuevo@example.com\",\n  \"password\": \"nuevapassword\",\n  \"numberPhone\": \"34234565\",\n  \"birthDate\": \"1995-03-20\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/assistants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants"
+							]
+						},
+						"description": "Crea un nuevo registro de asistente en el sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nuevo purchase Asociacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.globals.set(\"purchase_id_1\", data.id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"remainingSeats\" : 777,\n   \"amount\" : 100.0,\n   \"purchaseDate\" : \"2025-06-10T18:40:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/purchases",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"purchases"
+							]
+						},
+						"description": "Crea un nuevo purchase para vincular a un assistant"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nuevo purchase Asociacion 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.globals.set(\"purchase_id_2\", data.id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"remainingSeats\" : 888,\n   \"amount\" : 150.0,\n   \"purchaseDate\" : \"2025-06-10T18:45:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/purchases",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"purchases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nuevo purchase sin Asociacion 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.globals.set(\"purchase_id_3\", data.id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"remainingSeats\" : 999,\n   \"amount\" : 200.0,\n   \"purchaseDate\" : \"2025-06-10T18:50:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/purchases",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"purchases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar un purchase 1 a un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/purchases/{{purchase_id_1}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"purchases",
+								"{{purchase_id_1}}"
+							]
+						},
+						"description": "Asocia el purchase 1 (ya creado) al assistant"
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar un purchase 2 a un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/purchases/{{purchase_id_2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"purchases",
+								"{{purchase_id_2}}"
+							]
+						},
+						"description": "Asocia el purchase 2 al assistant"
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar un purchase que no existe a un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"   pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.apierror.message).to.eql(\"The purchase with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/purchases/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"purchases",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener purchases de un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Number of purchases > 0', function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.length).to.greaterThan(0);",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/purchases",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"purchases"
+							]
+						},
+						"description": "Obtiene todas las purchases asociadas a un assistant"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener una purchase específica de un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/purchases/{{purchase_id_1}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"purchases",
+								"{{purchase_id_1}}"
+							]
+						},
+						"description": "Obtiene una purchase específica asociada a un assistant"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener una purchase específica que no existe de un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"   pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.apierror.message).to.eql(\"The purchase with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/purchases/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"purchases",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un purchase de un assistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"   pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/purchases/{{purchase_id_2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"purchases",
+								"{{purchase_id_2}}"
+							]
+						},
+						"description": "Elimina la relación entre un assistant y una purchase"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un purchase a un assistant que no existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"   pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.apierror.message).to.eql(\"The assistant with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/0/purchases/{{purchase_id_2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"0",
+								"purchases",
+								"{{purchase_id_2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un purchase que no existe de un assistant",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/assistants/{{assistant_id}}/purchases/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"assistants",
+								"{{assistant_id}}",
+								"purchases",
+								"0"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Borrar una purchase que no existe de un assistant",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"apierror\": {\n        \"status\": \"NOT_FOUND\",\n        \"message\": \"The purchase with the given id was not found\"\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/assistants/{{assistant_id}}/purchases/0",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"assistants",
+										"{{assistant_id}}",
+										"purchases",
+										"0"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"description": "Operaciones para la relacion entre assistant y pruchase"
 		}
 	],
 	"event": [
