@@ -57,9 +57,9 @@ public class AssistantPreferenceService {
 	 * Obtiene una colección de instancias de PreferenceEntity asociadas a una instancia
 	 * de Assistant
 	 *
-	 * @param assistantId Identificador de la instancia de Author
+	 * @param assistantId Identificador de la instancia de Assistant
 	 * @return Colección de instancias de PreferenceEntity asociadas a la instancia de
-	 *         Assistant
+	 *         Assistant 
 	 */
 	@Transactional
 	public List<PreferenceEntity> getPreferences(Long assistantId) throws EntityNotFoundException {
@@ -103,7 +103,7 @@ public class AssistantPreferenceService {
 	 *
 	 * @param assistantId Identificador de la instancia de Assistant
 	 * @param preferenceId   Identificador de la instancia de Preference
-	 * @return La entidadd de Libro del Assistant
+	 * @return La entidadd de preference del Assistant
 	 */
 	@Transactional
 	public PreferenceEntity getPreference(Long assistantId, Long preferenceId) throws EntityNotFoundException, IllegalOperationException {
@@ -118,6 +118,7 @@ public class AssistantPreferenceService {
 			throw new EntityNotFoundException(ErrorMessage.PREFERENCE_NOT_FOUND);
 		}
 		log.info("Termina proceso de consultar una preference con id = {0} del assistant con id = " + assistantId, preferenceId);
+		
 		if (!preferenceEntity.get().getAssistants().contains(assistantEntity.get())){
 			throw new IllegalOperationException("The preference is not associated to the assistant");
 		}
@@ -127,8 +128,8 @@ public class AssistantPreferenceService {
     /*
 	 * Desasocia un Preference existente de un Assistant existente
 	 *
-	 * @param assistantId Identificador de la instancia de Author
-	 * @param preferenceId   Identificador de la instancia de Book
+	 * @param assistantId Identificador de la instancia de Assistant
+	 * @param preferenceId   Identificador de la instancia de Preference
 	 */
 	@Transactional
 	public void removePreference(Long assistantId, Long bookId) throws EntityNotFoundException {

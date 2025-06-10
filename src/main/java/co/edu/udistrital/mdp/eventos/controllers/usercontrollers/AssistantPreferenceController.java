@@ -49,9 +49,9 @@ public class AssistantPreferenceController {
 	}
 
 	/**
-	 * Busca y devuelve todos los libros que existen en un autor.
+	 * Busca y devuelve todos las preferences que existen en un assistant.
 	 *
-	 * @param assistantsId El ID del autor del cual se buscan los libros
+	 * @param assistantsId El ID del assistant del cual se buscan los libros
 	 * @return JSONArray {@link PreferenceDetailDTO} - Los libros encontrados en el autor.
 	 *         Si no hay ninguno retorna una lista vacía.
 	 */
@@ -64,7 +64,7 @@ public class AssistantPreferenceController {
 	}
 
 	/**
-	 * Asocia un libro existente con un autor existente
+	 * Asocia un preference existente con un assistant existente
 	 *
 	 * @param assistantId El ID del autor al cual se le va a asociar el libro
 	 * @param PreferenceId   El ID del libro que se asocia
@@ -105,10 +105,10 @@ public class AssistantPreferenceController {
 
 
 	/**
-	 * Elimina la conexión entre el libro y e autor recibidos en la URL.
+	 * Elimina la conexión entre el preference y el assistant recibidos en la URL.
 	 *
-	 * @param assistantId El ID del autor al cual se le va a desasociar el libro
-	 * @param preferenceId   El ID del libro que se desasocia
+	 * @param assistantId El ID del assistant al cual se le va a desasociar el preference
+	 * @param preferenceId   El ID del booking que se desasocia
 	 */
 	@DeleteMapping(value = "/{assistantId}/preferences/{preferenceId}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
