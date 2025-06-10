@@ -1,6 +1,5 @@
 package co.edu.udistrital.mdp.eventos.services.userentity.booking;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -105,40 +104,6 @@ public class AssistantBookingService {
     }
 
     /*
-	 * Remplaza las instancias de Booking asociadas a una instancia de Assistant
-	 *
-	 * @param assistantId Identificador de la instancia de Assistant
-	 * @param bookings Colección de instancias de BookingEntity a asociar a instancia
-	 * de Assistant
-	 * @return Nueva colección de BookingEntity asociada a la instancia de Assistant
-	 */
-
-    @Transactional
-    public List<BookingEntity> replaceBookings(Long assistantId, List<BookingEntity> bookings) throws Exception {
-        log.info("Inicia el proceso de reemplazo de las reservas de un asistente con id = {}", assistantId);
-
-        AssistantEntity assistant = assistantRepository.findById(assistantId)
-            .orElseThrow(() -> new Exception("Assistant no encontrado con id: " + assistantId));
-
-        // Limpiar asociaciones actuales
-        for (BookingEntity existingBooking : assistant.getBookings()) {
-            existingBooking.setAssistant(null);
-            bookingRepository.save(existingBooking);
-        }
-
-        // Asociar las nuevas reservas
-        List<BookingEntity> updatedBookings = new ArrayList<>();
-        for (BookingEntity booking : bookings) {
-            BookingEntity existingBooking = bookingRepository.findById(booking.getId())
-                .orElseThrow(() -> new Exception("Booking no encontrado con id: " + booking.getId()));
-            existingBooking.setAssistant(assistant);
-            updatedBookings.add(bookingRepository.save(existingBooking));
-        }
-
-        return updatedBookings;
-    }
-
-    /*
 	 * Desasocia un Booking existente de un Assistant existente
 	 *
 	 * @param assistantId Identificador de la instancia de Assistant
@@ -172,6 +137,7 @@ public class AssistantBookingService {
 
         bookingRepository.save(booking);
         assistantRepository.save(assistant);
+        log.info("Termina el proceso de desasociación de un booking de un asistente con id = {}", assistantId);
     }
 
 }
