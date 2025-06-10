@@ -1,307 +1,260 @@
 package co.edu.udistrital.mdp.eventos.services;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.BookingEntity;
 import co.edu.udistrital.mdp.eventos.entities.userentity.AssistantEntity;
-import co.edu.udistrital.mdp.eventos.repositories.AssistantRepository;
-import co.edu.udistrital.mdp.eventos.repositories.BookingRepository;
+import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
+import co.edu.udistrital.mdp.eventos.exceptions.ErrorMessage;
+import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.eventos.services.userentity.booking.AssistantBookingService;
 
-@ExtendWith(MockitoExtension.class)
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+
+import jakarta.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@DataJpaTest
+@Transactional
+@Import(AssistantBookingService.class)
 public class AssistantBookingServiceTest {
 
-    @Mock
-    private BookingRepository bookingRepository;
-    
-    @Mock
-    private AssistantRepository assistantRepository;
-    
-    @InjectMocks
+    @Autowired
     private AssistantBookingService assistantBookingService;
-    
-    private AssistantEntity assistant;
-    private BookingEntity booking;
-    
+
+    @Autowired
+    private TestEntityManager entityManager;
+
+    // Listas para almacenar la data insertada en las pruebas.
+    private List<AssistantEntity> assistantData = new ArrayList<>();
+    private List<BookingEntity> bookingData = new ArrayList<>();
+
     @BeforeEach
-    public void setUp() {
-        assistant = new AssistantEntity();
-        assistant.setId(1L);
-        assistant.setBookings(new ArrayList<>());
-        
-        booking = new BookingEntity();
-        booking.setId(10L);
+    void setUp() {
+        clearData();
+        insertData();
     }
 
-    // ---------------------------
-    // Tests para addBooking(...)
-    // ---------------------------
-    
+    /**
+     * Limpia la data de las tablas implicadas.
+     */
+    private void clearData() {
+        entityManager.getEntityManager()
+                    .createQuery("DELETE FROM BookingEntity")
+                    .executeUpdate();
+        entityManager.getEntityManager()
+                    .createQuery("DELETE FROM AssistantEntity")
+                    .executeUpdate();
+    }
+
+    /**
+     * Inserta datos iniciales para las pruebas.
+     */
+    private void insertData() {
+        // Creamos dos asistentes.
+        AssistantEntity assistant1 = new AssistantEntity();
+        assistant1.setName("Assistant 1");
+        entityManager.persist(assistant1);
+        assistantData.add(assistant1);
+
+        AssistantEntity assistant2 = new AssistantEntity();
+        assistant2.setName("Assistant 2");
+        entityManager.persist(assistant2);
+        assistantData.add(assistant2);
+
+        // Creamos tres bookings.
+        // Booking asociado a assistant1.
+        BookingEntity booking1 = new BookingEntity();
+        booking1.setRemainingSeats(10);
+        booking1.setAssistant(assistant1);
+        entityManager.persist(booking1);
+        bookingData.add(booking1);
+        assistant1.getBookings().add(booking1);
+
+        // Booking sin asociación.
+        BookingEntity booking2 = new BookingEntity();
+        booking2.setRemainingSeats(5);
+        // No se asocia aún a ningún assistant.
+        entityManager.persist(booking2);
+        bookingData.add(booking2);
+
+        // Booking asociado a assistant2 (usado para verificar error de asociación).
+        BookingEntity booking3 = new BookingEntity();
+        booking3.setRemainingSeats(8);
+        booking3.setAssistant(assistant2);
+        entityManager.persist(booking3);
+        bookingData.add(booking3);
+        assistant2.getBookings().add(booking3);
+
+        entityManager.flush();
+    }
+
+    // -------------------- TESTS PARA addBooking --------------------
+
     @Test
-    @DisplayName("addBooking: asociación válida de booking a assistant")
-    public void testAddBooking_Valid() throws Exception {
-        // Simular que el assistant y el booking existen
-        when(assistantRepository.findById(1L)).thenReturn(Optional.of(assistant));
-        when(bookingRepository.findById(10L)).thenReturn(Optional.of(booking));
-        when(bookingRepository.save(any(BookingEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
-        
-        BookingEntity result = assistantBookingService.addBooking(1L, 10L);
-        
-        // Se espera que el booking tenga asignado el assistant
+    public void testAddBookingValid() throws Exception {
+        // Se asocia booking2 (sin relación) a assistant1.
+        Long assistantId = assistantData.get(0).getId();
+        Long bookingId = bookingData.get(1).getId();
+
+        BookingEntity result = assistantBookingService.addBooking(assistantId, bookingId);
+        assertNotNull(result);
         assertNotNull(result.getAssistant());
-        assertEquals(1L, result.getAssistant().getId());
-        
-        verify(assistantRepository, times(1)).findById(1L);
-        verify(bookingRepository, times(1)).findById(10L);
-        verify(bookingRepository, times(1)).save(booking);
-    }
-    
-    @Test
-    @DisplayName("addBooking: assistant no encontrado")
-    public void testAddBooking_AssistantNotFound() {
-        when(assistantRepository.findById(1L)).thenReturn(Optional.empty());
-        
-        Exception exception = assertThrows(Exception.class, () -> {
-            assistantBookingService.addBooking(1L, 10L);
-        });
-        assertTrue(exception.getMessage().contains("Assistant no encontrado con id: 1"));
-        
-        verify(assistantRepository, times(1)).findById(1L);
-        verify(bookingRepository, never()).findById(any());
-    }
-    
-    @Test
-    @DisplayName("addBooking: booking no encontrado")
-    public void testAddBooking_BookingNotFound() {
-        when(assistantRepository.findById(1L)).thenReturn(Optional.of(assistant));
-        when(bookingRepository.findById(10L)).thenReturn(Optional.empty());
-        
-        Exception exception = assertThrows(Exception.class, () -> {
-            assistantBookingService.addBooking(1L, 10L);
-        });
-        assertTrue(exception.getMessage().contains("Booking no encontrado con id: 10"));
-        
-        verify(assistantRepository, times(1)).findById(1L);
-        verify(bookingRepository, times(1)).findById(10L);
-    }
-    
-    // ---------------------------
-    // Tests para getBookings(...)
-    // ---------------------------
-    
-    @Test
-    @DisplayName("getBookings: retorna lista de bookings asociadas al assistant")
-    public void testGetBookings_Valid() throws Exception {
-        List<BookingEntity> bookings = new ArrayList<>();
-        bookings.add(booking);
-        assistant.setBookings(bookings);
-        when(assistantRepository.findById(1L)).thenReturn(Optional.of(assistant));
-        
-        List<BookingEntity> result = assistantBookingService.getBookings(1L);
-        
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        verify(assistantRepository, times(1)).findById(1L);
-    }
-    
-    @Test
-    @DisplayName("getBookings: assistant no encontrado")
-    public void testGetBookings_AssistantNotFound() {
-        when(assistantRepository.findById(1L)).thenReturn(Optional.empty());
-        
-        Exception exception = assertThrows(Exception.class, () -> {
-            assistantBookingService.getBookings(1L);
-        });
-        assertTrue(exception.getMessage().contains("Assistant no encontrado con id: 1"));
-        verify(assistantRepository, times(1)).findById(1L);
+        assertEquals(assistantId, result.getAssistant().getId(), "El booking debe quedar asociado a assistant1");
     }
 
-    // ---------------------------
-    // Tests para getBooking(...)
-    // ---------------------------
-    
     @Test
-    @DisplayName("getBooking: retorna booking asociado correctamente")
-    public void testGetBooking_Valid() throws Exception {
-        // Asociar booking al assistant
-        booking.setAssistant(assistant);
-        when(bookingRepository.findById(10L)).thenReturn(Optional.of(booking));
-        
-        BookingEntity result = assistantBookingService.getBooking(1L, 10L);
+    public void testAddBookingInvalidAssistant() {
+        Long invalidAssistantId = 999L;
+        Long bookingId = bookingData.get(1).getId();
+
+        Exception exception = assertThrows(EntityNotFoundException.class, () -> {
+            assistantBookingService.addBooking(invalidAssistantId, bookingId);
+        });
+        assertEquals(ErrorMessage.ASSISTANT_NOT_FOUND, exception.getMessage());
+    }
+
+    @Test
+    public void testAddBookingInvalidBooking() {
+        Long assistantId = assistantData.get(0).getId();
+        Long invalidBookingId = 999L;
+
+        Exception exception = assertThrows(EntityNotFoundException.class, () -> {
+            assistantBookingService.addBooking(assistantId, invalidBookingId);
+        });
+        assertEquals(ErrorMessage.BOOKING_NOT_FOUND, exception.getMessage());
+    }
+
+    // -------------------- TESTS PARA getBookings --------------------
+
+    @Test
+    public void testGetBookingsValid() throws Exception {
+        // assistant1 tiene al menos un booking (booking1)
+        Long assistantId = assistantData.get(0).getId();
+        List<BookingEntity> bookings = assistantBookingService.getBookings(assistantId);
+        assertNotNull(bookings);
+        assertFalse(bookings.isEmpty(), "Debe devolver al menos un booking");
+        // Verificar que cada booking esté asociado al mismo assistant.
+        for (BookingEntity booking : bookings) {
+            assertEquals(assistantId, booking.getAssistant().getId());
+        }
+    }
+
+    @Test
+    public void testGetBookingsInvalidAssistant() {
+        Long invalidAssistantId = 999L;
+        Exception exception = assertThrows(EntityNotFoundException.class, () -> {
+            assistantBookingService.getBookings(invalidAssistantId);
+        });
+        assertEquals(ErrorMessage.ASSISTANT_NOT_FOUND, exception.getMessage());
+    }
+
+    // -------------------- TESTS PARA getBooking --------------------
+
+    @Test
+    public void testGetBookingValid() throws Exception {
+        // Se obtiene booking1, el cual está asociado a assistant1.
+        Long assistantId = assistantData.get(0).getId();
+        Long bookingId = bookingData.get(0).getId();
+
+        BookingEntity result = assistantBookingService.getBooking(assistantId, bookingId);
         assertNotNull(result);
-        assertEquals(1L, result.getAssistant().getId());
-        
-        verify(bookingRepository, times(1)).findById(10L);
+        assertEquals(assistantId, result.getAssistant().getId());
     }
-    
+
     @Test
-    @DisplayName("getBooking: booking no encontrado")
-    public void testGetBooking_BookingNotFound() {
-        when(bookingRepository.findById(10L)).thenReturn(Optional.empty());
-        
-        Exception exception = assertThrows(Exception.class, () -> {
-            assistantBookingService.getBooking(1L, 10L);
+    public void testGetBookingAssistantNotFound() {
+        Long invalidAssistantId = 999L;
+        Long bookingId = bookingData.get(0).getId();
+        Exception exception = assertThrows(EntityNotFoundException.class, () -> {
+            assistantBookingService.getBooking(invalidAssistantId, bookingId);
         });
-        assertTrue(exception.getMessage().contains("Booking no encontrado con id: 10"));
-        verify(bookingRepository, times(1)).findById(10L);
+        assertEquals(ErrorMessage.ASSISTANT_NOT_FOUND, exception.getMessage());
     }
-    
+
     @Test
-    @DisplayName("getBooking: booking sin asociación o asociación inválida")
-    public void testGetBooking_BookingNotAssociated() {
-        // Caso 1: booking con assistant nulo
-        booking.setAssistant(null);
-        when(bookingRepository.findById(10L)).thenReturn(Optional.of(booking));
-        
-        Exception exception1 = assertThrows(Exception.class, () -> {
-            assistantBookingService.getBooking(1L, 10L);
+    public void testGetBookingBookingNotFound() {
+        Long assistantId = assistantData.get(0).getId();
+        Long invalidBookingId = 999L;
+        Exception exception = assertThrows(EntityNotFoundException.class, () -> {
+            assistantBookingService.getBooking(assistantId, invalidBookingId);
         });
-        assertTrue(exception1.getMessage().contains("La reserva no está asociada al asistente especificado"));
-        
-        // Caso 2: booking con assistant diferente
-        AssistantEntity differentAssistant = new AssistantEntity();
-        differentAssistant.setId(2L);
-        booking.setAssistant(differentAssistant);
-        Exception exception2 = assertThrows(Exception.class, () -> {
-            assistantBookingService.getBooking(1L, 10L);
+        assertEquals(ErrorMessage.BOOKING_NOT_FOUND, exception.getMessage());
+    }
+
+    @Test
+    public void testGetBookingNotAssociated() {
+        // booking3 está asociado a assistant2. Se intenta obtenerlo usando assistant1.
+        Long assistant1Id = assistantData.get(0).getId();
+        Long booking3Id = bookingData.get(2).getId();
+
+        Exception exception = assertThrows(IllegalOperationException.class, () -> {
+            assistantBookingService.getBooking(assistant1Id, booking3Id);
         });
-        assertTrue(exception2.getMessage().contains("La reserva no está asociada al asistente especificado"));
-        
-        verify(bookingRepository, times(2)).findById(10L); // se llamará dos veces en el test
+        assertEquals("The booking is not associated to the assistant", exception.getMessage());
     }
-    
-    // ---------------------------
-    // Tests para replaceBookings(...)
-    // ---------------------------
-    
+
+    // -------------------- TESTS PARA removeBooking --------------------
+
     @Test
-    @DisplayName("replaceBookings: reemplazo exitoso de bookings")
-    public void testReplaceBookings_Valid() throws Exception {
-        // Suponga que el assistant ya tiene bookings asociados
-        BookingEntity existingBooking = new BookingEntity();
-        existingBooking.setId(20L);
-        existingBooking.setAssistant(assistant);
-        List<BookingEntity> currentBookings = new ArrayList<>();
-        currentBookings.add(existingBooking);
-        assistant.setBookings(currentBookings);
-        
-        // Nueva lista de bookings a asociar
-        BookingEntity newBooking1 = new BookingEntity();
-        newBooking1.setId(10L);
-        List<BookingEntity> newBookings = new ArrayList<>();
-        newBookings.add(newBooking1);
-        
-        // Simulación de búsquedas
-        when(assistantRepository.findById(1L)).thenReturn(Optional.of(assistant));
-        when(bookingRepository.findById(10L)).thenReturn(Optional.of(newBooking1));
-        when(bookingRepository.save(any(BookingEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
-        when(bookingRepository.save(existingBooking)).thenAnswer(invocation -> invocation.getArgument(0));
-        
-        List<BookingEntity> result = assistantBookingService.replaceBookings(1L, newBookings);
-        
-        // Verificar que la asociación antigua se limpió y la nueva se asignó
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals(1L, result.get(0).getAssistant().getId());
-        
-        verify(assistantRepository, times(1)).findById(1L);
-        verify(bookingRepository, times(1)).findById(10L);
-        // Se hizo llamada para limpiar el booking anterior y para asociar el nuevo booking
+    public void testRemoveBookingValid() throws Exception {
+        // Remover booking1 de assistant1.
+        AssistantEntity assistant = assistantData.get(0);
+        BookingEntity booking = bookingData.get(0);
+        Long assistantId = assistant.getId();
+        Long bookingId = booking.getId();
+
+        // Verificar asociación inicial.
+        assertEquals(assistantId, booking.getAssistant().getId());
+        assertTrue(assistant.getBookings().contains(booking));
+
+        // Removemos la asociación.
+        assistantBookingService.removeBooking(assistantId, bookingId);
+
+        // Se refrescan las entidades.
+        BookingEntity removed = entityManager.find(BookingEntity.class, bookingId);
+        AssistantEntity updatedAssistant = entityManager.find(AssistantEntity.class, assistantId);
+
+        assertNull(removed.getAssistant(), "El booking ya no debe estar asociado a ningún assistant");
+        assertFalse(updatedAssistant.getBookings().contains(removed), "El assistant ya no debe listar el booking removido");
     }
-    
+
     @Test
-    @DisplayName("replaceBookings: assistant no encontrado")
-    public void testReplaceBookings_AssistantNotFound() {
-        when(assistantRepository.findById(1L)).thenReturn(Optional.empty());
-        List<BookingEntity> newBookings = new ArrayList<>();
-        
-        Exception exception = assertThrows(Exception.class, () -> {
-            assistantBookingService.replaceBookings(1L, newBookings);
+    public void testRemoveBookingAssistantNotFound() {
+        Long invalidAssistantId = 999L;
+        Long bookingId = bookingData.get(0).getId();
+        Exception exception = assertThrows(EntityNotFoundException.class, () -> {
+            assistantBookingService.removeBooking(invalidAssistantId, bookingId);
         });
-        assertTrue(exception.getMessage().contains("Assistant no encontrado con id: 1"));
-        verify(assistantRepository, times(1)).findById(1L);
+        assertEquals(ErrorMessage.ASSISTANT_NOT_FOUND, exception.getMessage());
     }
-    
+
     @Test
-    @DisplayName("replaceBookings: booking no encontrado en la lista a asociar")
-    public void testReplaceBookings_BookingNotFound() {
-        assistant.setBookings(new ArrayList<>()); // Sin bookings previas
-        List<BookingEntity> newBookings = new ArrayList<>();
-        BookingEntity newBooking1 = new BookingEntity();
-        newBooking1.setId(30L);
-        newBookings.add(newBooking1);
-        
-        when(assistantRepository.findById(1L)).thenReturn(Optional.of(assistant));
-        when(bookingRepository.findById(30L)).thenReturn(Optional.empty());
-        
-        Exception exception = assertThrows(Exception.class, () -> {
-            assistantBookingService.replaceBookings(1L, newBookings);
+    public void testRemoveBookingBookingNotFound() {
+        Long assistantId = assistantData.get(0).getId();
+        Long invalidBookingId = 999L;
+        Exception exception = assertThrows(EntityNotFoundException.class, () -> {
+            assistantBookingService.removeBooking(assistantId, invalidBookingId);
         });
-        assertTrue(exception.getMessage().contains("Booking no encontrado con id: 30"));
-        verify(assistantRepository, times(1)).findById(1L);
-        verify(bookingRepository, times(1)).findById(30L);
+        assertEquals(ErrorMessage.BOOKING_NOT_FOUND, exception.getMessage());
     }
-    
-    // ---------------------------
-    // Tests para removeBooking(...)
-    // ---------------------------
-    
+
     @Test
-    @DisplayName("removeBooking: desasociación exitosa de booking")
-    public void testRemoveBooking_Valid() throws Exception {
-        // Booking asociado correctamente
-        booking.setAssistant(assistant);
-        when(bookingRepository.findById(10L)).thenReturn(Optional.of(booking));
-        when(bookingRepository.save(any(BookingEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
-        
-        // Al remover, se espera que la asociación en booking pase a null
-        assistantBookingService.removeBooking(1L, 10L);
-        assertNull(booking.getAssistant());
-        
-        verify(bookingRepository, times(1)).findById(10L);
-        verify(bookingRepository, times(1)).save(booking);
-    }
-    
-    @Test
-    @DisplayName("removeBooking: booking no encontrado")
-    public void testRemoveBooking_BookingNotFound() {
-        when(bookingRepository.findById(10L)).thenReturn(Optional.empty());
-        
-        Exception exception = assertThrows(Exception.class, () -> {
-            assistantBookingService.removeBooking(1L, 10L);
+    public void testRemoveBookingNotAssociated() {
+        // Se intenta remover un booking que no está asociado al assistant1.
+        // booking3 está asociado a assistant2.
+        Long assistant1Id = assistantData.get(0).getId();
+        Long booking3Id = bookingData.get(2).getId();
+        Exception exception = assertThrows(EntityNotFoundException.class, () -> {
+            assistantBookingService.removeBooking(assistant1Id, booking3Id);
         });
-        assertTrue(exception.getMessage().contains("Booking no encontrado con id: 10"));
-        verify(bookingRepository, times(1)).findById(10L);
-    }
-    
-    @Test
-    @DisplayName("removeBooking: booking no asociado al assistant indicado")
-    public void testRemoveBooking_BookingNotAssociated() {
-        // Configurar el booking para que tenga un assistant distinto
-        AssistantEntity otherAssistant = new AssistantEntity();
-        otherAssistant.setId(2L);
-        booking.setAssistant(otherAssistant);
-        when(bookingRepository.findById(10L)).thenReturn(Optional.of(booking));
-        
-        Exception exception = assertThrows(Exception.class, () -> {
-            assistantBookingService.removeBooking(1L, 10L);
-        });
-        assertTrue(exception.getMessage().contains("La reserva no pertenece al asistente indicado"));
-        verify(bookingRepository, times(1)).findById(10L);
+        assertEquals(ErrorMessage.BOOKING_NOT_ASSOCIATED, exception.getMessage());
     }
 }
-
