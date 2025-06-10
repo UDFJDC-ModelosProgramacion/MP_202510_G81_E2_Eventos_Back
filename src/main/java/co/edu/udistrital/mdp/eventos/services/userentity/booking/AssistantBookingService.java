@@ -2,12 +2,16 @@ package co.edu.udistrital.mdp.eventos.services.userentity.booking;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.BookingEntity;
 import co.edu.udistrital.mdp.eventos.entities.userentity.AssistantEntity;
+import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
+import co.edu.udistrital.mdp.eventos.exceptions.ErrorMessage;
+import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.eventos.repositories.AssistantRepository;
 import co.edu.udistrital.mdp.eventos.repositories.BookingRepository;
 import jakarta.transaction.Transactional;
@@ -33,17 +37,20 @@ public class AssistantBookingService {
      */
 
     @Transactional
-    public BookingEntity addBooking(Long assistantId, Long bookingId) throws Exception {
+    public BookingEntity addBooking(Long assistantId, Long bookingId) throws EntityNotFoundException  {
         log.info("Inicia el proceso de asociación de una reserva a un asistente con id = {}", assistantId);
+        Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
+        Optional<BookingEntity> bookingEntity = bookingRepository.findById(bookingId);
 
-        AssistantEntity assistant = assistantRepository.findById(assistantId)
-            .orElseThrow(() -> new Exception("Assistant no encontrado con id: " + assistantId));
-
-        BookingEntity booking = bookingRepository.findById(bookingId)
-            .orElseThrow(() -> new Exception("Booking no encontrado con id: " + bookingId));
-
-        booking.setAssistant(assistant);
-        return bookingRepository.save(booking);
+        if(assistantEntity.isEmpty()) {
+            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+        }
+        if(bookingEntity.isEmpty()) {
+            throw new EntityNotFoundException(ErrorMessage.BOOKING_NOT_FOUND);
+        }
+        
+        bookingEntity.get().setAssistant(assistantEntity.get());
+        return bookingEntity.get();
     }
 
     /*
@@ -56,13 +63,16 @@ public class AssistantBookingService {
 	 */
     
     @Transactional
-    public List<BookingEntity> getBookings(Long assistantId) throws Exception {
+    public List<BookingEntity> getBookings(Long assistantId) throws EntityNotFoundException {
         log.info("Inicia el proceso de obtención de todas las reservas de un asistente con id = {}", assistantId);
+        Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
 
-        AssistantEntity assistant = assistantRepository.findById(assistantId)
-            .orElseThrow(() -> new Exception("Assistant no encontrado con id: " + assistantId));
+        if(assistantEntity.isEmpty()) {
+            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+        }
+        log.info("Termina el proceso de obtención de todas las reservas de un asistente con id = {}", assistantId);
 
-        return assistant.getBookings();
+        return assistantEntity.get().getBookings();
     }
 
     /*
@@ -74,17 +84,24 @@ public class AssistantBookingService {
 	 */
 
     @Transactional
-    public BookingEntity getBooking(Long assistantId, Long bookingId) throws Exception {
+    public BookingEntity getBooking(Long assistantId, Long bookingId) throws EntityNotFoundException, IllegalOperationException {
         log.info("Inicia el proceso de obtención de una reserva de un asistente con id = {}", assistantId);
+        Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
+        Optional<BookingEntity> bookingEntity = bookingRepository.findById(bookingId);
 
-        BookingEntity booking = bookingRepository.findById(bookingId)
-            .orElseThrow(() -> new Exception("Booking no encontrado con id: " + bookingId));
+        if(assistantEntity.isEmpty()) {
+            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+        }
+        if(bookingEntity.isEmpty()) {
+            throw new EntityNotFoundException(ErrorMessage.BOOKING_NOT_FOUND);
+        }
+        log.info("Termina el proceso de obtención de una reserva con id = {0} de un asistente con id = {}", bookingId, assistantId);
 
-        if (booking.getAssistant() == null || !booking.getAssistant().getId().equals(assistantId)) {
-            throw new Exception("La reserva no está asociada al asistente especificado");
+        if (bookingEntity.get().getAssistant() == null ||!bookingEntity.get().getAssistant().getId().equals(assistantId)) {
+            throw new IllegalOperationException("The booking is not associated to the assistant");
         }
 
-        return booking;
+        return bookingEntity.get();
     }
 
     /*
@@ -129,17 +146,32 @@ public class AssistantBookingService {
 	 */
 
     @Transactional
-    public void removeBooking(Long assistantId, Long bookingId) throws Exception {
+    public void removeBooking(Long assistantId, Long bookingId) throws EntityNotFoundException {
         log.info("Inicia el proceso de borrado de una reserva de un asistente con id = {}", assistantId);
 
-        BookingEntity booking = bookingRepository.findById(bookingId)
-            .orElseThrow(() -> new Exception("Booking no encontrado con id: " + bookingId));
+        Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
+        Optional<BookingEntity> bookingEntity = bookingRepository.findById(bookingId);
 
-        if (booking.getAssistant() == null || !booking.getAssistant().getId().equals(assistantId)) {
-            throw new Exception("La reserva no pertenece al asistente indicado");
+        if (assistantEntity.isEmpty()) {
+            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+        }
+        if (bookingEntity.isEmpty()) {
+            throw new EntityNotFoundException(ErrorMessage.BOOKING_NOT_FOUND);
         }
 
+        BookingEntity booking = bookingEntity.get();
+        AssistantEntity assistant = assistantEntity.get();
+
+        if (booking.getAssistant() == null || !booking.getAssistant().getId().equals(assistantId)) {
+            throw new EntityNotFoundException(ErrorMessage.BOOKING_NOT_ASSOCIATED);
+        }
+
+        // Desasociar la reserva del asistente
+        assistant.getBookings().remove(booking);
         booking.setAssistant(null);
+
         bookingRepository.save(booking);
+        assistantRepository.save(assistant);
     }
+
 }
