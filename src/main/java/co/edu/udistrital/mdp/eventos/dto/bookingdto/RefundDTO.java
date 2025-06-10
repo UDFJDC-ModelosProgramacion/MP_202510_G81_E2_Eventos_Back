@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class RefundDTO {
-    private Integer id;
+    private Long id;
     private Date date;
 }

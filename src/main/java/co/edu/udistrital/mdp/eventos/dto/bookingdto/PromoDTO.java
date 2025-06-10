@@ -3,7 +3,7 @@ import lombok.Data;
 
 @Data
 public class PromoDTO {
-    private Integer id;
+    private Long id;
     private Float discount;
     private String description;
     private String code;
