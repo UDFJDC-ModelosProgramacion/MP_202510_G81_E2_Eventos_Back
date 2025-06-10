@@ -1,6 +1,7 @@
 package co.edu.udistrital.mdp.eventos.services;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.NotificationEntity;
+import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.repositories.NotificationRepository;
 import co.edu.udistrital.mdp.eventos.services.bookingentity.NotificationService;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,8 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import jakarta.persistence.EntityNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,7 +52,7 @@ public class NotificationServiceTest {
 
     @Test
     @DisplayName("Debe obtener correctamente una notificación existente")
-    void getNotificationValidTest() {
+    void getNotificationValidTest() throws EntityNotFoundException {
         NotificationEntity found = service.getNotification(savedNotification.getId());
         assertEquals(savedNotification.getId(), found.getId());
         assertEquals(savedNotification.getDescription(), found.getDescription());
@@ -68,7 +67,7 @@ public class NotificationServiceTest {
 
     @Test
     @DisplayName("Debe actualizar correctamente una notificación existente")
-    void updateNotificationValidTest() {
+    void updateNotificationValidTest() throws EntityNotFoundException {
         NotificationEntity updated = new NotificationEntity();
         updated.setDescription("Actualizada");
         NotificationEntity result = service.updateNotification(savedNotification.getId(), updated);
@@ -86,7 +85,7 @@ public class NotificationServiceTest {
 
     @Test
     @DisplayName("Debe eliminar correctamente una notificación existente")
-    void deleteNotificationValidTest() {
+    void deleteNotificationValidTest() throws EntityNotFoundException {
         service.deleteNotification(savedNotification.getId());
         assertThrows(EntityNotFoundException.class, () ->
             service.getNotification(savedNotification.getId()));

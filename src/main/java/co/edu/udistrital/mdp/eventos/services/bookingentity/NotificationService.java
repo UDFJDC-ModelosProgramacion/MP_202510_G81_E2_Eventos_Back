@@ -5,14 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.NotificationEntity;
+import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.repositories.NotificationRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
 public class NotificationService {
-     @Autowired
+
+    @Autowired
     private NotificationRepository notificationRepository;
 
     @Transactional
@@ -27,13 +28,13 @@ public class NotificationService {
         return notificationRepository.findAll();
     }
 
-    public NotificationEntity getNotification(Long id) {
+    public NotificationEntity getNotification(Long id) throws EntityNotFoundException {
         return notificationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Notification not found with id " + id));
     }
 
     @Transactional
-    public NotificationEntity updateNotification(Long id, NotificationEntity notification) {
+    public NotificationEntity updateNotification(Long id, NotificationEntity notification) throws EntityNotFoundException {
         NotificationEntity existing = getNotification(id);
         if (notification.getDescription() != null && notification.getDescription().isEmpty()) {
             throw new IllegalArgumentException("Description cannot be empty");
@@ -46,10 +47,8 @@ public class NotificationService {
     }
 
     @Transactional
-    public void deleteNotification(Long id) {
+    public void deleteNotification(Long id) throws EntityNotFoundException {
         NotificationEntity notification = getNotification(id);
         notificationRepository.delete(notification);
     }
 }
-
-

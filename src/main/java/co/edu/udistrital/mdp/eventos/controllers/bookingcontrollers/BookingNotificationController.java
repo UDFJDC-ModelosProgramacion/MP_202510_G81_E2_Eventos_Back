@@ -9,7 +9,7 @@ import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.services.bookingentity.BookingNotificationService;
 
 @RestController
-@RequestMapping("/api/bookings/{bookingId}/notification")
+@RequestMapping("bookings/{bookingId}/notification")
 public class BookingNotificationController {
 
     @Autowired

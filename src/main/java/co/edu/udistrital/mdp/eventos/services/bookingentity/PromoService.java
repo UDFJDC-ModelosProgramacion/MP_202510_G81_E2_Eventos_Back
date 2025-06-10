@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.PromoEntity;
+import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.repositories.PromoRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -28,13 +28,13 @@ public class PromoService {
         return promoRepository.findAll();
     }
 
-    public PromoEntity getPromo(Long id) {
+    public PromoEntity getPromo(Long id) throws EntityNotFoundException {
         return promoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Promo not found with id " + id));
     }
 
     @Transactional
-    public PromoEntity updatePromo(Long id, PromoEntity promo) {
+    public PromoEntity updatePromo(Long id, PromoEntity promo) throws EntityNotFoundException {
         PromoEntity existing = getPromo(id);
         if (promo.getDiscount() != null && promo.getDiscount() < 0) {
             throw new IllegalArgumentException("Discount must be non-negative");
@@ -46,7 +46,7 @@ public class PromoService {
     }
 
     @Transactional
-    public void deletePromo(Long id) {
+    public void deletePromo(Long id) throws EntityNotFoundException {
         PromoEntity promo = getPromo(id);
         promoRepository.delete(promo);
     }

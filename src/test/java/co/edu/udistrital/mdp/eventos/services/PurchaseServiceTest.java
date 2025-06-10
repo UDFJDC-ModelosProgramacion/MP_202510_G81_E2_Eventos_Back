@@ -1,9 +1,10 @@
 package co.edu.udistrital.mdp.eventos.services;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.PurchaseEntity;
+import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.repositories.PurchaseRepository;
 import co.edu.udistrital.mdp.eventos.services.bookingentity.PurchaseService;
-import jakarta.persistence.EntityNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,12 +27,12 @@ class PurchaseServiceTest {
     private PurchaseEntity samplePurchase;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws EntityNotFoundException {
         purchaseRepository.deleteAll();
 
         samplePurchase = new PurchaseEntity();
         samplePurchase.setRemainingSeats(10);
-        purchaseRepository.save(samplePurchase);
+        samplePurchase = purchaseService.createPurchase(samplePurchase);
     }
 
     @Test
@@ -54,7 +55,7 @@ class PurchaseServiceTest {
 
     @Test
     @DisplayName("Debe obtener correctamente una compra existente")
-    void getPurchaseValidTest() {
+    void getPurchaseValidTest() throws EntityNotFoundException {
         PurchaseEntity found = purchaseService.getPurchase(samplePurchase.getId());
         assertEquals(samplePurchase.getId(), found.getId());
     }
@@ -67,7 +68,7 @@ class PurchaseServiceTest {
 
     @Test
     @DisplayName("Debe actualizar correctamente una compra existente")
-    void updatePurchaseValidTest() {
+    void updatePurchaseValidTest() throws EntityNotFoundException {
         PurchaseEntity updated = new PurchaseEntity();
         updated.setRemainingSeats(7);
         PurchaseEntity result = purchaseService.updatePurchase(samplePurchase.getId(), updated);
@@ -85,7 +86,7 @@ class PurchaseServiceTest {
 
     @Test
     @DisplayName("Debe eliminar correctamente una compra existente")
-    void deletePurchaseValidTest() {
+    void deletePurchaseValidTest() throws EntityNotFoundException {
         purchaseService.deletePurchase(samplePurchase.getId());
         assertFalse(purchaseRepository.findById(samplePurchase.getId()).isPresent());
     }
