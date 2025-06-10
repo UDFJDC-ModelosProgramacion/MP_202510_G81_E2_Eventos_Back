@@ -57,7 +57,7 @@ public class AssistantPreferenceService {
 	 * Obtiene una colección de instancias de PreferenceEntity asociadas a una instancia
 	 * de Assistant
 	 *
-	 * @param assistantId Identificador de la instancia de Author
+	 * @param assistantId Identificador de la instancia de Assistant
 	 * @return Colección de instancias de PreferenceEntity asociadas a la instancia de
 	 *         Assistant
 	 */
@@ -127,8 +127,8 @@ public class AssistantPreferenceService {
     /*
 	 * Desasocia un Preference existente de un Assistant existente
 	 *
-	 * @param assistantId Identificador de la instancia de Author
-	 * @param preferenceId   Identificador de la instancia de Book
+	 * @param assistantId Identificador de la instancia de Assistant
+	 * @param preferenceId   Identificador de la instancia de Preference
 	 */
 	@Transactional
 	public void removePreference(Long assistantId, Long bookId) throws EntityNotFoundException {
