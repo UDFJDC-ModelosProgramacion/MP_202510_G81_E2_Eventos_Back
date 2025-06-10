@@ -16,8 +16,8 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
-
 public class BookingEntity extends BaseEntity {
+
     @PodamExclude
     @ManyToOne
     private AssistantEntity assistant;
@@ -30,6 +30,9 @@ public class BookingEntity extends BaseEntity {
     @OneToOne
     private NotificationEntity notification;
 
+    @PodamExclude
+    @OneToOne
+    private PurchaseEntity purchase;
+
     private Integer remainingSeats;
-    
 }
