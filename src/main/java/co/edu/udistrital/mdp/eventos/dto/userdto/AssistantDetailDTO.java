@@ -3,7 +3,6 @@ package co.edu.udistrital.mdp.eventos.dto.userdto;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.Notification;
 
 import co.edu.udistrital.mdp.eventos.dto.bookingdto.BookingDTO;
 import co.edu.udistrital.mdp.eventos.dto.bookingdto.NotificationDTO;
