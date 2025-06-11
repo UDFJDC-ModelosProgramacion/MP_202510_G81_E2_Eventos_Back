@@ -123,4 +123,5 @@ public class LocationService {
        log.info("Obteniendo ubicaciones de tipo={}", type);
        return locationRepository.findByTypeContainingIgnoreCase(type);
    }
+   
 }
