@@ -53,8 +53,8 @@ public class EventServiceTest {
     @Test
     void testCreateEventWithoutOrganizer() {
         EventEntity newEvent = factory.manufacturePojo(EventEntity.class);
-        newEvent.setOrganizer(null);
-
+        newEvent.setOrganizer(null); // Asegúrate que no tenga organizador
+        
         assertThrows(IllegalArgumentException.class, () -> eventService.createEvent(newEvent));
     }
 

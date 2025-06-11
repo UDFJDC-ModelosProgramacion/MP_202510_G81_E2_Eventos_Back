@@ -35,7 +35,7 @@ public class LocationService {
             throw new IllegalArgumentException("El nombre de la ubicación es obligatorio.");
         }
         if (location.getLocation() == null || location.getLocation().isBlank()) {
-            throw new IllegalArgumentException("La dirección física de la ubicación es obligatoria.");
+        throw new IllegalArgumentException("La dirección física de la ubicación es obligatoria.");
         }
         if (location.getCapacity() == null || location.getCapacity() <= 0) {
             throw new IllegalArgumentException("La capacidad debe ser un número positivo.");

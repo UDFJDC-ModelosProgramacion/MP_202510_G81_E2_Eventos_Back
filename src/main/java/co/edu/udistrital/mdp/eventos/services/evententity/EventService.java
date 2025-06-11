@@ -38,6 +38,10 @@ public class EventService {
             throw new IllegalArgumentException("La fecha del evento es obligatoria.");
         }
 
+        if (event.getOrganizer() == null || event.getOrganizer().getId() == null) {
+        throw new IllegalArgumentException("El organizador del evento es obligatorio.");
+        }
+
         // Validar organizador
         if (event.getOrganizer() != null && event.getOrganizer().getId() != null) {
             Optional<OrganizerEntity> organizer = organizerRepository.findById(event.getOrganizer().getId());

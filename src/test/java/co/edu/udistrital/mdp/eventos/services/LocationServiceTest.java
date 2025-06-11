@@ -54,10 +54,10 @@ public class LocationServiceTest {
 
     @Test
     void testCreateLocationWithoutAddress() {
-        LocationEntity newLocation = factory.manufacturePojo(LocationEntity.class);
-        newLocation.setLocation(null);
-
-        assertThrows(IllegalArgumentException.class, () -> locationService.createLocation(newLocation));
+    LocationEntity newLocation = factory.manufacturePojo(LocationEntity.class);
+    newLocation.setLocation(null); // Asegúrate que no tenga dirección
+    
+    assertThrows(IllegalArgumentException.class, () -> locationService.createLocation(newLocation));
     }
 
     @Test
