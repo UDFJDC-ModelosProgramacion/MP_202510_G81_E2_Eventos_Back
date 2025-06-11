@@ -24,7 +24,7 @@ import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.eventos.services.paymententity.CreditCardService;
 
 @RestController
-@RequestMapping("/credit-cards")
+@RequestMapping("/credit_cards")
 public class CreditCardController {
     @Autowired
     private CreditCardService creditCardService;
