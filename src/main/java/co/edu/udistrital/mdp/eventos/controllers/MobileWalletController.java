@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import co.edu.udistrital.mdp.eventos.dto.paymentdto.MethodOfPaymentDetailDTO;
+import co.edu.udistrital.mdp.eventos.dto.paymentdto.MethodOfPaymentDTO;
 import co.edu.udistrital.mdp.eventos.dto.paymentdto.MobileWalletDTO;
 import co.edu.udistrital.mdp.eventos.entities.paymententity.MobileWalletEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
@@ -36,22 +35,22 @@ public class MobileWalletController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<MethodOfPaymentDetailDTO> findAll() {
+    public List<MethodOfPaymentDTO> findAll() {
 
         List<MobileWalletEntity> mobileWallets = mobileWalletService.getMobileWallets();
 
-        return modelMapper.map(mobileWallets, new TypeToken<List<MethodOfPaymentDetailDTO>>() {
+        return modelMapper.map(mobileWallets, new TypeToken<List<MethodOfPaymentDTO>>() {
         }.getType());
 
     }
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public MethodOfPaymentDetailDTO findOne(@PathVariable Long id) throws EntityNotFoundException {
+    public MethodOfPaymentDTO findOne(@PathVariable Long id) throws EntityNotFoundException {
 
         MobileWalletEntity mobileWalletEntity = mobileWalletService.getMobileWallet(id);
 
-        return modelMapper.map(mobileWalletEntity, MethodOfPaymentDetailDTO.class);
+        return modelMapper.map(mobileWalletEntity, MethodOfPaymentDTO.class);
 
     }
 

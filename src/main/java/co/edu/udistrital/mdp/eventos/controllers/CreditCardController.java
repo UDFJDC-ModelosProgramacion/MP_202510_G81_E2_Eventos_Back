@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.udistrital.mdp.eventos.dto.paymentdto.CreditCardDTO;
-import co.edu.udistrital.mdp.eventos.dto.paymentdto.MethodOfPaymentDetailDTO;
+import co.edu.udistrital.mdp.eventos.dto.paymentdto.MethodOfPaymentDTO;
 import co.edu.udistrital.mdp.eventos.entities.paymententity.CreditCardEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
@@ -34,22 +34,22 @@ public class CreditCardController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<MethodOfPaymentDetailDTO> findAll() {
+    public List<MethodOfPaymentDTO> findAll() {
 
         List<CreditCardEntity> creditCards = creditCardService.getCreditCards();
 
-        return modelMapper.map(creditCards, new TypeToken<List<MethodOfPaymentDetailDTO>>() {
+        return modelMapper.map(creditCards, new TypeToken<List<MethodOfPaymentDTO>>() {
         }.getType());
 
     }
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public MethodOfPaymentDetailDTO findOne(@PathVariable Long id) throws EntityNotFoundException {
+    public MethodOfPaymentDTO findOne(@PathVariable Long id) throws EntityNotFoundException {
 
         CreditCardEntity creditCardEntity = creditCardService.getCreditCard(id);
 
-        return modelMapper.map(creditCardEntity, MethodOfPaymentDetailDTO.class);
+        return modelMapper.map(creditCardEntity, MethodOfPaymentDTO.class);
 
     }
 
