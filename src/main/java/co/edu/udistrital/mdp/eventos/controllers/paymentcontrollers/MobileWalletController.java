@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.controllers;
+package co.edu.udistrital.mdp.eventos.controllers.paymentcontrollers;
 
 import java.util.List;
 
@@ -16,18 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.udistrital.mdp.eventos.dto.paymentdto.DebitCardDTO;
 import co.edu.udistrital.mdp.eventos.dto.paymentdto.MethodOfPaymentDTO;
-import co.edu.udistrital.mdp.eventos.entities.paymententity.DebitCardEntity;
+import co.edu.udistrital.mdp.eventos.dto.paymentdto.MobileWalletDTO;
+import co.edu.udistrital.mdp.eventos.entities.paymententity.MobileWalletEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
-import co.edu.udistrital.mdp.eventos.services.DebitCardService;
+import co.edu.udistrital.mdp.eventos.services.paymententity.MobileWalletService;
+
 
 @RestController
-@RequestMapping("/debit-cards")
-public class DebitCardController {
+@RequestMapping("/mobile-wallets")
+public class MobileWalletController {
     @Autowired
-    private DebitCardService debitCardService;
+    private MobileWalletService mobileWalletService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -36,9 +37,9 @@ public class DebitCardController {
     @ResponseStatus(code = HttpStatus.OK)
     public List<MethodOfPaymentDTO> findAll() {
 
-        List<DebitCardEntity> debitCards = debitCardService.getDebitCards();
+        List<MobileWalletEntity> mobileWallets = mobileWalletService.getMobileWallets();
 
-        return modelMapper.map(debitCards, new TypeToken<List<MethodOfPaymentDTO>>() {
+        return modelMapper.map(mobileWallets, new TypeToken<List<MethodOfPaymentDTO>>() {
         }.getType());
 
     }
@@ -47,39 +48,39 @@ public class DebitCardController {
     @ResponseStatus(code = HttpStatus.OK)
     public MethodOfPaymentDTO findOne(@PathVariable Long id) throws EntityNotFoundException {
 
-        DebitCardEntity debitCardEntity = debitCardService.getDebitCard(id);
+        MobileWalletEntity mobileWalletEntity = mobileWalletService.getMobileWallet(id);
 
-        return modelMapper.map(debitCardEntity, MethodOfPaymentDTO.class);
+        return modelMapper.map(mobileWalletEntity, MethodOfPaymentDTO.class);
 
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public DebitCardDTO create(@RequestBody DebitCardDTO debitCardDTO)
+    public MobileWalletDTO create(@RequestBody MobileWalletDTO mobileWalletDTO)
             throws IllegalOperationException, EntityNotFoundException {
 
-        DebitCardEntity debitCardEntity = debitCardService
-                .createDebitCard(modelMapper.map(debitCardDTO, DebitCardEntity.class));
+        MobileWalletEntity mobileWalletEntity = mobileWalletService
+                .createMobileWallet(modelMapper.map(mobileWalletDTO, MobileWalletEntity.class));
 
-        return modelMapper.map(debitCardEntity, DebitCardDTO.class);
+        return modelMapper.map(mobileWalletEntity, MobileWalletDTO.class);
 
     }
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public DebitCardDTO update(@PathVariable Long id, @RequestBody DebitCardDTO debitCardDTO)
+    public MobileWalletDTO update(@PathVariable Long id, @RequestBody MobileWalletDTO mobileWalletDTO)
             throws EntityNotFoundException, IllegalOperationException {
 
-        DebitCardEntity debitCardEntity = debitCardService.updateDebitCard(id,
-                modelMapper.map(debitCardDTO, DebitCardEntity.class));
+        MobileWalletEntity mobileWalletEntity = mobileWalletService.updateMobileWallet(id,
+                modelMapper.map(mobileWalletDTO, MobileWalletEntity.class));
 
-        return modelMapper.map(debitCardEntity, DebitCardDTO.class);
+        return modelMapper.map(mobileWalletEntity, MobileWalletDTO.class);
 
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) throws EntityNotFoundException, IllegalOperationException {
-        debitCardService.deleteDebitCard(id);
+        mobileWalletService.deleteMobileWallet(id);
     }
 }

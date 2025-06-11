@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.controllers;
+package co.edu.udistrital.mdp.eventos.controllers.paymentcontrollers;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import co.edu.udistrital.mdp.eventos.dto.paymentdto.MethodOfPaymentDTO;
 import co.edu.udistrital.mdp.eventos.entities.paymententity.CreditCardEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
-import co.edu.udistrital.mdp.eventos.services.CreditCardService;
+import co.edu.udistrital.mdp.eventos.services.paymententity.CreditCardService;
 
 @RestController
 @RequestMapping("/credit-cards")
