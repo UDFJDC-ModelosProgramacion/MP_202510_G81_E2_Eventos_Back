@@ -29,8 +29,7 @@ public class EventService {
     @Transactional
     public EventEntity createEvent(EventEntity event) throws EntityNotFoundException {
         log.info("Inicia el proceso de creación de un evento");
-
-        
+    
         if (event.getName() == null || event.getName().isBlank()) {
             throw new IllegalArgumentException("El nombre del evento es obligatorio.");
         }
@@ -50,10 +49,17 @@ public class EventService {
             }
             event.setOrganizer(organizer.get());
         }
-
+    
+        Optional<OrganizerEntity> organizer = organizerRepository.findById(event.getOrganizer().getId());
+        if (organizer.isEmpty()) {
+            throw new EntityNotFoundException("El organizador asociado no existe.");
+        }
+        event.setOrganizer(organizer.get());
+    
         log.info("Evento creado con id={}", event.getId());
         return eventRepository.save(event);
     }
+
 
     @Transactional(readOnly = true)
     public List<EventEntity> getAllEvents() {
