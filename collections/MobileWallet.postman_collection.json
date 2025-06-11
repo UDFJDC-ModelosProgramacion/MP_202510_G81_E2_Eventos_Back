@@ -1,0 +1,607 @@
+{
+	"info": {
+		"_postman_id": "23a5e160-24bd-4584-98e8-ebddd79204af",
+		"name": "MobileWallet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45717733",
+		"_collection_link": "https://natalia-3174889.postman.co/workspace/797c05c3-6279-47a6-8f8c-49dbab9484cd/collection/45717733-23a5e160-24bd-4584-98e8-ebddd79204af?action=share&source=collection_link&creator=45717733"
+	},
+	"item": [
+		{
+			"name": "Create Mobile Wallet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"\r",
+							"pm.globals.set(\"mobile_wallet_id_1\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"\r",
+							"   pm.response.to.have.status(201);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\":\"MOBILE_WALLET\",\r\n    \"phoneAccount\": 1234567890,\r\n    \"typeOfWallet\": \"Nequi\",\r\n    \"otpCode\": 456,\r\n    \"identityDocument\": 100293846,\r\n    \"email\": \"user@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/mobile_wallets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"mobile_wallets"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Mobile Wallet",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phoneAccount\": 1234567890,\r\n    \"typeOfWallet\": \"Nequi\",\r\n    \"otpCode\": 456,\r\n    \"identityDocument\": 100293846,\r\n    \"email\": \"user@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mobile-wallets",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mobile-wallets"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "{\r\n    \"id\": 1,\r\n    \"phoneAccount\": 1234567890,\r\n    \"typeOfWallet\": \"Nequi\",\r\n    \"otpCode\": 456,\r\n    \"identityDocument\": 100293846,\r\n    \"email\": \"user@gmail.com\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Get all mobile wallets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of mobile_wallets > ' + 0, function () {\r",
+							"\r",
+							"   var data = pm.response.json()\r",
+							"\r",
+							"   pm.expect(data.length).to.greaterThan(0)\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"\r",
+							"   pm.response.to.have.status(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/mobile_wallets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"mobile_wallets"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get all mobile wallets",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/mobile-wallets",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mobile-wallets"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "{\r\n    \"id\": 1,\r\n    \"phoneAccount\": 1234567890,\r\n    \"typeOfWallet\": \"Nequi\",\r\n    \"otpCode\": 456,\r\n    \"identityDocument\": 100293846,\r\n    \"email\": \"user@gmail.com\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Get mobile wallet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"\r",
+							"   pm.response.to.have.status(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/mobile_wallets/{{mobile_wallet_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"mobile_wallets",
+						"{{mobile_wallet_id_1}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get mobile wallet",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/mobile-wallets/{{mobile_wallet_id_1}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mobile-wallets",
+								"{{mobile_wallet_id_1}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "{\r\n    \"id\": 1,\r\n    \"phoneAccount\": 1234567890,\r\n    \"typeOfWallet\": \"Nequi\",\r\n    \"otpCode\": 456,\r\n    \"identityDocument\": 100293846,\r\n    \"email\": \"user@gmail.com\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Get a non existent mobile wallet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"\r",
+							"   pm.response.to.have.status(404);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"\r",
+							"   var data = pm.response.json();\r",
+							"\r",
+							"   pm.expect(data.apierror.message).to.eql(\"The mobile wallet does not exist\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/mobile_wallets/0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"mobile_wallets",
+						"0"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get a non existent mobile wallet",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/mobile-wallets/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mobile-wallets",
+								"0"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "{\r\n    \"apierror\": {\r\n        \"status\": \"NOT_FOUND\",\r\n        \"timestamp\": \"08-06-2025 10:01:09\",\r\n        \"message\": \"The mobile wallet with the given id was not found\"\r\n    }\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Edit mobile wallet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"\r",
+							"   pm.response.to.have.status(200);\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\":\"MOBILE_WALLET\",\r\n    \"phoneAccount\": 1234567890,\r\n    \"typeOfWallet\": \"Daviplata\",\r\n    \"otpCode\": 789,\r\n    \"identityDocument\": 100293846,\r\n    \"email\": \"user@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/mobile_wallets/{{mobile_wallet_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"mobile_wallets",
+						"{{mobile_wallet_id_1}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Edit mobile wallet",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phoneAccount\": 1234567890,\r\n    \"typeOfWallet\": \"Daviplata\",\r\n    \"otpCode\": 789,\r\n    \"identityDocument\": 100293846,\r\n    \"email\": \"user@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mobile-wallets/{{mobile_wallet_id_1}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mobile-wallets",
+								"{{mobile_wallet_id_1}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "{\r\n    \"phoneAccount\": 1234567890,\r\n    \"typeOfWallet\": \"Daviplata\",\r\n    \"otpCode\": 789,\r\n    \"identityDocument\": 100293846,\r\n    \"email\": \"user@gmail.com\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Edit a non existent mobile wallet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"\r",
+							"   pm.response.to.have.status(404);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"\r",
+							"   var data = pm.response.json();\r",
+							"\r",
+							"   pm.expect(data.apierror.message).to.eql(\"The mobile wallet does not exist\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\":\"MOBILE_WALLET\",\r\n    \"phoneAccount\": 1234567890,\r\n    \"typeOfWallet\": \"Daviplata\",\r\n    \"otpCode\": 789,\r\n    \"identityDocument\": 100293846,\r\n    \"email\": \"user@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/mobile_wallets/0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"mobile_wallets",
+						"0"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Edit a non existent mobile wallet",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phoneAccount\": 1234567890,\r\n    \"typeOfWallet\": \"Daviplata\",\r\n    \"otpCode\": 789,\r\n    \"identityDocument\": 100293846,\r\n    \"email\": \"user@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mobile-wallets/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mobile-wallets",
+								"0"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "{\r\n    \"apierror\": {\r\n        \"status\": \"NOT_FOUND\",\r\n        \"timestamp\": \"08-06-2025 10:04:10\",\r\n        \"message\": \"The mobile wallet with the given id was not found\"\r\n    }\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete a mobile wallet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"\r",
+							"   pm.response.to.have.status(204);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/mobile_wallets/{{mobile_wallet_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"mobile_wallets",
+						"{{mobile_wallet_id_1}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete a mobile wallet",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mobile-wallets/{{mobile_wallet_id_1}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mobile-wallets",
+								"{{mobile_wallet_id_1}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Delete a non existent mobile wallet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"\r",
+							"   pm.response.to.have.status(404);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"\r",
+							"   var data = pm.response.json();\r",
+							"\r",
+							"   pm.expect(data.apierror.message).to.eql(\"The mobile wallet does not exist\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/mobile_wallets/0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"mobile_wallets",
+						"0"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete a non existent mobile wallet",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mobile-wallets/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mobile-wallets",
+								"0"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "{\r\n    \"apierror\": {\r\n        \"status\": \"NOT_FOUND\",\r\n        \"timestamp\": \"08-06-2025 10:04:10\",\r\n        \"message\": \"The mobile wallet with the given id was not found\"\r\n    }\r\n}"
+				}
+			]
+		}
+	]
+}

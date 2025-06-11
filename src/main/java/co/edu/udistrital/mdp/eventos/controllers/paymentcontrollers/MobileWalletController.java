@@ -25,7 +25,7 @@ import co.edu.udistrital.mdp.eventos.services.paymententity.MobileWalletService;
 
 
 @RestController
-@RequestMapping("/mobile-wallets")
+@RequestMapping("/mobile_wallets")
 public class MobileWalletController {
     @Autowired
     private MobileWalletService mobileWalletService;

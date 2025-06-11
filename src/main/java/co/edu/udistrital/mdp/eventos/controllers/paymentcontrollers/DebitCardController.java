@@ -24,7 +24,7 @@ import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.eventos.services.paymententity.DebitCardService;
 
 @RestController
-@RequestMapping("/debit-cards")
+@RequestMapping("/debit_cards")
 public class DebitCardController {
     @Autowired
     private DebitCardService debitCardService;
