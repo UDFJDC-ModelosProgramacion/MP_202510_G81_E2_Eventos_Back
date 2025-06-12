@@ -48,9 +48,13 @@ public class AssistantBookingService {
             throw new EntityNotFoundException(ErrorMessage.BOOKING_NOT_FOUND);
         }
         
-        bookingEntity.get().setAssistant(assistantEntity.get());
-        //assistantEntity.get().setPaymentMethods(bookingEntity.get());
-        return bookingEntity.get();
+        AssistantEntity assistant = assistantEntity.get();
+        BookingEntity booking = bookingEntity.get();
+
+        booking.setAssistant(assistant);
+        assistant.getBookings().add(booking);
+
+        return booking;
     }
 
     /*
