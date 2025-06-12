@@ -40,6 +40,7 @@ public class AssistantMethodOfPaymentService {
         AssistantEntity assistant = assistantOpt.get();
         MethodOfPaymentEntity payment= paymentOpt.get();
         payment.setAssistant(assistant);
+        //assistant.setMethodOfPayment(payment);
         return methodOfPaymentRepository.save(payment);
     }
 
