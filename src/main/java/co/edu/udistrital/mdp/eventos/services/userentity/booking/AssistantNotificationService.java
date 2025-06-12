@@ -38,18 +38,23 @@ public class AssistantNotificationService {
     public NotificationEntity addNotification(Long assistantId, Long notificationId) throws EntityNotFoundException {
         log.info("Inicia el proceso de asociación de una notificación a un asistente con id = {}", assistantId);
 
-        Optional<AssistantEntity> assistant = assistantRepository.findById(assistantId);
-        Optional<NotificationEntity> notification = notificationRepository.findById(notificationId);
+        Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
+        Optional<NotificationEntity> notificationEntity = notificationRepository.findById(notificationId);
 
-        if (assistant.isEmpty()) {
+        if (assistantEntity.isEmpty()) {
             throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
         }
-        if (notification.isEmpty()) {
+        if (notificationEntity.isEmpty()) {
             throw new EntityNotFoundException(ErrorMessage.NOTIFICATION_NOT_FOUND);
         }
 
-        notification.get().setAssistant(assistant.get());
-        return notificationRepository.save(notification.get());
+        AssistantEntity assistant = assistantEntity.get();
+        NotificationEntity notification = notificationEntity.get();
+
+        notification.setAssistant(assistant);
+        assistant.getNotifications().add(notification);
+
+        return notification;
     }
 
     /*

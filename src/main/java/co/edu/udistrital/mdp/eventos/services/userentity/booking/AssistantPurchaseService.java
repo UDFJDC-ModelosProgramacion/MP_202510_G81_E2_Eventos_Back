@@ -52,8 +52,9 @@ public class AssistantPurchaseService {
         AssistantEntity assistant = assistantOpt.get();
 
         purchase.setAssistant(assistant);
-        // Es importante guardar la entidad para persistir la asociación
-        return purchaseRepository.save(purchase);
+        assistant.getPurchases().add(purchase);
+
+        return purchase;
     }
 
     /**
