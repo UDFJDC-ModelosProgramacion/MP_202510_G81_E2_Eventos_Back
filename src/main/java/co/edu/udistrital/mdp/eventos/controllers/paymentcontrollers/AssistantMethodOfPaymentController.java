@@ -10,13 +10,17 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.udistrital.mdp.eventos.dto.paymentdto.MethodOfPaymentDTO;
 import co.edu.udistrital.mdp.eventos.entities.paymententity.MethodOfPaymentEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.services.paymententity.AssistantMethodOfPaymentService;
 
+@RestController
+@RequestMapping("/assistants")
 public class AssistantMethodOfPaymentController {
     @Autowired
     private AssistantMethodOfPaymentService assistantMethodOfPaymentService;
@@ -24,7 +28,7 @@ public class AssistantMethodOfPaymentController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PostMapping(value="/assistants/{assistantId}/methodsOfPayment/{methodOfPaymentId}")
+    @PostMapping(value="/{assistantId}/methodsOfPayment/{paymentId}")
     @ResponseStatus(code = HttpStatus.OK)
     public MethodOfPaymentDTO addMethodOfPayment(@PathVariable Long assistantId , @PathVariable Long paymentId)throws EntityNotFoundException {
 
@@ -32,7 +36,7 @@ public class AssistantMethodOfPaymentController {
         return modelMapper.map(methodOfPayment, MethodOfPaymentDTO.class);
     }
 
-    @GetMapping(value="/assistants/{assistantId}/methodsOfPayment/{methodOfPaymentId}")
+    @GetMapping(value="/{assistantId}/methodsOfPayment/{paymentId}")
     @ResponseStatus(code = HttpStatus.OK)
     public MethodOfPaymentDTO getMethodOfPayment(@PathVariable Long assistantId,@PathVariable Long paymentId) throws EntityNotFoundException {
 
@@ -40,14 +44,14 @@ public class AssistantMethodOfPaymentController {
         return modelMapper.map(entity, MethodOfPaymentDTO.class);
     }
 
-    @GetMapping(value = "/assistants/{assistantId}/methodsOfPayment")
+    @GetMapping(value = "/{assistantId}/methodsOfPayment")
     @ResponseStatus(code = HttpStatus.OK)
     public List<MethodOfPaymentDTO> getMethodsOfPayment(@PathVariable Long assistantId) throws EntityNotFoundException {
         List<MethodOfPaymentEntity> paymentEntities = assistantMethodOfPaymentService.getAllMethodsOfPayment(assistantId);
         return modelMapper.map(paymentEntities, new TypeToken<List<MethodOfPaymentDTO>>() {}.getType());
     }
 
-    @DeleteMapping(value="/assistants/{assistantId}/methodsOfPayment/{methodOfPaymentId}")
+    @DeleteMapping(value="/{assistantId}/methodsOfPayment/{paymentId}")
     @ResponseStatus(code = HttpStatus.OK)
     public void dissociateMethodOfPayment(@PathVariable Long assistantId,@PathVariable Long paymentId) throws EntityNotFoundException  {
         assistantMethodOfPaymentService.removeMethodOfPayment(assistantId,paymentId);
