@@ -49,6 +49,7 @@ public class AssistantBookingService {
         }
         
         bookingEntity.get().setAssistant(assistantEntity.get());
+        //assistantEntity.get().setPaymentMethods(bookingEntity.get());
         return bookingEntity.get();
     }
 
