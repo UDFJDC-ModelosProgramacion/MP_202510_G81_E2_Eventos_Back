@@ -7,6 +7,7 @@ import co.edu.udistrital.mdp.eventos.entities.paymententity.MobileWalletEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.eventos.repositories.AssistantRepository;
+import co.edu.udistrital.mdp.eventos.repositories.MethodOfPaymentRepository;
 import co.edu.udistrital.mdp.eventos.repositories.MobileWalletRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,9 @@ import java.util.*;
 public class MobileWalletService {
     @Autowired
     MobileWalletRepository mobileWalletRepository;
+
+    @Autowired
+    MethodOfPaymentRepository methodOfPaymentRepository;
 
     @Autowired
     AssistantRepository assistantRepository;
@@ -31,9 +35,14 @@ public class MobileWalletService {
             throw new IllegalOperationException("This mobile wallet is already registered");
         }
 
-        log.info("Termina proceso de creación de la billetera movil");
+        // Guardar primero en creditCardRepository
+        MobileWalletEntity savedCard = mobileWalletRepository.save(mobileWalletEntity);
 
-        return mobileWalletRepository.save(mobileWalletEntity);
+        // También guardar como método de pago (aunque ya esté persistido, puedes hacer un save de nuevo)
+        methodOfPaymentRepository.save(savedCard);
+
+        log.info("Termina proceso de creación de la tarjeta de credito");
+        return savedCard;
     }
 
     @Transactional

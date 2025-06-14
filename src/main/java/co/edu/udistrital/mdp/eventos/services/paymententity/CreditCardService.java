@@ -10,6 +10,7 @@ import co.edu.udistrital.mdp.eventos.entities.paymententity.CreditCardEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.eventos.repositories.CreditCardRepository;
+import co.edu.udistrital.mdp.eventos.repositories.MethodOfPaymentRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import java.util.*;
@@ -19,6 +20,9 @@ import java.util.*;
 public class CreditCardService {
     @Autowired
     CreditCardRepository creditCardRepository;
+
+    @Autowired
+    MethodOfPaymentRepository methodOfPaymentRepository;
 
     @Transactional
     public CreditCardEntity createCreditCard(CreditCardEntity creditCardEntity)
@@ -39,9 +43,14 @@ public class CreditCardService {
             throw new IllegalOperationException("This credit card is expired");
         }
 
-        log.info("Termina proceso de creación de la tarjeta de credito");
+        // Guardar primero en creditCardRepository
+        CreditCardEntity savedCard = creditCardRepository.save(creditCardEntity);
 
-        return creditCardRepository.save(creditCardEntity);
+        // También guardar como método de pago (aunque ya esté persistido, puedes hacer un save de nuevo)
+        methodOfPaymentRepository.save(savedCard);
+
+        log.info("Termina proceso de creación de la tarjeta de credito");
+        return savedCard;
     }
 
     @Transactional
