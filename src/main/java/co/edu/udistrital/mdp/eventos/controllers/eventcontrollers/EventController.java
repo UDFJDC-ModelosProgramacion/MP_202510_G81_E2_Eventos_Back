@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import co.edu.udistrital.mdp.eventos.dto.eventdto.*;
 import co.edu.udistrital.mdp.eventos.entities.evententity.EventEntity;
+import co.edu.udistrital.mdp.eventos.entities.userentity.OrganizerEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.services.evententity.EventService;
 
@@ -38,20 +39,38 @@ public class EventController {
         return modelMapper.map(eventEntity, EventDetailDTO.class);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public EventDTO create(@RequestBody EventDTO eventDTO) throws EntityNotFoundException, IllegalArgumentException {
-        EventEntity eventEntity = eventService.createEvent(modelMapper.map(eventDTO, EventEntity.class));
-        return modelMapper.map(eventEntity, EventDTO.class);
+@PostMapping
+@ResponseStatus(HttpStatus.CREATED)
+public EventDTO create(@RequestBody EventDTO eventDTO) throws EntityNotFoundException {
+    EventEntity eventEntity = modelMapper.map(eventDTO, EventEntity.class);
+
+    // Convertir organizerId a OrganizerEntity
+    if (eventDTO.getOrganizerId() != null) {
+        OrganizerEntity organizer = new OrganizerEntity();
+        organizer.setId(eventDTO.getOrganizerId());
+        eventEntity.setOrganizer(organizer);
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public EventDTO update(@PathVariable Long id, @RequestBody EventDTO eventDTO) 
-            throws EntityNotFoundException, IllegalArgumentException {
-        EventEntity eventEntity = eventService.updateEvent(id, modelMapper.map(eventDTO, EventEntity.class));
-        return modelMapper.map(eventEntity, EventDTO.class);
+    eventEntity = eventService.createEvent(eventEntity);
+    return modelMapper.map(eventEntity, EventDTO.class);
+}
+
+@PutMapping("/{id}")
+@ResponseStatus(HttpStatus.OK)
+public EventDTO update(@PathVariable Long id, @RequestBody EventDTO eventDTO) 
+        throws EntityNotFoundException {
+    
+    EventEntity eventEntity = modelMapper.map(eventDTO, EventEntity.class);
+
+    if (eventDTO.getOrganizerId() != null) {
+        OrganizerEntity organizer = new OrganizerEntity();
+        organizer.setId(eventDTO.getOrganizerId());
+        eventEntity.setOrganizer(organizer);
     }
+
+    eventEntity = eventService.updateEvent(id, eventEntity);
+    return modelMapper.map(eventEntity, EventDTO.class);
+}
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
