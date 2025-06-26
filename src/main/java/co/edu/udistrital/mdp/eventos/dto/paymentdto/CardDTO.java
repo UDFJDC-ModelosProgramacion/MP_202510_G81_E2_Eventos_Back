@@ -7,4 +7,5 @@ public class CardDTO extends MethodOfPaymentDTO{
     private Integer cardNumber;
     private String cardHolderName;
     private Integer securityCode;
+    private Long assistantId; 
 }

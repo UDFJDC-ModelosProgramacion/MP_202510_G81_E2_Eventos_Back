@@ -8,5 +8,5 @@ public class TicketDTO {
     private Integer price;
     private Integer remaining;
     private String classification;
-    private Long eventId;
+    private Long eventId;  
 }

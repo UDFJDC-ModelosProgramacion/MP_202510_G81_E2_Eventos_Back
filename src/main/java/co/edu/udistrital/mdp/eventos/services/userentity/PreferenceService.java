@@ -121,4 +121,19 @@ public class PreferenceService {
         preferenceRepository.delete(preference.get());
         preferenceRepository.deleteById(preferenceId);;
     }
+    @Transactional
+   public PreferenceEntity assignPreferenceToAssistant(Long assistantId, Long preferenceId) throws EntityNotFoundException {
+   log.info("Inicia asignación de preferencia {} al asistente {}", preferenceId, assistantId);
+
+   AssistantEntity assistant = assistantRepository.findById(assistantId).orElseThrow(() -> new EntityNotFoundException("Asistente no encontrado"));
+
+ PreferenceEntity preference = preferenceRepository.findById(preferenceId).orElseThrow(() -> new EntityNotFoundException("Preferencia no encontrada"));
+
+ assistant.getPreferences().add(preference);
+ assistantRepository.save(assistant);
+
+ return preference;
+}
+
+
 }

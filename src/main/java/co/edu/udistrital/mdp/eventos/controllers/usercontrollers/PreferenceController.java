@@ -87,4 +87,13 @@ public class PreferenceController {
     public void delete(@PathVariable Long id) throws EntityNotFoundException, IllegalOperationException {
         preferenceService.deletePreference(id);
     }
+    @PostMapping("/assistants/{assistantId}/preferences/{preferenceId}")
+    @ResponseStatus(HttpStatus.OK)
+    public PreferenceDTO assignPreferenceToAssistant(
+    @PathVariable Long assistantId,
+    @PathVariable Long preferenceId
+    ) throws EntityNotFoundException {
+    PreferenceEntity preference = preferenceService.assignPreferenceToAssistant(assistantId, preferenceId);
+    return modelMapper.map(preference, PreferenceDTO.class);
+}
 }
