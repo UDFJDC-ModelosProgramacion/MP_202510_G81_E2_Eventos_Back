@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "9b0790cf-0ce9-4fb3-8c81-6af1644fc400",
+		"name": "Organizer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45718897"
+	},
+	"item": [
+		{
+			"name": "Eliminar organizador",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/organizers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"organizers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los organizadores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/organizers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"organizers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un organizador",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/organizers/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"organizers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
