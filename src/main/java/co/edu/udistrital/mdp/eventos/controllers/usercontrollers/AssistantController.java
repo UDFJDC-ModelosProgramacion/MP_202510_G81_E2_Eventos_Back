@@ -42,20 +42,26 @@ public class AssistantController {
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     public List<AssistantDetailDTO> findAll() {
-        List<AssistantEntity> assistants = assistantService.getAllAssistants();
-        return modelMapper.map(assistants, new TypeToken<List<AssistantDetailDTO>>() {
-        }.getType());
+        //List<AssistantEntity> assistants = assistantService.getAllAssistants();
+        //return modelMapper.map(assistants, new TypeToken<List<AssistantDetailDTO>>() {
+        //}.getType());
+        List<AssistantDetailDTO> assistants = assistantService.getAllAssistantsWithPayments();
+        return modelMapper.map(assistants, new TypeToken<List<AssistantDetailDTO>>(){}.getType());
     }
     
     /*
      * Metodo FindOne para obtener un asistente por su id
      * Utiliza verbo GET
      */
-    @GetMapping(value = "/{id}")
-    @ResponseStatus(code = HttpStatus.OK)
+    //@GetMapping(value = "/{id}")
+    //@ResponseStatus(code = HttpStatus.OK)
+    //public AssistantDetailDTO findOne(@PathVariable Long id) throws EntityNotFoundException {
+    //    AssistantEntity assistantEntity = assistantService.getAssistantById(id);
+    //    return modelMapper.map(assistantEntity, AssistantDetailDTO.class);
+    //}
+    @GetMapping("/{id}")
     public AssistantDetailDTO findOne(@PathVariable Long id) throws EntityNotFoundException {
-        AssistantEntity assistantEntity = assistantService.getAssistantById(id);
-        return modelMapper.map(assistantEntity, AssistantDetailDTO.class);
+        return assistantService.getAssistantWithPayments(id);
     }
     
 
