@@ -36,7 +36,7 @@ public class AssistantBookingService {
      */
 
     @Transactional
-    public BookingEntity addBooking(Long assistantId, Long bookingId) throws EntityNotFoundException  {
+    public BookingEntity addBooking(Long assistantId, Long bookingId ) throws EntityNotFoundException  {
         log.info("Inicia el proceso de asociación de una reserva a un asistente con id = {}", assistantId);
         Optional<AssistantEntity> assistantEntity = assistantRepository.findById(assistantId);
         Optional<BookingEntity> bookingEntity = bookingRepository.findById(bookingId);
