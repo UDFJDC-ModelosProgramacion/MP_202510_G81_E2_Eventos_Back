@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "656837b3-d474-4dac-9094-70668e5b7098",
+		"name": "BookingPurchase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45695750",
+		"_collection_link": "https://alan-1390234.postman.co/workspace/Alan's-Workspace~6aae442a-95db-4b89-8c0a-f0f8576a3123/collection/45695750-656837b3-d474-4dac-9094-70668e5b7098?action=share&source=collection_link&creator=45695750"
+	},
+	"item": [
+		{
+			"name": "Agregar Purchase a Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/bookings/{{booking_id_1}}/purchase/{{purchase_id_1}}\n\n",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"bookings",
+						"{{booking_id_1}}",
+						"purchase",
+						"{{purchase_id_1}}\n\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Purchase de un Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/bookings/{{booking_id_1}}/purchase",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"bookings",
+						"{{booking_id_1}}",
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Purchase de un Booking sin Purchase",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"Purchase not found\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/bookings/2/purchase",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"bookings",
+						"2",
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Purchase de un Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/bookings/{{booking_id_1}}/purchase",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"bookings",
+						"{{booking_id_1}}",
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "9bbec8ef-9a60-4d49-bf27-d3b47eccbb23",
+		"name": "PurchasePromo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45695750",
+		"_collection_link": "https://alan-1390234.postman.co/workspace/Alan's-Workspace~6aae442a-95db-4b89-8c0a-f0f8576a3123/collection/45695750-9bbec8ef-9a60-4d49-bf27-d3b47eccbb23?action=share&source=collection_link&creator=45695750"
+	},
+	"item": [
+		{
+			"name": "Agregar una Promo a una Purchase",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/purchases/{{purchase_id}}/promos/{{promo_id}}\n",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"purchases",
+						"{{purchase_id}}",
+						"promos",
+						"{{promo_id}}\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todas las Promo de una Purchase",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of promos > ' + 0, function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.length).to.greaterThan(0);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/purchases/{{purchase_id}}/promos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"purchases",
+						"{{purchase_id}}",
+						"promos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar una Promo de una Purchase",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/purchases/{{purchase_id}}/promos/{{promo_id}}\n",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"purchases",
+						"{{purchase_id}}",
+						"promos",
+						"{{promo_id}}\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar una Promo que no está asociada a la Purchase",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/purchases/{{purchase_id}}/promos/{{promo_id_not_linked}}\n",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"purchases",
+						"{{purchase_id}}",
+						"promos",
+						"{{promo_id_not_linked}}\n"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

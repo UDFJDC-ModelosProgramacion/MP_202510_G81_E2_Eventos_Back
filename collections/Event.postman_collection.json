@@ -1,0 +1,315 @@
+{
+	"info": {
+		"_postman_id": "acd2e5bb-1631-4ac2-8a5c-158b15a5981a",
+		"name": "Event",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45718897",
+		"_collection_link": "https://blue-escape-5522651.postman.co/workspace/Juan-Pablo-Giraldo-Boh%C3%B3rquez's-~bc6a95ab-3688-45aa-801f-f238e5d68124/collection/45718897-acd2e5bb-1631-4ac2-8a5c-158b15a5981a?action=share&source=collection_link&creator=45718897"
+	},
+	"item": [
+		{
+			"name": "Crear evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"try {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.environment.set(\"eventId\", jsonData.id);\r",
+							"} catch (e) {\r",
+							"    console.error(\"La respuesta no es JSON:\", pm.response.text());\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Concierto de Rock\",\r\n  \"description\": \"Gran concierto al aire libre\",\r\n  \"category\": \"Música\",\r\n  \"date\": \"2025-07-15T20:00:00\",\r\n  \"organizerId\": 1\r\n   \r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/events",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los eventos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/events",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener evento por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/events/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar evento",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/events/{id}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar evento",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/events/{id}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener ubicacio del evento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/events/1/location",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"1",
+						"location"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener los recursos asociados al evento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/events/1/resources",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"1",
+						"resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener tickets del evento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/events/1/tickets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"1",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener asisitentes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/events/1/assistants",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"1",
+						"assistants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener eventos por organizador",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/organizer/1/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"organizer",
+						"1",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener reservas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/events/1/bookings",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"1",
+						"bookings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener ubicacion del evento",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/events/1/location",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"1",
+						"location"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar ubicacion del evento",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/events/1/location",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"1",
+						"location"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asignar organizador al evento",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/events/1/organizer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"1",
+						"organizer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

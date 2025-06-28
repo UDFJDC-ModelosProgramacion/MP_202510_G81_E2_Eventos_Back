@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "31f273f7-ae44-4204-a18d-c275b43b3c2d",
+		"name": "Preference",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45718897",
+		"_collection_link": "https://blue-escape-5522651.postman.co/workspace/Juan-Pablo-Giraldo-Boh%C3%B3rquez's-~bc6a95ab-3688-45aa-801f-f238e5d68124/collection/45718897-31f273f7-ae44-4204-a18d-c275b43b3c2d?action=share&source=collection_link&creator=45718897"
+	},
+	"item": [
+		{
+			"name": "Crear una preferencia",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\":1,\r\n\"description\":\"rock\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/preferences",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"preferences"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todas las preferencias",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/preferences",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"preferences"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar preferencia",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/preferences/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"preferences",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener preferencia por id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/preferences/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"preferences",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar preferencia",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"description\":\"preferencia por reggaeton\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/preferences/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"preferences",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar un asistente a una preferencia",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/preferences/1/assistants/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"preferences",
+						"1",
+						"assistants",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los asitentes de una preferencia",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/preferences/1/assistants",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"preferences",
+						"1",
+						"assistants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un asistente especifico asociado a una preferencia",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}\t/preferences/1/assistants/1",
+					"host": [
+						"{{baseUrl}}\t"
+					],
+					"path": [
+						"preferences",
+						"1",
+						"assistants",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reemplazar todos los asistentes de una preferencia",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/preferences/assistants",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"preferences",
+						"assistants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un asistente de una preferencia",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}\t/preferences/1/assistants/1",
+					"host": [
+						"{{baseUrl}}\t"
+					],
+					"path": [
+						"preferences",
+						"1",
+						"assistants",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
