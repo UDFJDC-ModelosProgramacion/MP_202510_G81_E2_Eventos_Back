@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import co.edu.udistrital.mdp.eventos.dto.eventdto.TicketDTO;
+import co.edu.udistrital.mdp.eventos.entities.evententity.EventEntity;
 import co.edu.udistrital.mdp.eventos.entities.evententity.TicketEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.services.evententity.TicketService;
@@ -41,7 +42,13 @@ public class TicketController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TicketDTO create(@RequestBody TicketDTO ticketDTO) throws EntityNotFoundException, IllegalArgumentException {
-        TicketEntity ticketEntity = ticketService.createTicket(modelMapper.map(ticketDTO, TicketEntity.class));
+             TicketEntity ticketEntity =modelMapper.map(ticketDTO, TicketEntity.class);
+        if (ticketDTO.getEventId() !=null){
+            EventEntity event=new EventEntity();
+            event.setId(ticketDTO.getEventId());
+            ticketEntity.setEvent(event);
+        }
+        ticketEntity=ticketService.createTicket(ticketEntity);
         return modelMapper.map(ticketEntity, TicketDTO.class);
     }
 
@@ -49,7 +56,13 @@ public class TicketController {
     @ResponseStatus(HttpStatus.OK)
     public TicketDTO update(@PathVariable Long id, @RequestBody TicketDTO ticketDTO) 
             throws EntityNotFoundException, IllegalArgumentException {
-        TicketEntity ticketEntity = ticketService.updateTicket(id, modelMapper.map(ticketDTO, TicketEntity.class));
+        TicketEntity ticketEntity =modelMapper.map(ticketDTO, TicketEntity.class);
+        if (ticketDTO.getEventId() !=null){
+            EventEntity event=new EventEntity();
+            event.setId(ticketDTO.getEventId());
+            ticketEntity.setEvent(event);
+        }
+        ticketEntity=ticketService.updateTicket(id,ticketEntity);
         return modelMapper.map(ticketEntity, TicketDTO.class);
     }
 

@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "3b36b4a1-5855-48e4-978d-e67b04684642",
+		"name": "Resources",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45718897",
+		"_collection_link": "https://blue-escape-5522651.postman.co/workspace/Juan-Pablo-Giraldo-Boh%C3%B3rquez's-~bc6a95ab-3688-45aa-801f-f238e5d68124/collection/45718897-3b36b4a1-5855-48e4-978d-e67b04684642?action=share&source=collection_link&creator=45718897"
+	},
+	"item": [
+		{
+			"name": "Crear un recusrso",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"url\": \"https://miapp.com/manual.pdf\",\r\n  \"type\": \"documento\",\r\n  \"eventId\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/resources",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los recursos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/resources",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener recurso por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/resources/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"resources",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar recurso",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/resources/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"resources",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar recurso",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/resources/{id}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"resources",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un recurso a un evento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/events/1/resources",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"1",
+						"resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los recursos de un evento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/events/1/resources",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"1",
+						"resources"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
