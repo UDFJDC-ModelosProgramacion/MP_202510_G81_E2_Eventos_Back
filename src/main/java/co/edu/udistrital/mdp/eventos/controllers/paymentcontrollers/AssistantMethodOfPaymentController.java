@@ -28,15 +28,18 @@ public class AssistantMethodOfPaymentController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PostMapping(value="/{assistantId}/methodsOfPayment/{paymentId}")
+    @PostMapping(value = "/{assistantId}/payments/{paymentId}")
     @ResponseStatus(code = HttpStatus.OK)
-    public MethodOfPaymentDTO addMethodOfPayment(@PathVariable Long assistantId , @PathVariable Long paymentId)throws EntityNotFoundException {
-
-        MethodOfPaymentEntity methodOfPayment = assistantMethodOfPaymentService.addMethodOfPayment(assistantId, paymentId);
-        return modelMapper.map(methodOfPayment, MethodOfPaymentDTO.class);
+    public MethodOfPaymentDTO associateExistingPayment(
+            @PathVariable Long assistantId, 
+            @PathVariable Long paymentId) 
+            throws EntityNotFoundException {
+        
+        MethodOfPaymentEntity entity = assistantMethodOfPaymentService.associateExistingPayment(assistantId, paymentId);
+        return modelMapper.map(entity, MethodOfPaymentDTO.class);
     }
 
-    @GetMapping(value="/{assistantId}/methodsOfPayment/{paymentId}")
+    @GetMapping(value="/{assistantId}/payments/{paymentId}")
     @ResponseStatus(code = HttpStatus.OK)
     public MethodOfPaymentDTO getMethodOfPayment(@PathVariable Long assistantId,@PathVariable Long paymentId) throws EntityNotFoundException {
 
@@ -44,14 +47,14 @@ public class AssistantMethodOfPaymentController {
         return modelMapper.map(entity, MethodOfPaymentDTO.class);
     }
 
-    @GetMapping(value = "/{assistantId}/methodsOfPayment")
+    @GetMapping(value = "/{assistantId}/payments")
     @ResponseStatus(code = HttpStatus.OK)
     public List<MethodOfPaymentDTO> getMethodsOfPayment(@PathVariable Long assistantId) throws EntityNotFoundException {
         List<MethodOfPaymentEntity> paymentEntities = assistantMethodOfPaymentService.getAllMethodsOfPayment(assistantId);
         return modelMapper.map(paymentEntities, new TypeToken<List<MethodOfPaymentDTO>>() {}.getType());
     }
 
-    @DeleteMapping(value="/{assistantId}/methodsOfPayment/{paymentId}")
+    @DeleteMapping(value="/{assistantId}/payments/{paymentId}")
     @ResponseStatus(code = HttpStatus.OK)
     public void dissociateMethodOfPayment(@PathVariable Long assistantId,@PathVariable Long paymentId) throws EntityNotFoundException  {
         assistantMethodOfPaymentService.removeMethodOfPayment(assistantId,paymentId);
