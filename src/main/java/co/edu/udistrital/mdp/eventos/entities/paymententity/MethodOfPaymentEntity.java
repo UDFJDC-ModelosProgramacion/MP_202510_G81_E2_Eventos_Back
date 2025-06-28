@@ -35,7 +35,7 @@ public abstract class MethodOfPaymentEntity extends BaseEntity {
 
     @PodamExclude
     @ManyToOne
-    private AssistantEntity assistant;
+    public AssistantEntity assistant;
 
     @Column(nullable = false)
     String type;

@@ -25,25 +25,28 @@ public class AssistantMethodOfPaymentService {
     private MethodOfPaymentRepository methodOfPaymentRepository;
 
     @Transactional
-    public MethodOfPaymentEntity addMethodOfPayment(Long assistantId,Long paymentId) throws EntityNotFoundException{
+    public MethodOfPaymentEntity associateExistingPayment(Long assistantId, Long paymentId) 
+            throws EntityNotFoundException {
+        
+        // 1. Verificar que existe el assistant
+        AssistantEntity assistant = assistantRepository.findById(assistantId)
+                .orElseThrow(() -> new EntityNotFoundException("Assistant not found with id: " + assistantId));
 
-        Optional<AssistantEntity> assistantOpt = assistantRepository.findById(assistantId);
-        Optional<MethodOfPaymentEntity> paymentOpt = methodOfPaymentRepository.findById(paymentId);
+        // 2. Verificar que existe el método de pago
+        MethodOfPaymentEntity payment = methodOfPaymentRepository.findById(paymentId)
+                .orElseThrow(() -> new EntityNotFoundException("Payment method not found with id: " + paymentId));
 
-        if (assistantOpt.isEmpty()) {
-            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+        // 3. Verificar que no esté ya asociado
+        if (payment.getAssistant() != null && payment.getAssistant().getId().equals(assistantId)) {
+            return payment; // Ya está asociado, retornar el existente
         }
-        if (paymentOpt.isEmpty()) {
-            throw new EntityNotFoundException("The method of payment with the given id was not found");
-        }
 
-        AssistantEntity assistant = assistantOpt.get();
-        MethodOfPaymentEntity payment= paymentOpt.get();
-
+        // 4. Establecer relación bidireccional
         payment.setAssistant(assistant);
         assistant.getPaymentMethods().add(payment);
 
-        return payment;
+        // 5. Guardar cambios (JPA automáticamente actualiza ambas entidades)
+        return methodOfPaymentRepository.save(payment);
     }
 
     @Transactional
