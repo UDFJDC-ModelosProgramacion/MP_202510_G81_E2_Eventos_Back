@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.services;
+package co.edu.udistrital.mdp.eventos.services.users;
 
 import static org.junit.jupiter.api.Assertions.*;
 

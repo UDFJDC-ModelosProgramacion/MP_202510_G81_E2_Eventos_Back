@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.services;
+package co.edu.udistrital.mdp.eventos.services.events;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.RefundEntity;
 import co.edu.udistrital.mdp.eventos.repositories.RefundRepository;

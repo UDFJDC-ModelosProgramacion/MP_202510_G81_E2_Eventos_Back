@@ -1,5 +1,5 @@
 
-package co.edu.udistrital.mdp.eventos.services;
+package co.edu.udistrital.mdp.eventos.services.payments;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

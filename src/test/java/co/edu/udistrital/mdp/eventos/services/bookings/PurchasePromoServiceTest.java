@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.eventos.services;
+package co.edu.udistrital.mdp.eventos.services.bookings;
 
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.PromoEntity;
 import co.edu.udistrital.mdp.eventos.entities.bookingentity.PurchaseEntity;
