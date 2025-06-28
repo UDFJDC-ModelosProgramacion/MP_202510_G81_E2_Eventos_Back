@@ -3,12 +3,16 @@ package co.edu.udistrital.mdp.eventos.services.userentity;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.Hibernate;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.udistrital.mdp.eventos.exceptions.ErrorMessage;
 import co.edu.udistrital.mdp.eventos.exceptions.IllegalOperationException;
+import co.edu.udistrital.mdp.eventos.dto.userdto.AssistantDetailDTO;
 import co.edu.udistrital.mdp.eventos.entities.userentity.AssistantEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.repositories.AssistantRepository;
@@ -20,6 +24,9 @@ public class AssistantService {
 
     @Autowired
     private AssistantRepository assistantRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     /*
      * Se encarga de crear un nuevo asistente en la base de datos.
@@ -113,5 +120,30 @@ public class AssistantService {
         }
         assistantRepository.delete(assistant.get());
         assistantRepository.deleteById(assistantId);;
+    }
+
+        @Transactional(readOnly = true)
+    public List<AssistantDetailDTO> getAllAssistantsWithPayments() {
+        List<AssistantEntity> assistants = assistantRepository.findAll();
+        
+        // Forzar carga de relaciones LAZY
+        assistants.forEach(assistant -> {
+            Hibernate.initialize(assistant.getPaymentMethods());
+            // Inicializar otras relaciones si es necesario
+        });
+        
+        return modelMapper.map(assistants, new TypeToken<List<AssistantDetailDTO>>(){}.getType());
+    }
+
+    @Transactional(readOnly = true)
+    public AssistantDetailDTO getAssistantWithPayments(Long id) throws EntityNotFoundException {
+        AssistantEntity assistant = assistantRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Assistant not found"));
+        
+        // Forzar carga de relaciones
+        Hibernate.initialize(assistant.getPaymentMethods());
+        // Inicializar otras relaciones si es necesario
+        
+        return modelMapper.map(assistant, AssistantDetailDTO.class);
     }
 }
