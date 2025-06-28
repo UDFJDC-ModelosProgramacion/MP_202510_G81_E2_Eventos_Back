@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.udistrital.mdp.eventos.dto.paymentdto.MethodOfPaymentDTO;
+import co.edu.udistrital.mdp.eventos.dto.paymentdto.MethodOfPaymentDetailDTO;
 import co.edu.udistrital.mdp.eventos.dto.paymentdto.MobileWalletDTO;
 import co.edu.udistrital.mdp.eventos.entities.paymententity.MobileWalletEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
@@ -25,7 +26,7 @@ import co.edu.udistrital.mdp.eventos.services.paymententity.MobileWalletService;
 
 
 @RestController
-@RequestMapping("/mobile_wallets")
+@RequestMapping("/mobileWallets")
 public class MobileWalletController {
     @Autowired
     private MobileWalletService mobileWalletService;
@@ -39,7 +40,7 @@ public class MobileWalletController {
 
         List<MobileWalletEntity> mobileWallets = mobileWalletService.getMobileWallets();
 
-        return modelMapper.map(mobileWallets, new TypeToken<List<MethodOfPaymentDTO>>() {
+        return modelMapper.map(mobileWallets, new TypeToken<List<MethodOfPaymentDetailDTO>>() {
         }.getType());
 
     }

@@ -40,7 +40,7 @@ public class AssistantBookingController {
 	 */
 	@PostMapping(value = "/{assistantId}/bookings/{bookingId}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public BookingDetailDTO addBooking(@PathVariable Long assistantId, @PathVariable Long bookingId)
+	public BookingDetailDTO addBooking(@PathVariable Long assistantId, @PathVariable Long bookingId )
 			throws EntityNotFoundException {
 		BookingEntity bookingEntity = assistantBookingService.addBooking(assistantId, bookingId);
 		return modelMapper.map(bookingEntity, BookingDetailDTO.class);
