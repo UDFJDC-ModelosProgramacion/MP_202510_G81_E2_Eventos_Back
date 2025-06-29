@@ -87,6 +87,24 @@ public class AssistantService {
     }
 
     /*
+	 * Obtiene los datos de una instancia de Assistant a partir de su EMAIL.
+	 *
+	 * @param assistantEmail Identificador de la instancia a consultar
+	 * @return Instancia de AssistantEntity con los datos del Assistant consultado.
+	 */
+
+    @Transactional
+    public AssistantEntity getAssistantByEmail(String assistantEmail) throws EntityNotFoundException {
+        log.info("Inicia proceso de búsqueda de asistente por email: {}", assistantEmail);
+        Optional<AssistantEntity> assistantEntity = assistantRepository.findByEmail(assistantEmail);
+        if (assistantEntity.isEmpty()) {
+            throw new EntityNotFoundException(ErrorMessage.ASSISTANT_NOT_FOUND);
+        }
+        return assistantEntity.get();
+    }
+
+
+    /*
 	 * Actualiza la información de una instancia de Assistant.
 	 *
 	 * @param assistantId      Identificador de la instancia a actualizar

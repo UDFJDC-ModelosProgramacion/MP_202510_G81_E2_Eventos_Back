@@ -63,7 +63,19 @@ public class AssistantController {
     public AssistantDetailDTO findOne(@PathVariable Long id) throws EntityNotFoundException {
         return assistantService.getAssistantWithPayments(id);
     }
-    
+
+    /*
+     * Metodo FindOneByEmail para obtener un asistente por su id
+     * Utiliza verbo GET
+     */
+ 
+    @GetMapping("/email/{email}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public AssistantDetailDTO findOneByEmail(@PathVariable String email) throws EntityNotFoundException {
+        AssistantEntity assistantEntity = assistantService.getAssistantByEmail(email);
+        return modelMapper.map(assistantEntity, AssistantDetailDTO.class);
+    }
+
 
     /*
      * Metodo Create para crear un asistente
