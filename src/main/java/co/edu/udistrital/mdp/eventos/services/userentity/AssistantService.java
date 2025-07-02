@@ -1,5 +1,6 @@
 package co.edu.udistrital.mdp.eventos.services.userentity;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import co.edu.udistrital.mdp.eventos.dto.userdto.AssistantDetailDTO;
 import co.edu.udistrital.mdp.eventos.entities.userentity.AssistantEntity;
 import co.edu.udistrital.mdp.eventos.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.eventos.repositories.AssistantRepository;
+import co.edu.udistrital.mdp.eventos.services.emailcontrol.EmailRegisterService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -24,6 +26,10 @@ public class AssistantService {
 
     @Autowired
     private AssistantRepository assistantRepository;
+
+    @Autowired
+    private EmailRegisterService emailRegisterService;
+
 
     @Autowired
     private ModelMapper modelMapper;
@@ -50,8 +56,18 @@ public class AssistantService {
             throw new IllegalOperationException("Faltan datos obligatorios para crear el asistente.");
         }
     
-        log.info("Finaliza el proceso de creación del asistente con ID: {}", assistant.getId());
-        return assistantRepository.save(assistant);
+        AssistantEntity savedAssistant = assistantRepository.save(assistant);
+
+        // Enviar correo de confirmación de registro
+        emailRegisterService.sendRegisterEmail(
+            savedAssistant.getEmail(),
+            savedAssistant.getName(),
+            savedAssistant.getPassword(), // ⚠️ Asegúrate que no esté cifrada si decides enviarla
+            LocalDate.now()               // Fecha actual de registro
+        );
+
+        log.info("Finaliza el proceso de creación del asistente con ID: {}", savedAssistant.getId());
+        return savedAssistant;
     }
 
 
